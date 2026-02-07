@@ -51,7 +51,15 @@ def ask_for_telemetry_consent() -> None:
         t("Do you allow collection of non-personalised usage data to improve the script (press d for details)? (y/n/d): ")
     ).strip().lower()
     if answer == "d":
-        webbrowser.open("https://github.com/chrisi51/tesla-order-status?tab=readme-ov-file#telemetry")
+        url = "https://github.com/chrisi51/tesla-order-status?tab=readme-ov-file#telemetry"
+        try:
+            opened = webbrowser.open(url)
+            if not opened:
+                print(t("Could not open browser. Please visit the following URL for details:"))
+                print(url)
+        except Exception:
+            print(t("Could not open browser. Please visit the following URL for details:"))
+            print(url)
         ask_for_telemetry_consent()
         return
     consent = answer == "y"

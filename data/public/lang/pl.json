@@ -43,6 +43,7 @@
   "Telemetry enabled. Thank you so much for your support, bro.": "Telemetria włączona. Dzięki wielkie za wsparcie!",
   "Naww, I've counted on you! =( I may ask again later, OK? =)": "Eee, liczyłem na Ciebie! =( Może zapytam później, OK? =)",
   "Telemetry disabled. (ENTER): ": "Telemetria wyłączona. (ENTER): ",
+  "Could not open browser. Please visit the following URL for details:": "Nie można otworzyć przeglądarki. Odwiedź następujący URL, aby uzyskać szczegóły:",
   "Unknown option code": "Nieznany kod opcji",
 
   "Error: Received empty response from Tesla API. Please try again later.": "Błąd: Otrzymano pustą odpowiedź z API Tesli. Spróbuj ponownie później.",
