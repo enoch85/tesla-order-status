@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+import uuid
 from collections import OrderedDict
 from datetime import datetime
 from typing import Any, Dict, Iterator, List, MutableMapping, Optional, Tuple, OrderedDict as TypingOrderedDict
@@ -12,7 +13,14 @@ try:
 except ImportError:
     HAS_PYPERCLIP = False
 
-from app.config import APP_VERSION, ORDERS_FILE, TESLA_STORES, TODAY
+from app.config import (
+    ORDERS_FILE,
+    TESLA_STORES,
+    TODAY,
+    TESLA_APP_VERSION,
+    TESLA_USER_AGENT,
+    TESLA_X_USER_AGENT,
+)
 from app.utils.colors import color_text, strip_color
 from app.utils.connection import request_with_retry
 from app.utils.helpers import (
@@ -29,7 +37,13 @@ from app.utils.history import (
     save_history_to_file,
     print_history
 )
-from app.utils.locale import t, LANGUAGE, use_default_language
+from app.utils.locale import (
+    t,
+    use_default_language,
+    store_tesla_locale,
+    LANGUAGE,
+    COUNTRY,
+)
 import app.utils.history as history_module
 from app.utils.params import DETAILS_MODE, SHARE_MODE, STATUS_MODE, CACHED_MODE, ORDER_FILTER
 from app.utils.telemetry import track_usage
@@ -198,17 +212,43 @@ def _get_all_orders(access_token):
     return new_orders
 
 def _retrieve_orders(access_token):
-    headers = {'Authorization': f'Bearer {access_token}'}
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'User-Agent': TESLA_USER_AGENT,
+        'X-Tesla-User-Agent': TESLA_X_USER_AGENT,
+        'X-Request-Id': str(uuid.uuid4()),
+    }
     api_url = 'https://owner-api.teslamotors.com/api/1/users/orders'
     response = request_with_retry(api_url, headers)
-    return response.json()['response']
+    orders = response.json()['response']
+    _store_tesla_locale_from_orders(orders)
+    return orders
 
 
 def _retrieve_order_details(order_id, access_token):
-    headers = {'Authorization': f'Bearer {access_token}'}
-    api_url = f'https://akamai-apigateway-vfx.tesla.com/tasks?deviceLanguage={LANGUAGE}&deviceCountry=DE&referenceNumber={order_id}&appVersion={APP_VERSION}'
+    headers = {
+        'Authorization': f'Bearer {access_token}',
+        'User-Agent': TESLA_USER_AGENT,
+        'X-Tesla-User-Agent': TESLA_X_USER_AGENT,
+        'X-Request-Id': str(uuid.uuid4()),
+    }
+    api_url = (
+        'https://akamai-apigateway-vfx.tesla.com/tasks'
+        f'?deviceLanguage={LANGUAGE}'
+        f'&deviceCountry={COUNTRY}'
+        f'&referenceNumber={order_id}'
+        f'&appVersion={TESLA_APP_VERSION}'
+    )
     response = request_with_retry(api_url, headers)
     return response.json()
+
+
+def _store_tesla_locale_from_orders(orders: List[Dict[str, Any]]) -> None:
+    if not orders:
+        return
+    for order in orders:
+        locale_value = order.get("locale")
+        store_tesla_locale(locale_value)
 
 
 def _save_orders_to_file(orders):
@@ -221,7 +261,9 @@ def _save_orders_to_file(orders):
 def _load_orders_from_file():
     if os.path.exists(ORDERS_FILE):
         with open(ORDERS_FILE, 'r') as f:
-            return _ensure_order_map(json.load(f))
+            orders = _ensure_order_map(json.load(f))
+        _store_tesla_locale_from_orders(list(orders.values()))
+        return orders
     return OrderedDict()
 
 

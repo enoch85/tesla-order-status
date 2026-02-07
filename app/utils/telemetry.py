@@ -6,7 +6,7 @@ from app.config import OPTION_CODES_URL, TELEMETRIC_URL, VERSION, cfg as Config
 from app.utils.helpers import pseudonymize_data
 from app.utils.params import DETAILS_MODE, SHARE_MODE, STATUS_MODE, CACHED_MODE, ALL_KEYS_MODE, ORDER_FILTER
 from app.utils.connection import request_with_retry
-from app.utils.locale import t, LANGUAGE, get_os_locale
+from app.utils.locale import t, LANGUAGE, LOCALE
 
 
 def _normalize_option_code(raw_code: str) -> str:
@@ -110,7 +110,7 @@ def track_usage(orders: List[dict]) -> None:
         "id": Config.get("fingerprint"),
         "orders": user_orders,
         "params": params,
-        "lang": get_os_locale(),
+        "lang": LOCALE,
         "ui_lang": LANGUAGE,
         "version": VERSION
     }
