@@ -299,27 +299,32 @@ def _render_share_output(detailed_orders):
             for code, description in decoded_options:
                 entry = get_option_entry(code) or {}
                 category = entry.get('category')
+                label_short = entry.get('label_short')
                 cleaned_description = description.strip()
+                display_label = label_short.strip() if isinstance(label_short, str) and label_short.strip() else cleaned_description
 
-                if category == 'paints' and cleaned_description:
-                    paint = cleaned_description.replace('Metallic', '').replace('Multi-Coat','').strip()
-                elif category in {'interiors', 'interior', 'seats'} and cleaned_description:
-                    interior = cleaned_description
-                elif category is None and cleaned_description:
+                if category == 'paints' and display_label:
+                    paint = display_label.replace('Metallic', '').replace('Multi-Coat', '').strip()
+                elif category in {'interiors', 'interior', 'seats'} and display_label:
+                    interior = display_label
+                elif category is None and display_label:
                     if paint == "unknown" and code.startswith(('PP', 'PN', 'PS', 'PA')):
-                        paint = cleaned_description
+                        paint = display_label
                     if interior == "unknown" and code.startswith(('IP', 'IN', 'IW', 'IX', 'IY')):
-                        interior = cleaned_description
+                        interior = display_label
 
                 if category in {'models', 'model'} or ('Model' in cleaned_description and len(cleaned_description) > 10):
-                    match = re.match(r'(Model [YSX3])(?:.*?((?:AWD|RWD) (?:LR|SR|P)))?.*?$', cleaned_description)
-                    if match:
-                        model_name = match.group(1)
-                        config_suffix = match.group(2)
-                        if config_suffix:
-                            model = f"{model_name} - {config_suffix}".strip()
-                        else:
-                            model = cleaned_description.strip()
+                    if label_short and display_label:
+                        model = display_label
+                    else:
+                        match = re.match(r'(Model [YSX3])(?:.*?((?:AWD|RWD) (?:LR|SR|P)))?.*?$', cleaned_description)
+                        if match:
+                            model_name = match.group(1)
+                            config_suffix = match.group(2)
+                            if config_suffix:
+                                model = f"{model_name} - {config_suffix}".strip()
+                            else:
+                                model = cleaned_description.strip()
 
         if model and paint and interior:
             msg = f"{model} / {paint} / {interior}"
