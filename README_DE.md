@@ -1,6 +1,6 @@
 [![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-opt--in-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
-[![Stars](https://img.shields.io/github/stars/chrisi51/tesla-order-status?style=social)](https://github.com/chrisi51/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/chrisi51/tesla-order-status?style=social)](https://github.com/chrisi51/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/chrisi51/tesla-order-status?style=social)](https://github.com/chrisi51/tesla-order-status/issues)
+[![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
 
 [![Chat](https://img.shields.io/badge/chat-Community-blue?logo=wechat)](https://chat.tesla-order-status-tracker.de) [![Coffee](https://img.shields.io/badge/buy_me-a_coffee-cc0000?logo=buymeacoffee\&logoColor=white)](https://www.paypal.com/paypalme/chrisi51) [![Referral](https://img.shields.io/badge/support-via_Tesla_referral-cc0000?logo=tesla\&logoColor=white)](https://ts.la/christian906959)
 
@@ -42,12 +42,12 @@ Ziel ist, dir mehr Transparenz und Kontrolle über den Bestellprozess zu geben �
 * 💬 Community‑ & Support‑Chat: [https://chat.tesla-order-status-tracker.de](https://chat.tesla-order-status-tracker.de)
 * ☕ Support via PayPal: [https://www.paypal.com/paypalme/chrisi51](https://www.paypal.com/paypalme/chrisi51)
 * 🚗 Tesla bestellen & mich unterstützen: [https://ts.la/christian906959](https://ts.la/christian906959)
-* 📦 Direktdownload als ZIP: [https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip](https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip)
+* 📦 Direktdownload als ZIP: [https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip](https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip)
 * 🖥️ GUI‑Version: [https://www.tesla-order-status-tracker.de](https://www.tesla-order-status-tracker.de)
 
 ## Schnellstart
 
-Lade das komplette Projekt auf deinen Rechner. Wenn du unsicher bist, nutze einfach das ZIP‑Archiv von GitHub: [https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip](https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip)
+Lade das komplette Projekt auf deinen Rechner. Wenn du unsicher bist, nutze einfach das ZIP‑Archiv von GitHub: [https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip](https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip)
 
 > ⚠️ Bitte keine einzelnen Skripte isoliert ausführen – alles ist als Gesamtprojekt gedacht.
 
@@ -251,6 +251,6 @@ Wenn du das Projekt unterstützen möchtest, nutze gern meinen Tesla‑Referral:
 
 Oder spendiere mir einen Kaffee: [https://www.paypal.com/paypalme/chrisi51](https://www.paypal.com/paypalme/chrisi51)
 
-Da dies ursprünglich ein Fork ist: Danke an [https://github.com/niklaswa/tesla-order-status](https://github.com/niklaswa/tesla-order-status) für das initiale Skript.
+Dieses Repository basiert auf früherer Upstream-Arbeit aus der ursprünglichen Projektlinie.
 
 Komm in den Community‑Chat: [https://chat.tesla-order-status-tracker.de](https://chat.tesla-order-status-tracker.de)

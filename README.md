@@ -1,6 +1,6 @@
 [![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-opt--in-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
-[![Stars](https://img.shields.io/github/stars/chrisi51/tesla-order-status?style=social)](https://github.com/chrisi51/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/chrisi51/tesla-order-status?style=social)](https://github.com/chrisi51/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/chrisi51/tesla-order-status?style=social)](https://github.com/chrisi51/tesla-order-status/issues)
+[![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
 
 [![Chat](https://img.shields.io/badge/chat-Community-blue?logo=wechat)](https://chat.tesla-order-status-tracker.de) [![Coffee](https://img.shields.io/badge/buy_me-a_coffee-cc0000?logo=buymeacoffee&logoColor=white)](https://www.paypal.com/paypalme/chrisi51) [![Referral](https://img.shields.io/badge/support-via_Tesla_referral-cc0000?logo=tesla&logoColor=white)](https://ts.la/christian906959)
 
@@ -37,11 +37,11 @@ The goal is to give users more transparency and control over the ordering proces
 - 💬 Community & Support-Chat: https://chat.tesla-order-status-tracker.de
 - ☕ Support via PayPal: https://www.paypal.com/paypalme/chrisi51
 - 🚗 Order a Tesla and support me: https://ts.la/christian906959
-- 📦 Direct download as ZIP: https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip
+- 📦 Direct download as ZIP: https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip
 - 🖥️ GUI version: https://www.tesla-order-status-tracker.de
 
 ## Get Started
-Download the complete project to your machine. If you are unsure how, you can grab the ZIP archive directly from GitHub: https://github.com/chrisi51/tesla-order-status/archive/refs/heads/main.zip
+Download the complete project to your machine. If you are unsure how, you can grab the ZIP archive directly from GitHub: https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip
 > ⚠️ Do not run single scripts without the rest of the repository. Everything is meant to work together.
 
 ## Installation
@@ -212,7 +212,7 @@ On the very first launch you will be asked for consent. If you decline, nothing 
 You are always in control: telemetry is opt-in. Consent is requested on first run, and you can disable or revoke it at any time by editing the configuration file (`data/private/settings.json`) and setting `"telemetry-consent": false`. Option-code sharing uses its own separate setting: `"telemetry-option-codes-consent"`.
 
 ## Issues
-If you have any issues, running the script or getting error messages, pleas feel free to ask for help in the [issues](https://github.com/chrisi51/tesla-order-status/issues) section or pm me at the [tff-forum](https://tff-forum.de/u/chrisi51/summary)
+If you have any issues, running the script or getting error messages, pleas feel free to ask for help in the [issues](https://github.com/enoch85/tesla-order-status/issues) section or pm me at the [tff-forum](https://tff-forum.de/u/chrisi51/summary)
 
 
 ## Disclaimer
@@ -227,6 +227,6 @@ If you want to support the project, you can use my link on your next Tesla order
 
 Or just buy me a coffee: https://www.paypal.com/paypalme/chrisi51
 
-As this is a fork I have to say thanks to https://github.com/niklaswa/tesla-order-status for the initial script.
+This repository is based on earlier upstream work from the original project lineage.
 
 Come say hi in the community chat: https://chat.tesla-order-status-tracker.de

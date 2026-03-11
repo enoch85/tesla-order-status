@@ -53,9 +53,9 @@ FILES_TO_CHECK: List[Path] = [
 ]
 
 RELEASE_API_URL = (
-    "https://api.github.com/repos/chrisi51/tesla-order-status/releases/latest"
+    "https://api.github.com/repos/enoch85/tesla-order-status/releases/latest"
 )
-RELEASE_PAGE_URL = "https://github.com/chrisi51/tesla-order-status/releases/latest"
+RELEASE_PAGE_URL = "https://github.com/enoch85/tesla-order-status/releases/latest"
 
 
 def _parse_version(tag: str) -> Optional[Tuple[int, ...]]:

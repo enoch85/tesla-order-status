@@ -36,7 +36,7 @@ class ConnectionPolicyTests(unittest.TestCase):
         )
         self.assertTrue(
             _is_allowed_remote(
-                "https://api.github.com/repos/niklaswa/tesla-order-status/releases",
+                "https://api.github.com/repos/enoch85/tesla-order-status/releases",
                 "update",
             )
         )

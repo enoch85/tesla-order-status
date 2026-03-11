@@ -647,7 +647,7 @@ def print_bottom_line() -> None:
         else:
             print(f"\n{color_text(t('BOTTOM LINE CLIPBOARD NOT WORKING'), '91')}")
             print(
-                f"{color_text('https://github.com/chrisi51/tesla-order-status?tab=readme-ov-file#general', '91')}"
+                f"{color_text('https://github.com/enoch85/tesla-order-status?tab=readme-ov-file#general', '91')}"
             )
 
 
