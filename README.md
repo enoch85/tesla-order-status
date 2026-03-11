@@ -1,28 +1,24 @@
-[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
+[![Security](https://img.shields.io/badge/security-hardened-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
 [![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
-
-[![Chat](https://img.shields.io/badge/chat-Community-blue?logo=wechat)](https://chat.tesla-order-status-tracker.de) [![Coffee](https://img.shields.io/badge/buy_me-a_coffee-cc0000?logo=buymeacoffee&logoColor=white)](https://www.paypal.com/paypalme/chrisi51) [![Referral](https://img.shields.io/badge/support-via_Tesla_referral-cc0000?logo=tesla&logoColor=white)](https://ts.la/christian906959)
 
 > Prefer reading in German?<br>
 > [Hier geht’s zur deutschen Version des README](README_DE.md)
 
-# Tesla Order Status Tracker (TOST) 🚗📦
-Stay in control of your Tesla order from the moment you place it until delivery. This open-source Python CLI tool gives you direct access to the Tesla API so you always know what is happening with your vehicle.
-> 🖥️ Prefer a GUI? check my TOST app: https://www.tesla-order-status-tracker.de
-
-# This repository contains the CLI script only. The GUI linked above is a separate project.
+# Tesla Order Status Tracker Security-Hardened 🚗📦
+Stay in control of your Tesla order from the moment you place it until delivery. This security-hardened open-source Python CLI tool gives you direct access to the Tesla API while keeping the runtime local-first, minimizing external communication, and removing third-party telemetry.
 
 ## Table of Contents
 1. [Why You'll Love It](#why-youll-love-it)
-2. [Get Started](#get-started)
-3. [Installation](#installation)
-4. [Usage](#usage)
-5. [Configuration](#configuration)
-6. [History & Preview](#history--preview)
-7. [Telemetry](#telemetry)
-8. [Disclaimer](#disclaimer)
-9. [Support & Contact](#support--contact)
+2. [Security Hardening](#security-hardening)
+3. [Get Started](#get-started)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Configuration](#configuration)
+7. [History & Preview](#history--preview)
+8. [Telemetry](#telemetry)
+9. [Disclaimer](#disclaimer)
+10. [Support & Contact](#support--contact)
 
 ## Why You'll Love It
 - 🔍 **Direct Tesla API connection**: Get the latest order information without any detours.
@@ -31,16 +27,26 @@ Stay in control of your Tesla order from the moment you place it until delivery.
 - 📋 **Share mode output**: Anonymized output for forums and social media, with optional clipboard copy in `--share` mode.
 - 🔁 **Multi-order ready**: Handles multiple Tesla orders at once, with `--order <reference>` to focus on a single one.
 - 🧩 **Modular & expandable**: Option codes, languages and features can be flexibly expanded.
-- 🔐 **Privacy-focused**: Tokens and settings remain on your device and telemetry is disabled.
+- 🔐 **Security-hardened by default**: Tokens and settings remain local, telemetry is disabled, and third-party traffic is blocked.
+- 🛡️ **Strict outbound allowlist**: Only Tesla API endpoints and GitHub release metadata checks are permitted.
+- 📦 **Offline option catalog**: Option-code decoding is bundled locally instead of fetched from external services.
+- 🔒 **Safer updates and migrations**: Updates are manual, local hotfix archives are checksum-verified, and migrations are pinned to a trusted allowlist.
 
 The goal is to give users more transparency and control over the ordering process – without depending on external services.
 
+## Security Hardening
+- Outbound network access is restricted to Tesla API traffic and optional GitHub release metadata checks.
+- TLS certificate verification is enabled on all HTTP requests, and requests use bounded retry/backoff logic instead of uncontrolled retries.
+- Tesla login uses OAuth PKCE with `S256`, and the returned OAuth `state` is validated before exchanging the code.
+- No third-party telemetry, remote banners, or remote option-code lookups exist in the runtime anymore.
+- Updates are notification-only; applying a hotfix requires a locally supplied ZIP archive that is SHA-256 verified and extracted with zip-slip and symlink checks.
+- Migration execution is limited to trusted files with pinned SHA-256 hashes.
+- Tesla OAuth tokens are stored locally in `data/private/tesla_tokens.json` with restrictive file permissions.
+- Tokens are not hashed at rest, because they must be presented back to Tesla for authenticated API calls. This repository does not use separate API keys.
+- A complete offline option-code catalog ships in the repository so decoding does not depend on external servers.
+
 ## 🚀 Quick Links
-- 💬 Community & Support-Chat: https://chat.tesla-order-status-tracker.de
-- ☕ Support via PayPal: https://www.paypal.com/paypalme/chrisi51
-- 🚗 Order a Tesla and support me: https://ts.la/christian906959
 - 📦 Direct download as ZIP: https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip
-- 🖥️ GUI version: https://www.tesla-order-status-tracker.de
 
 ## Get Started
 Download the complete project to your machine. If you are unsure how, you can grab the ZIP archive directly from GitHub: https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip
@@ -50,29 +56,12 @@ Download the complete project to your machine. If you are unsure how, you can gr
 1. Install [Python 3](https://www.python.org/downloads/) for your operating system.
 2. Tested environment: Ubuntu 24.04 with `python3`.
 3. In the tested Ubuntu 24.04 environment, no additional Python packages were required.
-4. If your local Python environment does not already provide the optional modules used by the script, install them manually:
-```sh
-python3 -m pip install requests pyperclip colorama
-```
-- `requests`: fallback install if your Python environment does not already provide it
-- `pyperclip`: optional clipboard copy in `--share` mode
-- `colorama`: optional ANSI color support on Windows terminals
+4. Extract the repository and run the script directly with `python3`.
 
 ### Runtime Notes
 - This project is distributed as a Python script, not as a packaged Windows or Linux binary.
 - Ubuntu 24.04 is the primary tested environment.
 - The code includes Windows-specific locale and terminal color handling, so Windows may work as well, but it should be treated as best-effort unless you verify it in your environment.
-
-### Optional Virtual Environment
-For a clean setup, create a virtual environment before installing any optional packages:
-```sh
-# create the environment
-python3 -m venv .venv
-# activate it
-source .venv/bin/activate
-# install optional packages just for this project
-python3 -m pip install requests pyperclip colorama
-```
 
 ## Usage
 Run the main script to fetch and display your order details:
@@ -199,10 +188,10 @@ Order Timeline:
 ```
 
 ## Telemetry
-Telemetry is disabled in this repository configuration.
+Telemetry has been removed from this repository configuration.
 
 No anonymous usage statistics, option codes, banners, or other third-party telemetry
-data are sent anywhere.
+data are sent anywhere because those code paths no longer exist.
 
 ### Network policy
 
@@ -212,7 +201,7 @@ data are sent anywhere.
 - Installing updates is always a manual action using a locally downloaded archive.
 
 ## Issues
-If you have any issues, running the script or getting error messages, pleas feel free to ask for help in the [issues](https://github.com/enoch85/tesla-order-status/issues) section or pm me at the [tff-forum](https://tff-forum.de/u/chrisi51/summary)
+If you have any issues, running the script or getting error messages, please use the [issues](https://github.com/enoch85/tesla-order-status/issues) section.
 
 
 ## Disclaimer
@@ -223,10 +212,6 @@ If you have any issues, running the script or getting error messages, pleas feel
 - With your permission the script stores the token on your hard disk.
 
 ## Support & Contact
-If you want to support the project, you can use my link on your next Tesla order: https://ts.la/christian906959
-
-Or just buy me a coffee: https://www.paypal.com/paypalme/chrisi51
-
 This repository is based on earlier upstream work from the original project lineage.
 
-Come say hi in the community chat: https://chat.tesla-order-status-tracker.de
+Original upstream repository: https://github.com/chrisi51/tesla-order-status

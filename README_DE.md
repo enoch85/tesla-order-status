@@ -1,31 +1,26 @@
-[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
+[![Security](https://img.shields.io/badge/security-hardened-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
 [![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
-
-[![Chat](https://img.shields.io/badge/chat-Community-blue?logo=wechat)](https://chat.tesla-order-status-tracker.de) [![Coffee](https://img.shields.io/badge/buy_me-a_coffee-cc0000?logo=buymeacoffee\&logoColor=white)](https://www.paypal.com/paypalme/chrisi51) [![Referral](https://img.shields.io/badge/support-via_Tesla_referral-cc0000?logo=tesla\&logoColor=white)](https://ts.la/christian906959)
 
 > Prefer reading in English?<br>
 > [Click here for the English version of the README](README.md)
 > 
-# Tesla Order Status Tracker (TOST) 🚗📦
+# Tesla Order Status Tracker Security-Hardened 🚗📦
 
-Behalte deine Tesla-Bestellung von der Auftragsbestätigung bis zur Auslieferung im Blick. Dieses Open‑Source‑Python‑CLI‑Tool gibt dir direkten Zugriff auf die Tesla‑API, damit du jederzeit weißt, was mit deinem Fahrzeug passiert.
-
-> 🖥️ Lieber eine GUI? Schau dir meine TOST‑App an: [https://www.tesla-order-status-tracker.de](https://www.tesla-order-status-tracker.de)
-
-# Dieses Repository enthält nur das CLI-Skript. Die oben verlinkte GUI ist ein separates Projekt.
+Behalte deine Tesla-Bestellung von der Auftragsbestätigung bis zur Auslieferung im Blick. Dieses sicherheitsgehärtete Open‑Source‑Python‑CLI‑Tool gibt dir direkten Zugriff auf die Tesla‑API und hält den Laufzeitbetrieb gleichzeitig lokal, reduziert externe Kommunikation auf das Nötigste und entfernt Drittanbieter-Telemetry.
 
 ## Inhaltsverzeichnis
 
 1. [Warum du es lieben wirst](#warum-du-es-lieben-wirst)
-2. [Schnellstart](#schnellstart)
-3. [Installation](#installation)
-4. [Benutzung](#benutzung)
-5. [Konfiguration](#konfiguration)
-6. [Historie & Vorschau](#historie--vorschau)
-7. [Telemetry](#telemetry)
-8. [Hinweise](#hinweise)
-9. [Support & Kontakt](#support--kontakt)
+2. [Sicherheits-Härtung](#sicherheits-hartung)
+3. [Schnellstart](#schnellstart)
+4. [Installation](#installation)
+5. [Benutzung](#benutzung)
+6. [Konfiguration](#konfiguration)
+7. [Historie & Vorschau](#historie--vorschau)
+8. [Telemetry](#telemetry)
+9. [Hinweise](#hinweise)
+10. [Support & Kontakt](#support--kontakt)
 
 ## Warum du es lieben wirst
 
@@ -35,17 +30,28 @@ Behalte deine Tesla-Bestellung von der Auftragsbestätigung bis zur Auslieferung
 * 📋 **One‑Click‑Share‑Modus**: Anonymisierte Zwischenablage für Foren & Social Media.
 * 🔁 **Mehrfach-Bestellungen**: Unterstützt mehrere Tesla-Aufträge parallel, `--order <Referenz>` filtert eine einzelne Bestellung.
 * 🧩 **Modular & erweiterbar**: Option‑Codes, Sprachen und Features flexibel ausbaubar.
-* 🔐 **Privacy‑First**: Tokens und Einstellungen bleiben lokal und Telemetry ist deaktiviert.
+* 🔐 **Sicherheitsgehärtet ab Werk**: Tokens und Einstellungen bleiben lokal, Telemetry ist deaktiviert und Drittanbieter-Traffic ist blockiert.
+* 🛡️ **Strikte Outbound-Allowlist**: Erlaubt sind nur Tesla-API-Endpunkte und GitHub-Release-Metadaten.
+* 📦 **Offline-Option-Katalog**: Die Auflösung der Option-Codes erfolgt lokal statt über externe Dienste.
+* 🔒 **Sicherere Updates und Migrationen**: Updates bleiben manuell, lokale Hotfix-Archive werden per Prüfsumme verifiziert und Migrationen sind an eine Trusted-Allowlist gebunden.
 
 Ziel ist, dir mehr Transparenz und Kontrolle über den Bestellprozess zu geben – **ohne** externe Dienste.
 
+## Sicherheits-Härtung
+
+* Ausgehender Netzwerkverkehr ist auf Tesla-API-Traffic und optionale GitHub-Release-Metadaten beschränkt.
+* Für alle HTTP-Anfragen ist TLS-Zertifikatsprüfung aktiviert, und Requests nutzen begrenzte Retry-/Backoff-Logik statt unkontrollierter Wiederholungen.
+* Der Tesla-Login nutzt OAuth PKCE mit `S256`, und der zurückkommende OAuth-`state` wird vor dem Token-Tausch geprüft.
+* Drittanbieter-Telemetry, Remote-Banner und externe Option‑Code-Lookups existieren im Laufzeitpfad nicht mehr.
+* Updates sind nur Hinweis-basiert; ein Hotfix wird ausschließlich aus einem lokal bereitgestellten ZIP-Archiv angewendet, das per SHA-256 geprüft und mit Zip-Slip-/Symlink-Schutz entpackt wird.
+* Migrationen dürfen nur ausgeführt werden, wenn Datei und Hash zu einer Trusted-Allowlist mit SHA-256-Pinning passen.
+* Tesla-OAuth-Tokens werden lokal in `data/private/tesla_tokens.json` mit restriktiven Dateirechten gespeichert.
+* Tokens werden nicht gehasht gespeichert, weil sie für authentifizierte Tesla-API-Aufrufe im Original benötigt werden. Separate API-Keys verwendet dieses Repository nicht.
+* Ein vollständiger Offline-Option-Katalog liegt im Repository, damit die Dekodierung nicht von externen Servern abhängt.
+
 ## 🚀 Quick Links
 
-* 💬 Community‑ & Support‑Chat: [https://chat.tesla-order-status-tracker.de](https://chat.tesla-order-status-tracker.de)
-* ☕ Support via PayPal: [https://www.paypal.com/paypalme/chrisi51](https://www.paypal.com/paypalme/chrisi51)
-* 🚗 Tesla bestellen & mich unterstützen: [https://ts.la/christian906959](https://ts.la/christian906959)
 * 📦 Direktdownload als ZIP: [https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip](https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip)
-* 🖥️ GUI‑Version: [https://www.tesla-order-status-tracker.de](https://www.tesla-order-status-tracker.de)
 
 ## Schnellstart
 
@@ -58,34 +64,13 @@ Lade das komplette Projekt auf deinen Rechner. Wenn du unsicher bist, nutze einf
 1. Installiere [Python 3](https://www.python.org/downloads/) für dein Betriebssystem.
 2. Getestete Umgebung: Ubuntu 24.04 mit `python3`.
 3. In der getesteten Ubuntu-24.04-Umgebung waren keine zusätzlichen Python-Pakete nötig.
-4. Falls deine lokale Python-Umgebung die optional genutzten Module nicht bereits bereitstellt, kannst du sie manuell installieren:
-
-```sh
-python3 -m pip install requests pyperclip colorama
-```
-
-* `requests`: Fallback-Installation, falls es in deiner Python-Umgebung nicht bereits vorhanden ist
-* `pyperclip`: optionale Zwischenablage-Unterstützung im `--share`-Modus
-* `colorama`: optionale ANSI-Farbunterstützung unter Windows
+4. Repository entpacken und das Skript direkt mit `python3` ausführen.
 
 ### Laufzeit-Hinweise
 
 * Dieses Projekt wird als Python-Skript ausgeliefert, nicht als gepackte Windows- oder Linux-Binärdatei.
 * Ubuntu 24.04 ist die primär getestete Umgebung.
 * Der Code enthält Windows-spezifische Behandlung für Locale und Terminalfarben. Windows kann also ebenfalls funktionieren, sollte aber als Best-Effort gelten, solange du es nicht selbst verifiziert hast.
-
-### Optionales Virtual Environment
-
-Für eine saubere Umgebung empfiehlt sich ein virtuelles Environment:
-
-```sh
-# Umgebung erstellen
-python3 -m venv .venv
-# aktivieren
-source .venv/bin/activate
-# optionale Pakete nur für dieses Projekt installieren
-python3 -m pip install requests pyperclip colorama
-```
 
 ## Benutzung
 
@@ -230,10 +215,10 @@ Order Timeline:
 
 ## Telemetry
 
-Telemetry ist in dieser Repository-Konfiguration deaktiviert.
+Telemetry wurde in dieser Repository-Konfiguration entfernt.
 
 Es werden keine anonymen Nutzungsstatistiken, Option‑Codes, Banner oder andere
-Telemetry-Daten an Drittserver gesendet.
+Telemetry-Daten an Drittserver gesendet, weil diese Codepfade nicht mehr existieren.
 
 ### Netzwerkrichtlinie
 
@@ -251,11 +236,6 @@ Telemetry-Daten an Drittserver gesendet.
 * Mit deiner Zustimmung speichert das Skript das Token auf deiner Festplatte.
 
 ## Support & Kontakt
-
-Wenn du das Projekt unterstützen möchtest, nutze gern meinen Tesla‑Referral: [https://ts.la/christian906959](https://ts.la/christian906959)
-
-Oder spendiere mir einen Kaffee: [https://www.paypal.com/paypalme/chrisi51](https://www.paypal.com/paypalme/chrisi51)
-
 Dieses Repository basiert auf früherer Upstream-Arbeit aus der ursprünglichen Projektlinie.
 
-Komm in den Community‑Chat: [https://chat.tesla-order-status-tracker.de](https://chat.tesla-order-status-tracker.de)
+Ursprüngliches Upstream-Repository: [https://github.com/chrisi51/tesla-order-status](https://github.com/chrisi51/tesla-order-status)

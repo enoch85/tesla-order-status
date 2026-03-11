@@ -1,16 +1,11 @@
-import base64
-import hmac
-import hashlib
 import json
 import os
 import sys
 from datetime import datetime, timezone
 from typing import Any, Dict, Iterable, Optional
-from typing import Any, Dict, Optional
 from app.utils.colors import color_text
 from app.utils.locale import t, LANGUAGE
 from app.utils.params import STATUS_MODE
-from app.config import cfg as Config
 
 
 def exit_with_status(msg: str) -> None:
@@ -151,33 +146,6 @@ def compare_dicts(old_dict, new_dict, path=""):
             )
 
     return differences
-
-
-def _b32(data: bytes, length: Optional[int] = None) -> str:
-    s = base64.b32encode(data).decode("ascii").rstrip("=")
-    return s if length is None else s[:length]
-
-
-def _b32decode_nopad(s: str) -> bytes:
-    pad = "=" * ((8 - (len(s) % 8)) % 8)
-    return base64.b32decode(s + pad)
-
-
-def generate_token(bytes_len: int, token_length: Optional[int] = None) -> str:
-    if token_length is not None:
-        min_bytes = (token_length * 5 + 7) // 8  # ceil division
-        bytes_len = max(bytes_len, min_bytes)
-    return _b32(os.urandom(bytes_len), token_length)
-
-
-def pseudonymize_data(data: str, length: int) -> str:
-    secret_b32 = Config.get("secret")
-    if not secret_b32:
-        secret_b32 = generate_token(32)
-        Config.set("secret", secret_b32)
-    secret = _b32decode_nopad(secret_b32)
-    digest = hmac.new(secret, data.encode("utf-8"), hashlib.sha256).digest()
-    return _b32(digest, length)
 
 
 def _parse_iso_timestamp(value: str) -> Optional[datetime]:

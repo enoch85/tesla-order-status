@@ -39,10 +39,6 @@
   "> Access token is not valid anymore. Refreshing tokens...": "> Access token is not valid anymore. Refreshing tokens...",
   "> Error loading tokens from file. Re-authenticating...": "> Error loading tokens from file. Re-authenticating...",
   "Would you like to save the tokens to a file in the current directory for use in future requests? (y/n): ": "Would you like to save the tokens to a file in the current directory for use in future requests? (y/n): ",
-  "Do you allow collection of non-personalised usage data to improve the script (check the README.md for details)? (y/n): ": "Do you allow collection of non-personalised usage data to improve the script (check the README.md for details)? (y/n): ",
-  "Telemetry enabled. Thank you so much for your support, bro.": "Telemetry enabled. Thank you so much for your support, bro.",
-  "Naww, I've counted on you! =( I may ask again later, OK? =)": "Naww, I've counted on you! =( I may ask again later, OK? =)",
-  "Telemetry disabled. (ENTER): ": "Telemetry disabled. (ENTER): ",
   "Could not open browser. Please visit the following URL for details:": "Could not open browser. Please visit the following URL for details:",
   "Unknown option code": "Unknown option code",
 

@@ -39,10 +39,6 @@
   "> Access token is not valid anymore. Refreshing tokens...": "> Token dostępu nie jest już ważny. Odświeżanie tokenów...",
   "> Error loading tokens from file. Re-authenticating...": "> Błąd podczas wczytywania tokenów z pliku. Ponowna autoryzacja...",
   "Would you like to save the tokens to a file in the current directory for use in future requests? (y/n): ": "Czy chcesz zapisać tokeny do pliku w bieżącym katalogu do użycia w przyszłych zapytaniach? (y/n): ",
-  "Do you allow collection of non-personalised usage data to improve the script (check the README.md for details)? (y/n): ": "Czy zezwalasz na zbieranie niepersonalizowanych danych o użyciu w celu ulepszenia skryptu (szczegóły w README.md)? (y/n): ",
-  "Telemetry enabled. Thank you so much for your support, bro.": "Telemetria włączona. Dzięki wielkie za wsparcie!",
-  "Naww, I've counted on you! =( I may ask again later, OK? =)": "Eee, liczyłem na Ciebie! =( Może zapytam później, OK? =)",
-  "Telemetry disabled. (ENTER): ": "Telemetria wyłączona. (ENTER): ",
   "Could not open browser. Please visit the following URL for details:": "Nie można otworzyć przeglądarki. Odwiedź następujący URL, aby uzyskać szczegóły:",
   "Unknown option code": "Nieznany kod opcji",
 

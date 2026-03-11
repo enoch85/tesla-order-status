@@ -11,8 +11,6 @@ TESLA_APP_VERSION = "4.53.1-4047"
 TESLA_USER_AGENT = "Tesla/4.53.1 (com.teslamotors.tesla; build:4047; Android 14)"
 TESLA_X_USER_AGENT = "TeslaApp/4.53.1-4047/4047/android/14"
 TODAY = time.strftime("%Y-%m-%d")
-TELEMETRIC_URL = "https://www.tesla-order-status-tracker.de/push/telemetry.php"
-OPTION_CODES_URL = "https://www.tesla-order-status-tracker.de/push/option_codes.php"
 VERSION = "2.0.0"
 NETWORK_POLICY_MESSAGE = "Only Tesla API traffic and GitHub update checks are allowed. Telemetry and third-party data sharing are disabled."
 

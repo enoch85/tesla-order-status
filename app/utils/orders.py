@@ -64,7 +64,6 @@ from app.utils.params import (
     CACHED_MODE,
     ORDER_FILTER,
 )
-from app.utils.telemetry import track_usage
 from app.utils.timeline import print_timeline
 from app.utils.option_codes import get_option_entry
 
@@ -168,15 +167,6 @@ def _ensure_order_map(raw_orders: Any) -> OrderMap:
                 continue
             order_map[reference] = entry
     return order_map
-
-
-def _orders_map_to_list(orders: Any) -> List[DetailedOrder]:
-    """Convert an order collection back to a list (for legacy persistence/telemetry)."""
-    if isinstance(orders, list):
-        return orders
-    if isinstance(orders, MutableMapping):
-        return list(orders.values())
-    return []
 
 
 def _extract_reference_number(entry: Any) -> Optional[str]:
@@ -656,7 +646,6 @@ def print_bottom_line() -> None:
 # ---------------------------
 def main(access_token) -> None:
     old_orders = _load_orders_from_file()
-    track_usage(_orders_map_to_list(old_orders))
     effective_cached_mode = CACHED_MODE
 
     if effective_cached_mode:

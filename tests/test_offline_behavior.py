@@ -1,11 +1,9 @@
 import json
 import unittest
-from unittest.mock import patch
 
 from app.config import _strip_trailing_commas
-from app.utils import option_codes as option_codes_module
 from app.utils.connection import _is_allowed_remote, _is_local_url
-from app.utils.option_codes import _normalize_entry, _parse_timestamp
+from app.utils.option_codes import _normalize_entry, get_option_codes
 
 
 class ConfigHelperTests(unittest.TestCase):
@@ -74,24 +72,9 @@ class OptionCodeHelperTests(unittest.TestCase):
             },
         )
 
-    def test_parse_timestamp_supports_zulu_and_naive_formats(self):
-        zulu_timestamp = _parse_timestamp("2026-03-11T19:03:41Z")
-        naive_timestamp = _parse_timestamp("2025-10-16 15:49:52")
-
-        self.assertIsNotNone(zulu_timestamp)
-        self.assertIsNotNone(naive_timestamp)
-        self.assertEqual(zulu_timestamp.isoformat(), "2026-03-11T19:03:41+00:00")
-        self.assertEqual(naive_timestamp.isoformat(), "2025-10-16T15:49:52+00:00")
-
-
 class OfflineCatalogTests(unittest.TestCase):
     def test_complete_local_option_catalog_loads_recent_entries(self):
-        with patch.object(option_codes_module, "_OPTION_CODES", None), patch.object(
-            option_codes_module, "_load_cache", return_value=None
-        ), patch.object(
-            option_codes_module, "_fetch_remote", return_value=(None, None)
-        ):
-            option_codes = option_codes_module.get_option_codes(force_refresh=True)
+        option_codes = get_option_codes(force_refresh=True)
 
         self.assertGreaterEqual(len(option_codes), 794)
         self.assertEqual(option_codes["APBS"]["label"], "Autopilot")
@@ -101,6 +84,12 @@ class OfflineCatalogTests(unittest.TestCase):
         self.assertEqual(
             option_codes["WY19P"]["label"], '19" Crossflow wheels (Model Y Juniper)'
         )
+
+    def test_force_refresh_reloads_local_catalog(self):
+        first_load = get_option_codes(force_refresh=True)
+        second_load = get_option_codes(force_refresh=True)
+
+        self.assertIsNot(first_load, second_load)
 
 
 if __name__ == "__main__":

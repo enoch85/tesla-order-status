@@ -1,19 +1,14 @@
-"""Utilities for retrieving Tesla option codes from the remote API."""
+"""Utilities for retrieving Tesla option codes from local JSON catalogs."""
 
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
 from glob import glob
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, Optional
 
-from app.config import PRIVATE_DIR, PUBLIC_DIR
+from app.config import PUBLIC_DIR
 
-FETCH_URL = "https://www.tesla-order-status-tracker.de/get/option_codes.php"
-CACHE_FILE = PRIVATE_DIR / "option_codes_cache.json"
-CACHE_TTL = timedelta(hours=24)
-SCHEMA_VERSION = 3
 _OPTION_CODES: Optional[Dict[str, Dict[str, Any]]] = None
 
 
@@ -69,88 +64,6 @@ def _normalize_entry(value: Any) -> Optional[Dict[str, Any]]:
     }
 
 
-def _parse_timestamp(value: Optional[str]) -> Optional[datetime]:
-    if not value:
-        return None
-    text = value.strip()
-    if not text:
-        return None
-    try:
-        if text.endswith("Z"):
-            text = text[:-1] + "+00:00"
-        dt = datetime.fromisoformat(text)
-    except ValueError:
-        for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
-            try:
-                dt = datetime.strptime(text, fmt)
-                break
-            except ValueError:
-                continue
-        else:
-            return None
-    if dt.tzinfo is None:
-        return dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc)
-
-
-def _load_cache(allow_expired: bool = False) -> Optional[Dict[str, Dict[str, Any]]]:
-    if not CACHE_FILE.exists():
-        return None
-    try:
-        with CACHE_FILE.open("r", encoding="utf-8") as fh:
-            payload = json.load(fh)
-    except (OSError, ValueError):
-        return None
-
-    option_codes = payload.get("option_codes")
-    if not isinstance(option_codes, dict):
-        return None
-
-    schema_version = payload.get("schema_version")
-    requires_refresh = schema_version != SCHEMA_VERSION
-
-    if not allow_expired:
-        fetched_at = _parse_timestamp(payload.get("fetched_at"))
-        if fetched_at is None:
-            return None
-        if datetime.now(timezone.utc) - fetched_at > CACHE_TTL:
-            return None
-
-    normalized: Dict[str, Dict[str, Any]] = {}
-    for code, value in option_codes.items():
-        key = str(code).strip().upper()
-        entry = _normalize_entry(value)
-        if entry:
-            normalized[key] = entry
-            if not isinstance(value, dict):
-                requires_refresh = True
-        else:
-            requires_refresh = True
-
-    if requires_refresh and not allow_expired:
-        return None
-
-    return normalized
-
-
-def _write_cache(
-    option_codes: Dict[str, Dict[str, Any]], fetched_at: Optional[str]
-) -> None:
-    CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    payload = {
-        "fetched_at": fetched_at or datetime.now(timezone.utc).isoformat(),
-        "option_codes": option_codes,
-        "schema_version": SCHEMA_VERSION,
-    }
-    CACHE_FILE.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
-
-
-def _fetch_remote() -> Tuple[Optional[Dict[str, Dict[str, Any]]], Optional[str]]:
-    return None, None
-
-
 def _load_local_overrides() -> Dict[str, Dict[str, Any]]:
     folder = PUBLIC_DIR / "option-codes"
     option_codes: Dict[str, Dict[str, Any]] = {}
@@ -184,35 +97,14 @@ def _apply_local_overrides(
 
 
 def get_option_codes(force_refresh: bool = False) -> Dict[str, Dict[str, Any]]:
-    """Return a dictionary mapping option codes to their metadata."""
+    """Return a dictionary mapping option codes to local metadata."""
     global _OPTION_CODES
 
     if not force_refresh and _OPTION_CODES is not None:
         return _OPTION_CODES
 
-    if not force_refresh:
-        cached = _load_cache(allow_expired=False)
-        if cached is not None:
-            final_codes = _apply_local_overrides(cached)
-            _OPTION_CODES = final_codes
-            return final_codes
-
-    option_codes, fetched_at = _fetch_remote()
-    if option_codes is not None:
-        _write_cache(option_codes, fetched_at)
-        final_codes = _apply_local_overrides(option_codes)
-        _OPTION_CODES = final_codes
-        return final_codes
-
-    cached = _load_cache(allow_expired=True)
-    if cached is not None:
-        final_codes = _apply_local_overrides(cached)
-        _OPTION_CODES = final_codes
-        return final_codes
-
-    fallback = _load_local_overrides()
-    _OPTION_CODES = fallback
-    return fallback
+    _OPTION_CODES = _load_local_overrides()
+    return _OPTION_CODES
 
 
 def get_option_label(code: str) -> Optional[str]:

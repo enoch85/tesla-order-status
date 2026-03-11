@@ -13,7 +13,7 @@ LOCALE = "en_US"
 LANGUAGE = "en"
 COUNTRY = "US"
 
-# Determine if we're running in status mode early to avoid banner prints (can't just import params.py cause of looping)
+# Determine status mode early without importing params.py and creating a cycle.
 STATUS_MODE = "--status" in sys.argv
 
 _SOURCE_PRIORITY = {

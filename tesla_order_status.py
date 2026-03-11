@@ -22,20 +22,10 @@ def main() -> None:
     run_update_check()
 
     """Import and run the application modules."""
-    from app.config import cfg as Config
     from app.utils.auth import main as run_tesla_auth
-    from app.utils.banner import display_banner
-    from app.utils.helpers import generate_token
     from app.utils.orders import main as run_orders
     from app.utils.params import CACHED_MODE, STATUS_MODE
-    from app.utils.telemetry import ensure_telemetry_consent
 
-    if not Config.has("secret"):
-        Config.set("secret", generate_token(32, None))
-
-    ensure_telemetry_consent()
-    if not STATUS_MODE:
-        display_banner()
     if CACHED_MODE:
         access_token = None
     else:
