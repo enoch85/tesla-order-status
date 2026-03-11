@@ -3,12 +3,24 @@ import json
 import os
 import re
 import sys
+import urllib.parse
 import uuid
 from collections import OrderedDict
 from datetime import datetime
-from typing import Any, Dict, Iterator, List, MutableMapping, Optional, Tuple, OrderedDict as TypingOrderedDict
+from typing import (
+    Any,
+    Dict,
+    Iterator,
+    List,
+    MutableMapping,
+    Optional,
+    Tuple,
+    OrderedDict as TypingOrderedDict,
+)
+
 try:
     import pyperclip
+
     HAS_PYPERCLIP = True
 except ImportError:
     HAS_PYPERCLIP = False
@@ -29,13 +41,13 @@ from app.utils.helpers import (
     compare_dicts,
     exit_with_status,
     get_delivery_appointment_display,
-    locale_format_datetime
+    locale_format_datetime,
 )
 from app.utils.history import (
     HISTORY_TRANSLATIONS_IGNORED,
     load_history_from_file,
     save_history_to_file,
-    print_history
+    print_history,
 )
 from app.utils.locale import (
     t,
@@ -45,7 +57,13 @@ from app.utils.locale import (
     COUNTRY,
 )
 import app.utils.history as history_module
-from app.utils.params import DETAILS_MODE, SHARE_MODE, STATUS_MODE, CACHED_MODE, ORDER_FILTER
+from app.utils.params import (
+    DETAILS_MODE,
+    SHARE_MODE,
+    STATUS_MODE,
+    CACHED_MODE,
+    ORDER_FILTER,
+)
 from app.utils.telemetry import track_usage
 from app.utils.timeline import print_timeline
 from app.utils.option_codes import get_option_entry
@@ -59,20 +77,22 @@ def _tag_changes(reference: str, changes: List[Dict[str, Any]]) -> List[Dict[str
     for change in changes:
         if not isinstance(change, dict):
             continue
-        change.setdefault('key', '')
-        change['order_reference'] = reference
+        change.setdefault("key", "")
+        change["order_reference"] = reference
         tagged.append(change)
     return tagged
 
 
-def _group_changes_by_reference(changes: List[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:
+def _group_changes_by_reference(
+    changes: List[Dict[str, Any]],
+) -> Dict[str, List[Dict[str, Any]]]:
     grouped: Dict[str, List[Dict[str, Any]]] = {}
     for change in changes:
-        reference = change.get('order_reference')
+        reference = change.get("order_reference")
         if not reference:
             continue
         reference_str = str(reference)
-        clean_change = {k: v for k, v in change.items() if k != 'order_reference'}
+        clean_change = {k: v for k, v in change.items() if k != "order_reference"}
         grouped.setdefault(reference_str, []).append(clean_change)
     return grouped
 
@@ -80,7 +100,7 @@ def _group_changes_by_reference(changes: List[Dict[str, Any]]) -> Dict[str, List
 def _has_status_relevant_changes(changes: List[Dict[str, Any]]) -> bool:
     """Return True when a change should flip the --status exit code."""
     for change in changes:
-        key = change.get('key')
+        key = change.get("key")
         if not isinstance(key, str):
             return True
         if not any(key.startswith(prefix) for prefix in HISTORY_TRANSLATIONS_IGNORED):
@@ -103,10 +123,14 @@ def _filter_orders_for_display(orders: Any) -> OrderMap:
 def _notify_missing_reference() -> None:
     if STATUS_MODE or not ORDER_FILTER:
         return
-    print(color_text(
-        t("Error: No order with reference '{reference}' found.").format(reference=ORDER_FILTER),
-        '91'
-    ))
+    print(
+        color_text(
+            t("Error: No order with reference '{reference}' found.").format(
+                reference=ORDER_FILTER
+            ),
+            "91",
+        )
+    )
 
 
 def _display_selected_orders(orders: Any) -> None:
@@ -158,34 +182,36 @@ def _orders_map_to_list(orders: Any) -> List[DetailedOrder]:
 def _extract_reference_number(entry: Any) -> Optional[str]:
     if not isinstance(entry, MutableMapping):
         return None
-    order_payload = entry.get('order')
+    order_payload = entry.get("order")
     if isinstance(order_payload, MutableMapping):
-        reference = order_payload.get('referenceNumber')
+        reference = order_payload.get("referenceNumber")
     else:
-        reference = entry.get('referenceNumber')
+        reference = entry.get("referenceNumber")
     return str(reference) if reference else None
 
 
 def _order_sort_key(item: Tuple[str, DetailedOrder]) -> Tuple[str, str]:
     """Return a tuple for ordering items newest-first based on booking date."""
     reference, detailed_order = item
-    tasks = detailed_order.get('details', {}).get('tasks', {})
-    registration = tasks.get('registration', {})
-    order_details = registration.get('orderDetails', {})
-    booked_date = order_details.get('orderBookedDate') or order_details.get('orderPlacedDate') or ""
+    tasks = detailed_order.get("details", {}).get("tasks", {})
+    registration = tasks.get("registration", {})
+    order_details = registration.get("orderDetails", {})
+    booked_date = (
+        order_details.get("orderBookedDate")
+        or order_details.get("orderPlacedDate")
+        or ""
+    )
     return (booked_date, reference)
 
 
 def enumerate_orders(
-    orders: Any,
-    *,
-    sort_mode: str = 'api'
+    orders: Any, *, sort_mode: str = "api"
 ) -> Iterator[Tuple[int, str, DetailedOrder]]:
     """Yield (index, referenceNumber, detailed_order) tuples in a stable order."""
     order_map = _ensure_order_map(orders)
     items: List[Tuple[str, DetailedOrder]] = list(order_map.items())
 
-    if sort_mode == 'booked_date':
+    if sort_mode == "booked_date":
         items.sort(key=_order_sort_key, reverse=True)
 
     for index, (reference, detailed_order) in enumerate(items):
@@ -197,49 +223,53 @@ def _get_all_orders(access_token):
 
     new_orders: OrderedDict[str, DetailedOrder] = OrderedDict()
     for order in orders:
-        order_id = order['referenceNumber']
+        order_id = order["referenceNumber"]
         order_details = _retrieve_order_details(order_id, access_token)
 
-        if not order_details or not order_details.get('tasks'):
-            exit_with_status(t("Error: Received empty response from Tesla API. Please try again later."))
+        if not order_details or not order_details.get("tasks"):
+            exit_with_status(
+                t(
+                    "Error: Received empty response from Tesla API. Please try again later."
+                )
+            )
 
-        detailed_order = {
-            'order': order,
-            'details': order_details
-        }
+        detailed_order = {"order": order, "details": order_details}
         new_orders[order_id] = detailed_order
 
     return new_orders
 
+
 def _retrieve_orders(access_token):
     headers = {
-        'Authorization': f'Bearer {access_token}',
-        'User-Agent': TESLA_USER_AGENT,
-        'X-Tesla-User-Agent': TESLA_X_USER_AGENT,
-        'X-Request-Id': str(uuid.uuid4()),
+        "Authorization": f"Bearer {access_token}",
+        "User-Agent": TESLA_USER_AGENT,
+        "X-Tesla-User-Agent": TESLA_X_USER_AGENT,
+        "X-Request-Id": str(uuid.uuid4()),
     }
-    api_url = 'https://owner-api.teslamotors.com/api/1/users/orders'
-    response = request_with_retry(api_url, headers)
-    orders = response.json()['response']
+    api_url = "https://owner-api.teslamotors.com/api/1/users/orders"
+    response = request_with_retry(api_url, headers, network_scope="tesla")
+    orders = response.json()["response"]
     _store_tesla_locale_from_orders(orders)
     return orders
 
 
 def _retrieve_order_details(order_id, access_token):
     headers = {
-        'Authorization': f'Bearer {access_token}',
-        'User-Agent': TESLA_USER_AGENT,
-        'X-Tesla-User-Agent': TESLA_X_USER_AGENT,
-        'X-Request-Id': str(uuid.uuid4()),
+        "Authorization": f"Bearer {access_token}",
+        "User-Agent": TESLA_USER_AGENT,
+        "X-Tesla-User-Agent": TESLA_X_USER_AGENT,
+        "X-Request-Id": str(uuid.uuid4()),
     }
-    api_url = (
-        'https://akamai-apigateway-vfx.tesla.com/tasks'
-        f'?deviceLanguage={LANGUAGE}'
-        f'&deviceCountry={COUNTRY}'
-        f'&referenceNumber={order_id}'
-        f'&appVersion={TESLA_APP_VERSION}'
+    query_string = urllib.parse.urlencode(
+        {
+            "deviceLanguage": LANGUAGE,
+            "deviceCountry": COUNTRY,
+            "referenceNumber": order_id,
+            "appVersion": TESLA_APP_VERSION,
+        }
     )
-    response = request_with_retry(api_url, headers)
+    api_url = f"https://akamai-apigateway-vfx.tesla.com/tasks?{query_string}"
+    response = request_with_retry(api_url, headers, network_scope="tesla")
     return response.json()
 
 
@@ -253,14 +283,17 @@ def _store_tesla_locale_from_orders(orders: List[Dict[str, Any]]) -> None:
 
 def _save_orders_to_file(orders):
     serializable_orders = _ensure_order_map(orders)
-    with open(ORDERS_FILE, 'w') as f:
+    with open(ORDERS_FILE, "w") as f:
         json.dump(serializable_orders, f)
     if not STATUS_MODE:
-        print(color_text(t("> Orders saved to '{file}'").format(file=ORDERS_FILE), '94'))
+        print(
+            color_text(t("> Orders saved to '{file}'").format(file=ORDERS_FILE), "94")
+        )
+
 
 def _load_orders_from_file():
     if os.path.exists(ORDERS_FILE):
-        with open(ORDERS_FILE, 'r') as f:
+        with open(ORDERS_FILE, "r") as f:
             orders = _ensure_order_map(json.load(f))
         _store_tesla_locale_from_orders(list(orders.values()))
         return orders
@@ -276,11 +309,15 @@ def _compare_orders(old_orders, new_orders):
             changes = compare_dicts(old_order, new_map[reference], path="")
             differences.extend(_tag_changes(reference, changes))
         else:
-            differences.append({'operation': 'removed', 'order_reference': reference, 'key': ''})
+            differences.append(
+                {"operation": "removed", "order_reference": reference, "key": ""}
+            )
 
     for reference in new_map:
         if reference not in old_map:
-            differences.append({'operation': 'added', 'order_reference': reference, 'key': ''})
+            differences.append(
+                {"operation": "added", "order_reference": reference, "key": ""}
+            )
     return differences
 
 
@@ -288,32 +325,36 @@ def get_order(order_id):
     orders = _load_orders_from_file()
     return _ensure_order_map(orders).get(order_id, {})
 
+
 def get_model_from_order(detailed_order) -> str:
-    order = detailed_order.get('order', {})
-    decoded_options = decode_option_codes(order.get('mktOptions', ''))
+    order = detailed_order.get("order", {})
+    decoded_options = decode_option_codes(order.get("mktOptions", ""))
     model = "unknown"
     for _, description in decoded_options:
-        if 'Model' in description:
+        if "Model" in description:
 
-           description = description.strip()
-           # Extract model name and configuration suffix using regex
-           # Model Y Long Range Dual Motor - AWD LR (Juniper) => Model Y - AWD LR
-           # Model S Plaid => Model S Plaid
-           match = re.match(r'(Model [YSX3]).*?((?:AWD|RWD) (?:LR|SR|P)).*?$', description)
-           if match:
-               model_name = match.group(1)
-               config_suffix = match.group(2)
-               value = f"{model_name} - {config_suffix}"
-               model = value.strip()
-               break
-           else:
-               # If first group matches but second doesn't, use full description
-               match = re.match(r'(Model [YSX3]).*$', description)
-               if match:
-                   model = description.strip()
-                   break
+            description = description.strip()
+            # Extract model name and configuration suffix using regex
+            # Model Y Long Range Dual Motor - AWD LR (Juniper) => Model Y - AWD LR
+            # Model S Plaid => Model S Plaid
+            match = re.match(
+                r"(Model [YSX3]).*?((?:AWD|RWD) (?:LR|SR|P)).*?$", description
+            )
+            if match:
+                model_name = match.group(1)
+                config_suffix = match.group(2)
+                value = f"{model_name} - {config_suffix}"
+                model = value.strip()
+                break
+            else:
+                # If first group matches but second doesn't, use full description
+                match = re.match(r"(Model [YSX3]).*$", description)
+                if match:
+                    model = description.strip()
+                    break
 
     return model
+
 
 def _render_share_output(detailed_orders):
     order_items = list(enumerate_orders(detailed_orders))
@@ -321,45 +362,59 @@ def _render_share_output(detailed_orders):
     share_separator = "=" * 60
 
     for idx, (_, order_reference, detailed_order) in enumerate(order_items, start=1):
-        order = detailed_order['order']
-        order_details = detailed_order['details']
-        tasks = order_details.get('tasks', {})
-        scheduling = tasks.get('scheduling', {})
-        status_text = order.get('orderStatus', t('unknown'))
+        order = detailed_order["order"]
+        order_details = detailed_order["details"]
+        tasks = order_details.get("tasks", {})
+        scheduling = tasks.get("scheduling", {})
+        status_text = order.get("orderStatus", t("unknown"))
 
         if total_orders > 1:
             header = f"#{idx} {t('Order Details')}:"
         else:
             header = f"{t('Order Details')}:"
-        print(color_text(header, '94'))
-
+        print(color_text(header, "94"))
 
         model = paint = interior = "unknown"
 
-        decoded_options = decode_option_codes(order.get('mktOptions', ''))
+        decoded_options = decode_option_codes(order.get("mktOptions", ""))
         if decoded_options:
             for code, description in decoded_options:
                 entry = get_option_entry(code) or {}
-                category = entry.get('category')
-                label_short = entry.get('label_short')
+                category = entry.get("category")
+                label_short = entry.get("label_short")
                 cleaned_description = description.strip()
-                display_label = label_short.strip() if isinstance(label_short, str) and label_short.strip() else cleaned_description
+                display_label = (
+                    label_short.strip()
+                    if isinstance(label_short, str) and label_short.strip()
+                    else cleaned_description
+                )
 
-                if category == 'paints' and display_label:
-                    paint = display_label.replace('Metallic', '').replace('Multi-Coat', '').strip()
-                elif category in {'interiors', 'interior', 'seats'} and display_label:
+                if category == "paints" and display_label:
+                    paint = (
+                        display_label.replace("Metallic", "")
+                        .replace("Multi-Coat", "")
+                        .strip()
+                    )
+                elif category in {"interiors", "interior", "seats"} and display_label:
                     interior = display_label
                 elif category is None and display_label:
-                    if paint == "unknown" and code.startswith(('PP', 'PN', 'PS', 'PA')):
+                    if paint == "unknown" and code.startswith(("PP", "PN", "PS", "PA")):
                         paint = display_label
-                    if interior == "unknown" and code.startswith(('IP', 'IN', 'IW', 'IX', 'IY')):
+                    if interior == "unknown" and code.startswith(
+                        ("IP", "IN", "IW", "IX", "IY")
+                    ):
                         interior = display_label
 
-                if category in {'models', 'model'} or ('Model' in cleaned_description and len(cleaned_description) > 10):
+                if category in {"models", "model"} or (
+                    "Model" in cleaned_description and len(cleaned_description) > 10
+                ):
                     if label_short and display_label:
                         model = display_label
                     else:
-                        match = re.match(r'(Model [YSX3])(?:.*?((?:AWD|RWD) (?:LR|SR|P)))?.*?$', cleaned_description)
+                        match = re.match(
+                            r"(Model [YSX3])(?:.*?((?:AWD|RWD) (?:LR|SR|P)))?.*?$",
+                            cleaned_description,
+                        )
                         if match:
                             model_name = match.group(1)
                             config_suffix = match.group(2)
@@ -372,7 +427,7 @@ def _render_share_output(detailed_orders):
             msg = f"{model} / {paint} / {interior}"
             print(f"- {msg}")
 
-        if scheduling.get('deliveryAddressTitle'):
+        if scheduling.get("deliveryAddressTitle"):
             print(f"- {scheduling.get('deliveryAddressTitle')}")
 
         print_timeline(order_reference, detailed_order)
@@ -382,7 +437,8 @@ def _render_share_output(detailed_orders):
         else:
             print()
 
-def generate_share_output(detailed_orders):
+
+def generate_share_output(detailed_orders, copy_to_clipboard=False):
     original_share_mode = history_module.SHARE_MODE
     history_module.SHARE_MODE = True
     output_capture = io.StringIO()
@@ -396,132 +452,185 @@ def generate_share_output(detailed_orders):
         sys.stdout = original_stdout
         history_module.SHARE_MODE = original_share_mode
 
-    if HAS_PYPERCLIP:
-        # Create advertising text but don't print it
-        ad_text = (f"\n{strip_color('Do you want to share your data and compete with others?')}\n"
-                   f"{strip_color('Check it out on GitHub: https://github.com/chrisi51/tesla-order-status')}")
-        pyperclip.copy("```yaml\n" + strip_color(output_capture.getvalue()) + ad_text + "\n```")
+    if copy_to_clipboard and HAS_PYPERCLIP:
+        pyperclip.copy("```yaml\n" + strip_color(output_capture.getvalue()) + "\n```")
 
     return output_capture.getvalue()
 
+
 def display_orders_SHARE_MODE(detailed_orders):
-    share_output = generate_share_output(detailed_orders)
-    print(share_output, end='')
+    share_output = generate_share_output(detailed_orders, copy_to_clipboard=True)
+    print(share_output, end="")
 
 
 def display_orders(detailed_orders):
-    if HAS_PYPERCLIP:
-        generate_share_output(detailed_orders)
-
     separator = "=" * 45
-    for order_number, order_reference, detailed_order in enumerate_orders(detailed_orders):
+    for order_number, order_reference, detailed_order in enumerate_orders(
+        detailed_orders
+    ):
         prefix = "\n" if order_number == 0 else "\n\n"
         print(f"{prefix}{separator}")
-        order = detailed_order['order']
-        order_details = detailed_order['details']
-        tasks = order_details.get('tasks', {})
-        scheduling = tasks.get('scheduling', {})
-        registration_data = tasks.get('registration', {})
-        order_info = registration_data.get('orderDetails', {})
-        final_payment_data = tasks.get('finalPayment', {}).get('data', {})
+        order = detailed_order["order"]
+        order_details = detailed_order["details"]
+        tasks = order_details.get("tasks", {})
+        scheduling = tasks.get("scheduling", {})
+        registration_data = tasks.get("registration", {})
+        order_info = registration_data.get("orderDetails", {})
+        final_payment_data = tasks.get("finalPayment", {}).get("data", {})
 
         print(f"{color_text(t('Order Details') + ':', '94')}")
-        print(f"{color_text('- ' + t('Order ID') + ':', '94')} {order['referenceNumber']}")
+        print(
+            f"{color_text('- ' + t('Order ID') + ':', '94')} {order['referenceNumber']}"
+        )
         print(f"{color_text('- ' + t('Status') + ':', '94')} {order['orderStatus']}")
-        print(f"{color_text('- ' + t('VIN') + ':', '94')} {order.get('vin', t('unknown'))}")
+        print(
+            f"{color_text('- ' + t('VIN') + ':', '94')} {order.get('vin', t('unknown'))}"
+        )
 
-        decoded_options = decode_option_codes(order.get('mktOptions', ''))
+        decoded_options = decode_option_codes(order.get("mktOptions", ""))
         if decoded_options:
             print(f"\n{color_text(t('Configuration') + ':', '94')}")
             for code, description in decoded_options:
                 print(f"{color_text(f'- {code}:', '94')} {description}")
 
-        odometer = order_info.get('vehicleOdometer')
-        odometer_type = order_info.get('vehicleOdometerType')
+        odometer = order_info.get("vehicleOdometer")
+        odometer_type = order_info.get("vehicleOdometerType")
         if odometer is not None and odometer != 30 and odometer_type is not None:
             print(f"\n{color_text(t('Vehicle Status') + ':', '94')}")
-            print(f"{color_text('- ' + t('Vehicle Odometer') + ':', '94')} {odometer} {odometer_type}")
+            print(
+                f"{color_text('- ' + t('Vehicle Odometer') + ':', '94')} {odometer} {odometer_type}"
+            )
 
         print(f"\n{color_text(t('Delivery Information') + ':', '94')}")
-        location_id = order_info.get('vehicleRoutingLocation')
-        store = TESLA_STORES.get(str(location_id) if location_id is not None else '', {})
+        location_id = order_info.get("vehicleRoutingLocation")
+        store = TESLA_STORES.get(
+            str(location_id) if location_id is not None else "", {}
+        )
         if store:
-            print(f"{color_text('- ' + t('Routing Location') + ':', '94')} {store['display_name']} ({location_id or t('unknown')})")
+            print(
+                f"{color_text('- ' + t('Routing Location') + ':', '94')} {store['display_name']} ({location_id or t('unknown')})"
+            )
             if DETAILS_MODE:
-                address = store.get('address', {})
-                print(f"    {color_text(t('Address') + ':', '94')} {address.get('address_1', t('unknown'))}")
-                print(f"    {color_text(t('City') + ':', '94')} {address.get('city', t('unknown'))}")
-                print(f"    {color_text(t('Postal Code') + ':', '94')} {address.get('postal_code', t('unknown'))}")
-                if store.get('phone'):
+                address = store.get("address", {})
+                print(
+                    f"    {color_text(t('Address') + ':', '94')} {address.get('address_1', t('unknown'))}"
+                )
+                print(
+                    f"    {color_text(t('City') + ':', '94')} {address.get('city', t('unknown'))}"
+                )
+                print(
+                    f"    {color_text(t('Postal Code') + ':', '94')} {address.get('postal_code', t('unknown'))}"
+                )
+                if store.get("phone"):
                     print(f"    {color_text(t('Phone') + ':', '94')} {store['phone']}")
-                if store.get('store_email'):
-                    print(f"    {color_text(t('Email') + ':', '94')} {store['store_email']}")
+                if store.get("store_email"):
+                    print(
+                        f"    {color_text(t('Email') + ':', '94')} {store['store_email']}"
+                    )
             else:
-                print(f"    {color_text(t('More Information in --details mode'), '94')}")
+                print(
+                    f"    {color_text(t('More Information in --details mode'), '94')}"
+                )
         else:
-            print(f"{color_text('- ' + t('Delivery Center') + ':', '94')} {scheduling.get('deliveryAddressTitle', 'N/A')}")
+            print(
+                f"{color_text('- ' + t('Delivery Center') + ':', '94')} {scheduling.get('deliveryAddressTitle', 'N/A')}"
+            )
 
-        eta_value = final_payment_data.get('etaToDeliveryCenter')
+        eta_value = final_payment_data.get("etaToDeliveryCenter")
         if eta_value:
             formatted_eta = locale_format_datetime(eta_value) or eta_value
-            print(f"{color_text('- ' + t('ETA to Delivery Center') + ':', '94')} {formatted_eta}")
+            print(
+                f"{color_text('- ' + t('ETA to Delivery Center') + ':', '94')} {formatted_eta}"
+            )
         appointment_iso = get_delivery_appointment_display(tasks)
-        appointment_localized = locale_format_datetime(appointment_iso) if appointment_iso else None
-        appointment_raw = scheduling.get('deliveryAppointmentDate')
+        appointment_localized = (
+            locale_format_datetime(appointment_iso) if appointment_iso else None
+        )
+        appointment_raw = scheduling.get("deliveryAppointmentDate")
         if appointment_localized:
-            print(f"{color_text('- ' + t('Delivery Appointment Date') + ':', '94')} {appointment_localized}")
+            print(
+                f"{color_text('- ' + t('Delivery Appointment Date') + ':', '94')} {appointment_localized}"
+            )
         elif isinstance(appointment_raw, str) and appointment_raw.strip():
             condensed = " ".join(appointment_raw.split())
             fallback = locale_format_datetime(condensed) or condensed
-            print(f"{color_text('- ' + t('Delivery Appointment Date') + ':', '94')} {fallback}")
+            print(
+                f"{color_text('- ' + t('Delivery Appointment Date') + ':', '94')} {fallback}"
+            )
         else:
-            print(f"{color_text('- ' + t('Delivery Window') + ':', '94')} {scheduling.get('deliveryWindowDisplay', t('unknown'))}")
+            print(
+                f"{color_text('- ' + t('Delivery Window') + ':', '94')} {scheduling.get('deliveryWindowDisplay', t('unknown'))}"
+            )
 
         if DETAILS_MODE:
             print(f"\n{color_text(t('Financing Information') + ':', '94')}")
-            financing_details = final_payment_data.get('financingDetails') or {}
-            order_type = financing_details.get('orderType')
-            tesla_finance_details = financing_details.get('teslaFinanceDetails') or {}
+            financing_details = final_payment_data.get("financingDetails") or {}
+            order_type = financing_details.get("orderType")
+            tesla_finance_details = financing_details.get("teslaFinanceDetails") or {}
 
             # Handle cash purchases where no financing data is present
-            if order_type == 'CASH' or not final_payment_data.get('financingIntent'):
+            if order_type == "CASH" or not final_payment_data.get("financingIntent"):
                 print(f"{color_text('- ' + t('Payment Type') + ':', '94')} {t('Cash')}")
-                payment_details = final_payment_data.get('paymentDetails') or []
+                payment_details = final_payment_data.get("paymentDetails") or []
                 if payment_details:
                     first_payment = payment_details[0]
-                    amount_paid = first_payment.get('amountPaid', 'N/A')
-                    payment_type = first_payment.get('paymentType', 'N/A')
-                    print(f"{color_text('- ' + t('Amount Paid') + ':', '94')} {amount_paid}")
-                    print(f"{color_text('- ' + t('Payment Method') + ':', '94')} {payment_type}")
-                account_balance = final_payment_data.get('accountBalance')
+                    amount_paid = first_payment.get("amountPaid", "N/A")
+                    payment_type = first_payment.get("paymentType", "N/A")
+                    print(
+                        f"{color_text('- ' + t('Amount Paid') + ':', '94')} {amount_paid}"
+                    )
+                    print(
+                        f"{color_text('- ' + t('Payment Method') + ':', '94')} {payment_type}"
+                    )
+                account_balance = final_payment_data.get("accountBalance")
                 if account_balance is not None:
-                    print(f"{color_text('- ' + t('Account Balance') + ':', '94')} {account_balance}")
-                amount_due = final_payment_data.get('amountDue')
+                    print(
+                        f"{color_text('- ' + t('Account Balance') + ':', '94')} {account_balance}"
+                    )
+                amount_due = final_payment_data.get("amountDue")
                 if amount_due is not None:
-                    print(f"{color_text('- ' + t('Amount Due') + ':', '94')} {amount_due}")
+                    print(
+                        f"{color_text('- ' + t('Amount Due') + ':', '94')} {amount_due}"
+                    )
             else:
-                finance_product = financing_details.get('financialProductType', 'N/A')
-                print(f"{color_text('- ' + t('Finance Product') + ':', '94')} {finance_product}")
-                finance_partner = tesla_finance_details.get('financePartnerName', 'N/A')
-                print(f"{color_text('- ' + t('Finance Partner') + ':', '94')} {finance_partner}")
-                monthly_payment = tesla_finance_details.get('monthlyPayment')
+                finance_product = financing_details.get("financialProductType", "N/A")
+                print(
+                    f"{color_text('- ' + t('Finance Product') + ':', '94')} {finance_product}"
+                )
+                finance_partner = tesla_finance_details.get("financePartnerName", "N/A")
+                print(
+                    f"{color_text('- ' + t('Finance Partner') + ':', '94')} {finance_partner}"
+                )
+                monthly_payment = tesla_finance_details.get("monthlyPayment")
                 if monthly_payment is not None:
-                    print(f"{color_text('- ' + t('Monthly Payment') + ':', '94')} {monthly_payment}")
-                term_months = tesla_finance_details.get('termsInMonths')
+                    print(
+                        f"{color_text('- ' + t('Monthly Payment') + ':', '94')} {monthly_payment}"
+                    )
+                term_months = tesla_finance_details.get("termsInMonths")
                 if term_months is not None:
-                    print(f"{color_text('- ' + t('Term (months)') + ':', '94')} {term_months}")
-                interest_rate = tesla_finance_details.get('interestRate')
+                    print(
+                        f"{color_text('- ' + t('Term (months)') + ':', '94')} {term_months}"
+                    )
+                interest_rate = tesla_finance_details.get("interestRate")
                 if interest_rate is not None:
-                    print(f"{color_text('- ' + t('Interest Rate') + ':', '94')} {interest_rate} %")
-                mileage = tesla_finance_details.get('mileage')
+                    print(
+                        f"{color_text('- ' + t('Interest Rate') + ':', '94')} {interest_rate} %"
+                    )
+                mileage = tesla_finance_details.get("mileage")
                 if mileage is not None:
-                    print(f"{color_text('- ' + t('Range per Year') + ':', '94')} {mileage}")
-                financed_amount = final_payment_data.get('amountDueFinancier')
+                    print(
+                        f"{color_text('- ' + t('Range per Year') + ':', '94')} {mileage}"
+                    )
+                financed_amount = final_payment_data.get("amountDueFinancier")
                 if financed_amount is not None:
-                    print(f"{color_text('- ' + t('Financed Amount') + ':', '94')} {financed_amount}")
-                approved_amount = tesla_finance_details.get('approvedLoanAmount')
+                    print(
+                        f"{color_text('- ' + t('Financed Amount') + ':', '94')} {financed_amount}"
+                    )
+                approved_amount = tesla_finance_details.get("approvedLoanAmount")
                 if approved_amount is not None:
-                    print(f"{color_text('- ' + t('Approved Amount') + ':', '94')} {approved_amount}")
+                    print(
+                        f"{color_text('- ' + t('Approved Amount') + ':', '94')} {approved_amount}"
+                    )
 
         print(f"{'-'*45}")
 
@@ -532,12 +641,14 @@ def display_orders(detailed_orders):
 
 def print_bottom_line() -> None:
     print(f"\n{color_text(t('BOTTOM LINE HELP'), '94')}")
-    # Inform user about clipboard status
-    if HAS_PYPERCLIP:
-        print(f"\n{color_text(t('BOTTOM LINE TEXT IN CLIPBOARD'), '93')}")
-    else:
-        print(f"\n{color_text(t('BOTTOM LINE CLIPBOARD NOT WORKING'), '91')}")
-        print(f"{color_text('https://github.com/chrisi51/tesla-order-status?tab=readme-ov-file#general', '91')}")
+    if SHARE_MODE:
+        if HAS_PYPERCLIP:
+            print(f"\n{color_text(t('BOTTOM LINE TEXT IN CLIPBOARD'), '93')}")
+        else:
+            print(f"\n{color_text(t('BOTTOM LINE CLIPBOARD NOT WORKING'), '91')}")
+            print(
+                f"{color_text('https://github.com/chrisi51/tesla-order-status?tab=readme-ov-file#general', '91')}"
+            )
 
 
 # ---------------------------
@@ -546,10 +657,13 @@ def print_bottom_line() -> None:
 def main(access_token) -> None:
     old_orders = _load_orders_from_file()
     track_usage(_orders_map_to_list(old_orders))
+    effective_cached_mode = CACHED_MODE
 
-    if CACHED_MODE:
+    if effective_cached_mode:
         if not STATUS_MODE:
-            print(color_text(t("Running in CACHED MODE... no API calls are made"), '93'))
+            print(
+                color_text(t("Running in CACHED MODE... no API calls are made"), "93")
+            )
 
         if old_orders:
             if STATUS_MODE:
@@ -560,30 +674,50 @@ def main(access_token) -> None:
             if STATUS_MODE:
                 print("-1")
             else:
-                print(color_text(t("No cached orders found in '{file}'").format(file=ORDERS_FILE), '91'))
+                print(
+                    color_text(
+                        t("No cached orders found in '{file}'").format(
+                            file=ORDERS_FILE
+                        ),
+                        "91",
+                    )
+                )
         sys.exit(0)
 
     if not STATUS_MODE:
-        print(color_text(f"\n> {t('Start retrieving the information. Please be patient...')}\n", '94'))
-
+        print(
+            color_text(
+                f"\n> {t('Start retrieving the information. Please be patient...')}\n",
+                "94",
+            )
+        )
 
     new_orders = _get_all_orders(access_token)
-
 
     if not new_orders:
         if old_orders:
             if STATUS_MODE:
                 print("0")
             else:
-                print(color_text(t("Tesla returned no active orders. Keeping previously cached data."), '93'))
+                print(
+                    color_text(
+                        t(
+                            "Tesla returned no active orders. Keeping previously cached data."
+                        ),
+                        "93",
+                    )
+                )
                 _display_selected_orders(old_orders)
             return
         if STATUS_MODE:
             print("-1")
         else:
-            print(color_text(t("Tesla returned no active orders. Nothing to display yet."), '93'))
+            print(
+                color_text(
+                    t("Tesla returned no active orders. Nothing to display yet."), "93"
+                )
+            )
         return
-
 
     if old_orders:
         differences = _compare_orders(old_orders, new_orders)
@@ -598,10 +732,9 @@ def main(access_token) -> None:
                 for reference, ref_changes in grouped_changes.items():
                     if not ref_changes:
                         continue
-                    history.setdefault(reference, []).append({
-                        'timestamp': TODAY,
-                        'changes': ref_changes
-                    })
+                    history.setdefault(reference, []).append(
+                        {"timestamp": TODAY, "changes": ref_changes}
+                    )
                 save_history_to_file(history)
         else:
             if STATUS_MODE:
@@ -612,7 +745,17 @@ def main(access_token) -> None:
             print("-1")
         else:
             # ask user if they want to save the new orders to a file for comparison next time
-            if input(color_text(t("Would you like to save the order information in a file for change tracking? (y/n): "), '93')).lower() == 'y':
+            if (
+                input(
+                    color_text(
+                        t(
+                            "Would you like to save the order information in a file for change tracking? (y/n): "
+                        ),
+                        "93",
+                    )
+                ).lower()
+                == "y"
+            ):
                 _save_orders_to_file(new_orders)
 
     if not STATUS_MODE:

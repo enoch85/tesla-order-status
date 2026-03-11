@@ -1,0 +1,3193 @@
+{
+  "ACL1": {
+    "category": "misc",
+    "label": "Ludicrous Mode"
+  },
+  "AD02": {
+    "category": "misc",
+    "label": "NEMA 14-50"
+  },
+  "AD04": {
+    "category": "misc",
+    "label": "European 3-Phase"
+  },
+  "AD05": {
+    "category": "misc",
+    "label": "European 3-Phase, IT"
+  },
+  "AD06": {
+    "category": "misc",
+    "label": "Schuko (1 phase, 230V 13A)"
+  },
+  "AD07": {
+    "category": "misc",
+    "label": "Red IEC309 (3 phase, 400V 16A)"
+  },
+  "AD08": {
+    "category": "misc",
+    "label": "Blue Charging Adapter"
+  },
+  "AD09": {
+    "category": "misc",
+    "label": "Adapter, Swiss (1 phase, 10A)"
+  },
+  "AD10": {
+    "category": "misc",
+    "label": "Adapter, Denmark (1 phase, 13A)"
+  },
+  "AD11": {
+    "category": "misc",
+    "label": "Adapter, Italy (1 phase, 13A)"
+  },
+  "AD15": {
+    "category": "misc",
+    "label": "Adapter"
+  },
+  "ADPX2": {
+    "category": "connectivity",
+    "label": "Type 2 Public Charging Connector"
+  },
+  "ADX4": {
+    "category": "misc",
+    "label": "No European 3-Phase"
+  },
+  "ADX5": {
+    "category": "misc",
+    "label": "European 3-Phase, IT"
+  },
+  "ADX6": {
+    "category": "misc",
+    "label": "No - Adapter, Schuko (1 phase, 13A)"
+  },
+  "ADX7": {
+    "category": "misc",
+    "label": "No - 3-ph Red IEC309 (3 phase, 16A)"
+  },
+  "ADX8": {
+    "category": "misc",
+    "label": "Blue IEC309 (1 phase, 230V 32A)"
+  },
+  "ADX9": {
+    "category": "misc",
+    "label": "No - Adapter, Swiss (1 phase, 10A)"
+  },
+  "AF00": {
+    "category": "misc",
+    "label": "No HEPA Filter"
+  },
+  "AF02": {
+    "category": "misc",
+    "label": "HEPA Filter"
+  },
+  "AH00": {
+    "category": "misc",
+    "label": "No Accessory Hitch"
+  },
+  "AL03": {
+    "category": "misc",
+    "label": "Interior Accent RGB Lighting"
+  },
+  "AP04": {
+    "category": "autopilot",
+    "label": "Autopilot 4.0"
+  },
+  "APB1": {
+    "category": "autopilot",
+    "label": "Autopilot with convenience features"
+  },
+  "APBS": {
+    "category": "autopilot",
+    "label": "Autopilot"
+  },
+  "APF0": {
+    "category": "autopilot",
+    "label": "Autopilot Firmware 2.0 Base"
+  },
+  "APF1": {
+    "category": "autopilot",
+    "label": "Autopilot Firmware 2.0 Enhanced"
+  },
+  "APF2": {
+    "category": "autopilot",
+    "label": "Full Self-Driving Hardware (Activated)"
+  },
+  "APFB": {
+    "category": "autopilot",
+    "label": "Full Self-Driving Hardware"
+  },
+  "APH1": {
+    "category": "autopilot",
+    "label": "Hardware 1.0"
+  },
+  "APH2": {
+    "category": "autopilot",
+    "label": "Hardware 2.0"
+  },
+  "APH3": {
+    "category": "autopilot",
+    "label": "Hardware 2.5"
+  },
+  "APH4": {
+    "category": "autopilot",
+    "label": "Hardware 3.0"
+  },
+  "APPB": {
+    "category": "autopilot",
+    "label": "Enhanced Autopilot"
+  },
+  "APPF": {
+    "category": "autopilot",
+    "label": "Full Self-Driving Capability"
+  },
+  "AU00": {
+    "category": "misc",
+    "label": "No Audio Package"
+  },
+  "AU01": {
+    "category": "misc",
+    "label": "Ultra High Fidelity Sound"
+  },
+  "AU3D": {
+    "category": "misc",
+    "label": "Sound Studio Package"
+  },
+  "AU3P": {
+    "category": "misc",
+    "label": "Sound Studio Package"
+  },
+  "AUF1": {
+    "category": "misc",
+    "label": "Premium Speakers Enabled"
+  },
+  "AUF2": {
+    "category": "misc",
+    "label": "Premium Speakers Disabled"
+  },
+  "BC00": {
+    "category": "misc",
+    "label": "Brake Calipers M4.42/44"
+  },
+  "BC0B": {
+    "category": "misc",
+    "label": "Black Brake Calipers"
+  },
+  "BC0R": {
+    "category": "misc",
+    "label": "Red Brake Calipers"
+  },
+  "BC3B": {
+    "category": "misc",
+    "label": "Black Brake Calipers"
+  },
+  "BC3R": {
+    "category": "misc",
+    "label": "Black Brake Calipers, Red brake calipers"
+  },
+  "BC50": {
+    "category": "misc",
+    "label": "Brakes Performance P2"
+  },
+  "BCMB": {
+    "category": "misc",
+    "label": "Black Brake Calipers, Mando Brakes"
+  },
+  "BCYR": {
+    "category": "misc",
+    "label": "Performance Brakes"
+  },
+  "BG30": {
+    "category": "misc",
+    "label": "No Badge"
+  },
+  "BG31": {
+    "category": "misc",
+    "label": "AWD Badge without underline"
+  },
+  "BG32": {
+    "category": "misc",
+    "label": "Performance AWD Badge"
+  },
+  "BG33": {
+    "category": "misc",
+    "label": "China Badge"
+  },
+  "BP00": {
+    "category": "misc",
+    "label": "No Ludicrous"
+  },
+  "BP01": {
+    "category": "misc",
+    "label": "Ludicrous Speed Upgrade"
+  },
+  "BP02": {
+    "category": "misc",
+    "label": "Uncorked Acceleration"
+  },
+  "BR00": {
+    "category": "battery",
+    "label": "No Battery Firmware Limit"
+  },
+  "BR03": {
+    "category": "battery",
+    "label": "Battery Firmware Limit (60kWh)"
+  },
+  "BR05": {
+    "category": "battery",
+    "label": "Battery Firmware Limit (75kWh)"
+  },
+  "BS00": {
+    "category": "misc",
+    "label": "Blind Spot Sensor Package"
+  },
+  "BS01": {
+    "category": "misc",
+    "label": "Special Production Flag"
+  },
+  "BT00": {
+    "category": "battery",
+    "label": "68 kWh (Model Y) 4680 cells"
+  },
+  "BT01": {
+    "category": "battery",
+    "label": "60kWh BYD 7C \"Blade"
+  },
+  "BT35": {
+    "category": "battery",
+    "label": "50 kWh (Model 3/Y) Pre 2021 Panasonic cells"
+  },
+  "BT36": {
+    "category": "battery",
+    "label": "62.5 kWh (Model 3/Y) Pre 2021 Panasonic cells"
+  },
+  "BT37": {
+    "category": "battery",
+    "label": "75 kWh (Model 3/Y) Pre 2021 Panasonic cells"
+  },
+  "BT38": {
+    "category": "battery",
+    "label": "74 kWh (Model 3/Y) LG cells"
+  },
+  "BT3D": {
+    "category": "battery",
+    "label": "50 kWh (Model 3)"
+  },
+  "BT40": {
+    "category": "battery",
+    "label": "40 kWh"
+  },
+  "BT41": {
+    "category": "battery",
+    "label": "55 kWh 2021 E1 2170L Panasonic Battery Pack"
+  },
+  "BT42": {
+    "category": "battery",
+    "label": "82 kWh (Model 3/Y) 2021 Panasonic"
+  },
+  "BT43": {
+    "category": "battery",
+    "label": "79 kWh (Model 3/Y) 2021 LG NCA"
+  },
+  "BT60": {
+    "category": "battery",
+    "label": "60 kWh"
+  },
+  "BT70": {
+    "category": "battery",
+    "label": "70 kWh"
+  },
+  "BT85": {
+    "category": "battery",
+    "label": "85 kWh"
+  },
+  "BTF0": {
+    "category": "battery",
+    "label": "55 kWh 2020 CATL Prismatic"
+  },
+  "BTF1": {
+    "category": "battery",
+    "label": "60 kWh E1 LFP60 CATL Battery Pack"
+  },
+  "BTX4": {
+    "category": "battery",
+    "label": "90 kWh"
+  },
+  "BTX5": {
+    "category": "battery",
+    "label": "75 kWh"
+  },
+  "BTX6": {
+    "category": "battery",
+    "label": "100 kWh"
+  },
+  "BTX7": {
+    "category": "battery",
+    "label": "75 kWh"
+  },
+  "BTX8": {
+    "category": "battery",
+    "label": "75 kWh"
+  },
+  "BTX9": {
+    "category": "battery",
+    "label": "100 kWh Battery Pack with Weight Reduction"
+  },
+  "BTXA": {
+    "category": "battery",
+    "label": "18650J2 Battery Cell"
+  },
+  "BTXB": {
+    "category": "battery",
+    "label": "99kWh 18650 Plaid E5/E6 VIN battery"
+  },
+  "BY00": {
+    "category": "misc",
+    "label": "Model Y"
+  },
+  "BY01": {
+    "category": "misc",
+    "label": "1 piece cast rear under body legacy"
+  },
+  "BY02": {
+    "category": "misc",
+    "label": "1 piece cast front under body and rear under body"
+  },
+  "BY03": {
+    "category": "misc",
+    "label": "Safety Net Body"
+  },
+  "BY04": {
+    "category": "misc",
+    "label": "1 piece cast rear under Safety Net Body"
+  },
+  "CC01": {
+    "category": "seating",
+    "label": "Five Seat Interior"
+  },
+  "CC02": {
+    "category": "seating",
+    "label": "Six Seat Interior"
+  },
+  "CC03": {
+    "category": "seating",
+    "label": "Seven Seat Interior"
+  },
+  "CC04": {
+    "category": "seating",
+    "label": "Seven Seat Interior"
+  },
+  "CC12": {
+    "category": "seating",
+    "label": "Six Seat Interior with Center Console"
+  },
+  "CDM0": {
+    "category": "misc",
+    "label": "No CHAdeMO Charging Adaptor"
+  },
+  "CF00": {
+    "category": "misc",
+    "label": "72amp High Power Charger"
+  },
+  "CF01": {
+    "category": "misc",
+    "label": "48amp charger"
+  },
+  "CH00": {
+    "category": "misc",
+    "label": "Standard Charger (40 Amp)"
+  },
+  "CH01": {
+    "category": "misc",
+    "label": "Dual Chargers (80 Amp)"
+  },
+  "CH04": {
+    "category": "misc",
+    "label": "72 Amp Charger Gen3"
+  },
+  "CH05": {
+    "category": "misc",
+    "label": "32/48 Amp Charger"
+  },
+  "CH06": {
+    "category": "misc",
+    "label": "48 Amp Charger"
+  },
+  "CH07": {
+    "category": "misc",
+    "label": "48 Amp Charger"
+  },
+  "CH09": {
+    "category": "misc",
+    "label": "Tesla Standard Charging System 72a (Gen3)"
+  },
+  "CH11": {
+    "category": "misc",
+    "label": "Single phase 48 Amperage Combo 1"
+  },
+  "CH12": {
+    "category": "misc",
+    "label": "48 Amperage Combo 1 Gen 3.5 Charger"
+  },
+  "CH14": {
+    "category": "misc",
+    "label": "32 Amp Charger Hardware (RENA) with Busbar"
+  },
+  "CH15": {
+    "category": "misc",
+    "label": "48 Amp Charger Hardware (REEU/REAP) with Busbar"
+  },
+  "CH16": {
+    "category": "misc",
+    "label": "48 Amp Charger Hardware (RENA) with Busbar"
+  },
+  "CH17": {
+    "category": "misc",
+    "label": "48 Amp 1PH&3PH,P2"
+  },
+  "COAT": {
+    "category": "misc",
+    "label": "Country: Austria"
+  },
+  "COAU": {
+    "category": "misc",
+    "label": "Country: Australia"
+  },
+  "COBE": {
+    "category": "misc",
+    "label": "Country: Belgium"
+  },
+  "COCA": {
+    "category": "misc",
+    "label": "Country: Canada"
+  },
+  "COCH": {
+    "category": "misc",
+    "label": "Country: Switzerland"
+  },
+  "COCN": {
+    "category": "misc",
+    "label": "Country: China"
+  },
+  "CODE": {
+    "category": "misc",
+    "label": "Country: Germany"
+  },
+  "CODK": {
+    "category": "misc",
+    "label": "Country: Denmark"
+  },
+  "COES": {
+    "category": "misc",
+    "label": "Country: Spain"
+  },
+  "COFI": {
+    "category": "misc",
+    "label": "Country: Finland"
+  },
+  "COFR": {
+    "category": "misc",
+    "label": "Country: France"
+  },
+  "COGB": {
+    "category": "misc",
+    "label": "Country: Great Britain"
+  },
+  "COHR": {
+    "category": "misc",
+    "label": "Country: Croatia"
+  },
+  "COIE": {
+    "category": "misc",
+    "label": "Country: Ireland"
+  },
+  "COIL": {
+    "category": "misc",
+    "label": "Country: Israel"
+  },
+  "COIT": {
+    "category": "misc",
+    "label": "Country: Italy"
+  },
+  "COJP": {
+    "category": "misc",
+    "label": "Country: Japan"
+  },
+  "COKR": {
+    "category": "misc",
+    "label": "Country: South Korea"
+  },
+  "COL0": {
+    "category": "misc",
+    "label": "Signature"
+  },
+  "COL1": {
+    "category": "misc",
+    "label": "Solid"
+  },
+  "COL2": {
+    "category": "misc",
+    "label": "Metallic"
+  },
+  "COL3": {
+    "category": "misc",
+    "label": "Tesla Multi-Coat"
+  },
+  "COLU": {
+    "category": "misc",
+    "label": "Country: Luxembourg"
+  },
+  "CONL": {
+    "category": "misc",
+    "label": "Country: Netherlands"
+  },
+  "CONO": {
+    "category": "misc",
+    "label": "Country: Norway"
+  },
+  "CONZ": {
+    "category": "misc",
+    "label": "Country: New Zealand"
+  },
+  "COPT": {
+    "category": "misc",
+    "label": "Country: Portugal"
+  },
+  "COSE": {
+    "category": "misc",
+    "label": "Country: Sweden"
+  },
+  "COSG": {
+    "category": "misc",
+    "label": "Country: Singapore"
+  },
+  "COTR": {
+    "category": "misc",
+    "label": "Country: Turkey"
+  },
+  "COUS": {
+    "category": "misc",
+    "label": "Country: United States"
+  },
+  "CP00": {
+    "category": "misc",
+    "label": "NA Chargeport (TPC)"
+  },
+  "CP01": {
+    "category": "misc",
+    "label": "Charge port Gen? CCS size"
+  },
+  "CP03": {
+    "category": "misc",
+    "label": "CCS2 Integrated Chargeport"
+  },
+  "CPF0": {
+    "category": "connectivity",
+    "label": "Standard Connectivity"
+  },
+  "CPF1": {
+    "category": "connectivity",
+    "label": "Premium Connectivity"
+  },
+  "CPF2": {
+    "category": "connectivity",
+    "label": "Free Premium Connectivity"
+  },
+  "CPW1": {
+    "category": "wheels",
+    "label": "20\" Performance Wheels"
+  },
+  "CR01": {
+    "category": "misc",
+    "label": "Sanden Import Compressor"
+  },
+  "CR02": {
+    "category": "misc",
+    "label": "Denso Import Compressor"
+  },
+  "CW00": {
+    "category": "misc",
+    "label": "No Weather Package"
+  },
+  "CW02": {
+    "category": "misc",
+    "label": "Weather Package"
+  },
+  "DA00": {
+    "category": "autopilot",
+    "label": "No Autopilot"
+  },
+  "DA01": {
+    "category": "misc",
+    "label": "Active Safety (ACC,LDW,SA)"
+  },
+  "DA02": {
+    "category": "autopilot",
+    "label": "Autopilot Convenience Features"
+  },
+  "DCF0": {
+    "category": "misc",
+    "label": "Front Console NO Drop-In Front Console"
+  },
+  "DCF2": {
+    "category": "misc",
+    "label": "Front Console Inductive Phone Charger"
+  },
+  "DRLH": {
+    "category": "misc",
+    "label": "Left Hand Drive"
+  },
+  "DRRH": {
+    "category": "misc",
+    "label": "Right Hand Drive"
+  },
+  "DSH5": {
+    "category": "misc",
+    "label": "Dashboard"
+  },
+  "DSH7": {
+    "category": "misc",
+    "label": "Alcantara Dashboard Accents"
+  },
+  "DSHG": {
+    "category": "misc",
+    "label": "Dash with Graphite trim"
+  },
+  "DU00": {
+    "category": "misc",
+    "label": "Drive Unit - IR"
+  },
+  "DU01": {
+    "category": "misc",
+    "label": "Drive Unit - Infineon"
+  },
+  "DU02": {
+    "category": "misc",
+    "label": "Drive Unit - Non-performance front drive unit (raven)"
+  },
+  "DV2W": {
+    "category": "wheels",
+    "label": "Rear-Wheel Drive"
+  },
+  "DV4W": {
+    "category": "wheels",
+    "label": "All-Wheel Drive"
+  },
+  "EAP1": {
+    "category": "autopilot",
+    "label": "Enhanced Autopilot"
+  },
+  "EUSB": {
+    "category": "misc",
+    "label": "Safety EU Black"
+  },
+  "FBBB": {
+    "category": "misc",
+    "label": "Front Brake Brembo Black"
+  },
+  "FBBR": {
+    "category": "misc",
+    "label": "Front Brake Brembo Red"
+  },
+  "FC01": {
+    "category": "misc",
+    "label": "Front Console Inductive Phone Charger"
+  },
+  "FC02": {
+    "category": "misc",
+    "label": "Front Console Front Console (Premium)"
+  },
+  "FC03": {
+    "category": "misc",
+    "label": "Front Console Front Console 3.0"
+  },
+  "FC3P": {
+    "category": "misc",
+    "label": "Front Console Front Console (Premium)"
+  },
+  "FCH2": {
+    "category": "misc",
+    "label": "Front controller hard v2 that supports both non-FSD +FSD"
+  },
+  "FD00": {
+    "category": "misc",
+    "label": "Low Current IGBT IM130 Drive Unit"
+  },
+  "FD01": {
+    "category": "misc",
+    "label": "Low Current IGBT IM130 Drive Unit, CN/DE"
+  },
+  "FD02": {
+    "category": "misc",
+    "label": "P2 Front Drive Unit"
+  },
+  "FD03": {
+    "category": "misc",
+    "label": "P2 Sleeved Front Drive Unit"
+  },
+  "FDU2": {
+    "category": "misc",
+    "label": "Raven Front Drive Unit"
+  },
+  "FG00": {
+    "category": "misc",
+    "label": "No Exterior Lighting Package"
+  },
+  "FG01": {
+    "category": "misc",
+    "label": "Fog Lamps"
+  },
+  "FG02": {
+    "category": "misc",
+    "label": "Fog Lamps"
+  },
+  "FG31": {
+    "category": "misc",
+    "label": "Fog Lamps"
+  },
+  "FG3B": {
+    "category": "misc",
+    "label": "Fog Lamp Cover (No Fog lamps)"
+  },
+  "FGF0": {
+    "category": "misc",
+    "label": "Fog Lamps Disabled"
+  },
+  "FGF1": {
+    "category": "misc",
+    "label": "Fog Lamps Enabled"
+  },
+  "FM3B": {
+    "category": "misc",
+    "label": "No Performance Package"
+  },
+  "FM3P": {
+    "category": "misc",
+    "label": "Performance Package"
+  },
+  "FM3S": {
+    "category": "misc",
+    "label": "Semi de-rated firmware"
+  },
+  "FM3U": {
+    "category": "misc",
+    "label": "Acceleration Boost"
+  },
+  "FMP6": {
+    "category": "misc",
+    "label": "Performance Firmware"
+  },
+  "FR01": {
+    "category": "misc",
+    "label": "Base Front Row"
+  },
+  "FR02": {
+    "category": "seating",
+    "label": "Ventilated Front Seats"
+  },
+  "FR03": {
+    "category": "misc",
+    "label": "FR03"
+  },
+  "FR04": {
+    "category": "seating",
+    "label": "Front Row Seat"
+  },
+  "FR05": {
+    "category": "seating",
+    "label": "Front Row Seat"
+  },
+  "FSD1": {
+    "category": "autopilot",
+    "label": "Full Self-Driving Capability"
+  },
+  "FSDP": {
+    "category": "autopilot",
+    "label": "Full Self-Driving Capability"
+  },
+  "GLCN": {
+    "category": "misc",
+    "label": "Assembly"
+  },
+  "GLFR": {
+    "category": "misc",
+    "label": "Assembly"
+  },
+  "GLTL": {
+    "category": "misc",
+    "label": "Assembly"
+  },
+  "HC00": {
+    "category": "misc",
+    "label": "No Home Charging installation"
+  },
+  "HC01": {
+    "category": "misc",
+    "label": "Home Charging Installation"
+  },
+  "HL00": {
+    "category": "misc",
+    "label": "Head Lamp"
+  },
+  "HL01": {
+    "category": "misc",
+    "label": "Matrix Head Lamp"
+  },
+  "HL31": {
+    "category": "misc",
+    "label": "Head Lamp"
+  },
+  "HL32": {
+    "category": "misc",
+    "label": "Matrix Headlights 2021"
+  },
+  "HL33": {
+    "category": "misc",
+    "label": "Lamp 1 Headlights 2024"
+  },
+  "HM30": {
+    "category": "misc",
+    "label": "Teck Package - No Homelink"
+  },
+  "HM31": {
+    "category": "misc",
+    "label": "Teck Package - Homelink"
+  },
+  "HP00": {
+    "category": "misc",
+    "label": "No HPWC Ordered"
+  },
+  "HP01": {
+    "category": "misc",
+    "label": "HPWC Ordered"
+  },
+  "HP30": {
+    "category": "misc",
+    "label": "No heat pump assembly"
+  },
+  "HP31": {
+    "category": "misc",
+    "label": "Heat pump assembly"
+  },
+  "I36M": {
+    "category": "misc",
+    "label": "Rear Drive Unit Inverter 600A Mosfet"
+  },
+  "I38M": {
+    "category": "misc",
+    "label": "Rear Drive Unit Inverter 800A Mosfet"
+  },
+  "IBB0": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IBB1": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IBB3": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IBB4": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IBB5": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IBC00": {
+    "category": "interiors",
+    "label": "Carbon Fiber Décor & Black"
+  },
+  "IBC02": {
+    "category": "interiors",
+    "label": "Premium-Black"
+  },
+  "IBE00": {
+    "category": "interiors",
+    "label": "Wood Décor & Black"
+  },
+  "IBW0": {
+    "category": "interiors",
+    "label": "Black and White"
+  },
+  "IBW1": {
+    "category": "interiors",
+    "label": "Black and White"
+  },
+  "IC00": {
+    "category": "interiors",
+    "label": "Black Colorway"
+  },
+  "IC01": {
+    "category": "interiors",
+    "label": "White Colorway"
+  },
+  "IC02": {
+    "category": "interiors",
+    "label": "Cream Colorway"
+  },
+  "ICC00": {
+    "category": "interiors",
+    "label": "Carbon Fiber Décor & Cream"
+  },
+  "ICW00": {
+    "category": "interiors",
+    "label": "Wood Décor & Cream"
+  },
+  "ID00": {
+    "category": "interiors",
+    "label": "Ebony Wood Decor"
+  },
+  "ID02": {
+    "category": "interiors",
+    "label": "All Black Premium with Carbon Fiber Décor?"
+  },
+  "ID03": {
+    "category": "misc",
+    "label": "Model S/X (Since Q2 2021)"
+  },
+  "ID3A": {
+    "category": "interiors",
+    "label": "White Aluminum"
+  },
+  "ID3W": {
+    "category": "interiors",
+    "label": "Wood Decor"
+  },
+  "IDBA": {
+    "category": "interiors",
+    "label": "Dark Ash Wood Decor"
+  },
+  "IDBO": {
+    "category": "interiors",
+    "label": "Figured Ash Wood Decor Burl Open Pore décor"
+  },
+  "IDCF": {
+    "category": "interiors",
+    "label": "Carbon Fiber Decor"
+  },
+  "IDHG": {
+    "category": "interiors",
+    "label": "IP Décor Horizontal Gloss"
+  },
+  "IDHM": {
+    "category": "interiors",
+    "label": "Matte Obeche Wood Decor"
+  },
+  "IDLW": {
+    "category": "interiors",
+    "label": "Lacewood Decor"
+  },
+  "IDOG": {
+    "category": "interiors",
+    "label": "Gloss Obeche Wood Decor"
+  },
+  "IDOK": {
+    "category": "interiors",
+    "label": "Oak Decor"
+  },
+  "IDOM": {
+    "category": "interiors",
+    "label": "Matte Obeche Wood Decor"
+  },
+  "IDPB": {
+    "category": "interiors",
+    "label": "Piano Black Decor"
+  },
+  "IL31": {
+    "category": "misc",
+    "label": "Interior Ambient Lighting Interior"
+  },
+  "ILF0": {
+    "category": "misc",
+    "label": "Ambient Lighting Disabled"
+  },
+  "ILF1": {
+    "category": "misc",
+    "label": "Ambient Lighting Enabled"
+  },
+  "IN3BB": {
+    "category": "interiors",
+    "label": "All Black Partial Premium"
+  },
+  "IN3BW": {
+    "category": "interiors",
+    "label": "Black and White"
+  },
+  "IN3PB": {
+    "category": "interiors",
+    "label": "All Black Premium"
+  },
+  "IN3PW": {
+    "category": "interiors",
+    "label": "All White Premium"
+  },
+  "INB3C": {
+    "category": "interiors",
+    "label": "Premium beige with oak wood finishes"
+  },
+  "INBBW": {
+    "category": "interiors",
+    "label": "White"
+  },
+  "INBC3W": {
+    "category": "interiors",
+    "label": "Premium black and white with Carbon Fiber decor"
+  },
+  "INBFP": {
+    "category": "interiors",
+    "label": "Classic Black"
+  },
+  "INBPP": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "INBPW": {
+    "category": "seating",
+    "label": "White Seats Interior"
+  },
+  "INBTB": {
+    "category": "interiors",
+    "label": "Multi-Pattern Black"
+  },
+  "INFBP": {
+    "category": "interiors",
+    "label": "Black Premium"
+  },
+  "INLPC": {
+    "category": "interiors",
+    "label": "Cream"
+  },
+  "INLPP": {
+    "category": "interiors",
+    "label": "Black / Light Headliner"
+  },
+  "INPB0": {
+    "category": "interiors",
+    "label": "All Black with Wood in door panel"
+  },
+  "INPB1": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "INPW0": {
+    "category": "interiors",
+    "label": "Black and White with Wood in door panel"
+  },
+  "INPW1": {
+    "category": "interiors",
+    "label": "Black and White"
+  },
+  "INWPT": {
+    "category": "interiors",
+    "label": "Tan"
+  },
+  "INYPB": {
+    "category": "interiors",
+    "label": "All Black Premium"
+  },
+  "INYPW": {
+    "category": "interiors",
+    "label": "Black and White Premium"
+  },
+  "IPB0": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "IPB1": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "IPB10": {
+    "category": "interiors",
+    "label": "Premium-Black"
+  },
+  "IPB11": {
+    "category": "interiors",
+    "label": "Premium-Black (Premium RWD LR)",
+    "label_short": "Premium-Black"
+  },
+  "IPB12": {
+    "category": "interiors",
+    "label": "Premium-Black (Premium AWD LR)",
+    "label_short": "Premium-Black"
+  },
+  "IPB14": {
+    "category": "interiors",
+    "label": "Premium-Black (Performance AWD)",
+    "label_short": "Premium-Black"
+  },
+  "IPB2": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "IPB3": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "IPB4": {
+    "category": "interiors",
+    "label": "Premium-Black"
+  },
+  "IPB7": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "IPB8": {
+    "category": "interiors",
+    "label": "Black"
+  },
+  "IPW0": {
+    "category": "interiors",
+    "label": "White"
+  },
+  "IPW1": {
+    "category": "interiors",
+    "label": "White"
+  },
+  "IPW10": {
+    "category": "interiors",
+    "label": "Premium-White"
+  },
+  "IPW11": {
+    "category": "interiors",
+    "label": "Premium-White (Premium RWD LR)",
+    "label_short": "Premium-White"
+  },
+  "IPW12": {
+    "category": "interiors",
+    "label": "Premium-White (Premium AWD LR)",
+    "label_short": "Premium-White"
+  },
+  "IPW14": {
+    "category": "interiors",
+    "label": "Premium-White (Performance AWD)",
+    "label_short": "Premium-White"
+  },
+  "IPW2": {
+    "category": "interiors",
+    "label": "White"
+  },
+  "IPW3": {
+    "category": "interiors",
+    "label": "White"
+  },
+  "IPW4": {
+    "category": "interiors",
+    "label": "Premium-White"
+  },
+  "IPW7": {
+    "category": "interiors",
+    "label": "Premium-White"
+  },
+  "IPW8": {
+    "category": "interiors",
+    "label": "White"
+  },
+  "IVBPP": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IVBSW": {
+    "category": "interiors",
+    "label": "Ultra White"
+  },
+  "IVBTB": {
+    "category": "interiors",
+    "label": "All Black"
+  },
+  "IVLPC": {
+    "category": "interiors",
+    "label": "Vegan Cream"
+  },
+  "IWC00": {
+    "category": "interiors",
+    "label": "Carbon Fiber Décor & Black and White"
+  },
+  "IWW00": {
+    "category": "interiors",
+    "label": "Wood Décor & Black and White"
+  },
+  "IX00": {
+    "category": "misc",
+    "label": "No Extended Nappa Leather Trim"
+  },
+  "IX01": {
+    "category": "misc",
+    "label": "Extended Nappa Leather Trim"
+  },
+  "LLP1": {
+    "category": "misc",
+    "label": "License Plate Liftgate Type NA Liftgate"
+  },
+  "LLP2": {
+    "category": "misc",
+    "label": "License Plate Liftgate Type EU Liftgate"
+  },
+  "LP00": {
+    "category": "misc",
+    "label": "Lighting Package"
+  },
+  "LP01": {
+    "category": "misc",
+    "label": "Lighting Package"
+  },
+  "LS01": {
+    "category": "misc",
+    "label": "Mfg Line Shanghai - Phase 1"
+  },
+  "LS02": {
+    "category": "misc",
+    "label": "Mfg Line Shanghai - Phase 2.2"
+  },
+  "LT00": {
+    "category": "misc",
+    "label": "Vegan"
+  },
+  "LT01": {
+    "category": "misc",
+    "label": "Standard"
+  },
+  "LT03": {
+    "category": "misc",
+    "label": "interior"
+  },
+  "LT1B": {
+    "category": "misc",
+    "label": "Lower Trim"
+  },
+  "LT3W": {
+    "category": "misc",
+    "label": "Lower Trim"
+  },
+  "LT4B": {
+    "category": "misc",
+    "label": "LT4B"
+  },
+  "LT4C": {
+    "category": "misc",
+    "label": "LT4C"
+  },
+  "LT4W": {
+    "category": "misc",
+    "label": "LT4W"
+  },
+  "LT5C": {
+    "category": "misc",
+    "label": "LT5C"
+  },
+  "LT5P": {
+    "category": "misc",
+    "label": "Black PUR Premium Lower Trim w/ Black IP"
+  },
+  "LT5W": {
+    "category": "misc",
+    "label": "Lower Trim Black PUR with White interior"
+  },
+  "LT6P": {
+    "category": "misc",
+    "label": "Black PUR Lower Trim with Performance Stitching"
+  },
+  "LT6W": {
+    "category": "misc",
+    "label": "White Base Lower Trim"
+  },
+  "LTBC": {
+    "category": "misc",
+    "label": "Lower Trim PUR Cream with Black Carpets"
+  },
+  "LTPB": {
+    "category": "misc",
+    "label": "Lower Trim PUR Black"
+  },
+  "LTPW": {
+    "category": "misc",
+    "label": "Lower Trim PUR White"
+  },
+  "LTSB": {
+    "category": "misc",
+    "label": "Lower Trim Standard Black"
+  },
+  "LVB0": {
+    "category": "battery",
+    "label": "12V Acid Low voltage battery"
+  },
+  "LVB1": {
+    "category": "battery",
+    "label": "15V Li-Ion Low voltage battery"
+  },
+  "LVB2": {
+    "category": "battery",
+    "label": "CATL 16V Battery"
+  },
+  "M301": {
+    "category": "misc",
+    "label": "Generation 1 of 2022"
+  },
+  "M302": {
+    "category": "misc",
+    "label": "Generation 2 of 2024"
+  },
+  "MDL3": {
+    "category": "misc",
+    "label": "Model 3"
+  },
+  "MDLS": {
+    "category": "misc",
+    "label": "Model S"
+  },
+  "MDLX": {
+    "category": "misc",
+    "label": "Model X"
+  },
+  "MDLY": {
+    "category": "misc",
+    "label": "Model Y"
+  },
+  "ME01": {
+    "category": "seating",
+    "label": "Memory Seats"
+  },
+  "ME02": {
+    "category": "seating",
+    "label": "Seat Memory"
+  },
+  "MI00": {
+    "category": "misc",
+    "label": "1st Generation Production"
+  },
+  "MI01": {
+    "category": "misc",
+    "label": "2nd Generation Production"
+  },
+  "MI02": {
+    "category": "misc",
+    "label": "3rd Generation Production"
+  },
+  "MI03": {
+    "category": "misc",
+    "label": "4th Generation Production"
+  },
+  "MI04": {
+    "category": "misc",
+    "label": "5th Generation Production"
+  },
+  "MI07": {
+    "category": "misc",
+    "label": "8th Generation Production"
+  },
+  "MR30": {
+    "category": "misc",
+    "label": "Tech Package - Mirror -YES"
+  },
+  "MR31": {
+    "category": "misc",
+    "label": "Tech Package - Mirror -YES"
+  },
+  "MS03": {
+    "category": "misc",
+    "label": "Model S"
+  },
+  "MS04": {
+    "category": "misc",
+    "label": "Model S"
+  },
+  "MS05": {
+    "category": "misc",
+    "label": "Model S"
+  },
+  "MS06": {
+    "category": "misc",
+    "label": "Model S"
+  },
+  "MT300": {
+    "category": "models",
+    "label": "Model 3 Standard Range Rear-Wheel Drive"
+  },
+  "MT301": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT302": {
+    "category": "models",
+    "label": "Model 3 Long Range Rear-Wheel Drive"
+  },
+  "MT303": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT304": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive Performance"
+  },
+  "MT305": {
+    "category": "models",
+    "label": "Model 3 Mid Range Rear-Wheel Drive"
+  },
+  "MT307": {
+    "category": "models",
+    "label": "Model 3 Mid Range Rear-Wheel Drive"
+  },
+  "MT308": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT309": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT310": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT311": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive Performance"
+  },
+  "MT314": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT315": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT316": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT317": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive Performance"
+  },
+  "MT320": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT321": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT322": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT323": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT324": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT325": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive Performance"
+  },
+  "MT328": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive"
+  },
+  "MT331": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus"
+  },
+  "MT332": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus"
+  },
+  "MT333": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus"
+  },
+  "MT334": {
+    "category": "models",
+    "label": "Model 3 Long Range Rear-Wheel Drive"
+  },
+  "MT336": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT337": {
+    "category": "models",
+    "label": "Model 3 Standard Range Plus Rear-Wheel Drive"
+  },
+  "MT340": {
+    "category": "models",
+    "label": "Model 3 Long Range All-Wheel Drive Performance"
+  },
+  "MT352": {
+    "category": "models",
+    "label": "Model 3 Long Range Dual Motor - AWD LR"
+  },
+  "MT353": {
+    "category": "models",
+    "label": "Model 3 Performance"
+  },
+  "MT356": {
+    "category": "models",
+    "label": "Model 3 Long Range Rear Motor - RWD LR"
+  },
+  "MT358": {
+    "category": "models",
+    "label": "Model 3 Standard Range Rear Motor - RWD SR"
+  },
+  "MT367": {
+    "category": "models",
+    "label": "Model 3 Standard Range Rear Motor - RWD SR"
+  },
+  "MT368": {
+    "category": "models",
+    "label": "Model 3 Standard Range Rear Motor - RWD SR"
+  },
+  "MT369": {
+    "category": "models",
+    "label": "Model 3 Long Range Rear Motor - RWD LR"
+  },
+  "MT370": {
+    "category": "models",
+    "label": "Model 3 Long Range Dual Motor - AWD LR"
+  },
+  "MT371": {
+    "category": "models",
+    "label": "Model 3 Performance Dual Motor - AWD P"
+  },
+  "MTC07": {
+    "category": "models",
+    "label": "Cybertruck AWD"
+  },
+  "MTS01": {
+    "category": "models",
+    "label": "Model S Standard Range"
+  },
+  "MTS03": {
+    "category": "models",
+    "label": "Model S Long Range"
+  },
+  "MTS04": {
+    "category": "models",
+    "label": "Model S Performance"
+  },
+  "MTS05": {
+    "category": "models",
+    "label": "Model S Long Range"
+  },
+  "MTS06": {
+    "category": "models",
+    "label": "Model S Performance"
+  },
+  "MTS07": {
+    "category": "models",
+    "label": "Model S Long Range Plus"
+  },
+  "MTS08": {
+    "category": "models",
+    "label": "Model S Performance"
+  },
+  "MTS09": {
+    "category": "models",
+    "label": "Model S Plaid+"
+  },
+  "MTS10": {
+    "category": "models",
+    "label": "Model S Long Range"
+  },
+  "MTS11": {
+    "category": "models",
+    "label": "Model S Plaid"
+  },
+  "MTS12": {
+    "category": "models",
+    "label": "Model S Plaid"
+  },
+  "MTS13": {
+    "category": "models",
+    "label": "Model S Dual Motor All-Wheel Drive"
+  },
+  "MTS14": {
+    "category": "models",
+    "label": "Model S Plaid Tri Motor All-Wheel Drive"
+  },
+  "MTS17": {
+    "category": "models",
+    "label": "Model S Standard Range"
+  },
+  "MTS23": {
+    "category": "models",
+    "label": "Model S Plaid"
+  },
+  "MTX01": {
+    "category": "models",
+    "label": "Model X Standard Range"
+  },
+  "MTX03": {
+    "category": "models",
+    "label": "Model X Long Range"
+  },
+  "MTX04": {
+    "category": "models",
+    "label": "Model X Performance"
+  },
+  "MTX05": {
+    "category": "models",
+    "label": "Model X Long Range Plus"
+  },
+  "MTX06": {
+    "category": "models",
+    "label": "Model X Performance"
+  },
+  "MTX07": {
+    "category": "models",
+    "label": "Model X Long Range Plus"
+  },
+  "MTX08": {
+    "category": "models",
+    "label": "Model X Performance"
+  },
+  "MTX09": {
+    "category": "models",
+    "label": "Model X Plaid+"
+  },
+  "MTX10": {
+    "category": "models",
+    "label": "Model X Long Range"
+  },
+  "MTX11": {
+    "category": "models",
+    "label": "Model X Plaid"
+  },
+  "MTX12": {
+    "category": "models",
+    "label": "Model X Plaid"
+  },
+  "MTX13": {
+    "category": "models",
+    "label": "Model X Plaid"
+  },
+  "MTX14": {
+    "category": "models",
+    "label": "Model X Plaid Tri Motor All-Wheel Drive"
+  },
+  "MTX17": {
+    "category": "models",
+    "label": "Model X Standard Range"
+  },
+  "MTX23": {
+    "category": "models",
+    "label": "Model X Plaid"
+  },
+  "MTY01": {
+    "category": "models",
+    "label": "Model Y Standard Range Rear-Wheel Drive"
+  },
+  "MTY02": {
+    "category": "models",
+    "label": "Model Y Long Range Rear-Wheel Drive"
+  },
+  "MTY03": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive"
+  },
+  "MTY04": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive Performance"
+  },
+  "MTY05": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive Performance"
+  },
+  "MTY06": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive"
+  },
+  "MTY07": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive"
+  },
+  "MTY09": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive"
+  },
+  "MTY11": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive"
+  },
+  "MTY12": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive Performance"
+  },
+  "MTY13": {
+    "category": "models",
+    "label": "Model Y Long Range Standard Range Rear-Wheel Drive"
+  },
+  "MTY14": {
+    "category": "models",
+    "label": "Model Y Long Range All-Wheel Drive"
+  },
+  "MTY45": {
+    "category": "models",
+    "label": "Model Y Performance"
+  },
+  "MTY46": {
+    "category": "models",
+    "label": "Model Y Standard Range Rear Motor - RWD SR"
+  },
+  "MTY47": {
+    "category": "models",
+    "label": "Model Y Long Range Dual Motor - AWD LR",
+    "label_short": "Model Y - AWD LR ⭐"
+  },
+  "MTY48": {
+    "category": "models",
+    "label": "Model Y Long Range Dual Motor - AWD LR",
+    "label_short": "Model Y - AWD LR ⭐"
+  },
+  "MTY52": {
+    "category": "models",
+    "label": "Model Y Long Range Rear Motor - RWD LR",
+    "label_short": "Model Y - RWD LR ⭐"
+  },
+  "MTY53": {
+    "category": "models",
+    "label": "Model Y Performance Dual Motor - AWD P",
+    "label_short": "Model Y - AWD 🚀"
+  },
+  "MTY62": {
+    "category": "models",
+    "label": "Model Y Long Range Dual Motor - AWD LR",
+    "label_short": "Model Y - AWD LR ⭐"
+  },
+  "MTY66": {
+    "category": "models",
+    "label": "Model Y Long Range Rear Motor - RWD LR"
+  },
+  "MTY68": {
+    "category": "models",
+    "label": "Model Y Standard Range Rear Motor - RWD SR",
+    "label_short": "Model Y - RWD SR"
+  },
+  "MTY70": {
+    "category": "models",
+    "label": "Model Y Performance Dual Motor - AWD P",
+    "label_short": "Model Y - AWD 🚀"
+  },
+  "MTY78": {
+    "category": "models",
+    "label": "Model Y Longe Range Rear Motor - RWD LR",
+    "label_short": "Model Y - RWD LR"
+  },
+  "MTY82": {
+    "category": "models",
+    "label": "Model Y Long Range Rear Motor - RWD LR",
+    "label_short": "Model Y - RWD LR ⭐"
+  },
+  "MX06": {
+    "category": "models",
+    "label": "Model X 2021+"
+  },
+  "MY00": {
+    "category": "models",
+    "label": "Model Y Berlin"
+  },
+  "MY01": {
+    "category": "models",
+    "label": "Model Y Austin?"
+  },
+  "MY02": {
+    "category": "models",
+    "label": "Model Y Berlin?"
+  },
+  "OSSB": {
+    "category": "misc",
+    "label": "Safety CA Black"
+  },
+  "OSSW": {
+    "category": "misc",
+    "label": "Safety CA White"
+  },
+  "P3WS": {
+    "category": "misc",
+    "label": "Pedestrian warning speaker"
+  },
+  "P85D": {
+    "category": "misc",
+    "label": "P85D"
+  },
+  "PA00": {
+    "category": "misc",
+    "label": "No Paint Armor"
+  },
+  "PB01": {
+    "category": "paints",
+    "label": "Glacier Blue"
+  },
+  "PB02": {
+    "category": "paints",
+    "label": "Marine Blue"
+  },
+  "PBCW": {
+    "category": "paints",
+    "label": "Solid White"
+  },
+  "PBSB": {
+    "category": "paints",
+    "label": "Solid Black"
+  },
+  "PBT85": {
+    "category": "battery",
+    "label": "Performance 85kWh"
+  },
+  "PC30": {
+    "category": "misc",
+    "label": "No Performance Chassis"
+  },
+  "PC31": {
+    "category": "misc",
+    "label": "Performance Chassis"
+  },
+  "PF00": {
+    "category": "misc",
+    "label": "No Performance Legacy Package"
+  },
+  "PF01": {
+    "category": "misc",
+    "label": "Performance Legacy Package"
+  },
+  "PI00": {
+    "category": "misc",
+    "label": "No Premium Interior"
+  },
+  "PI01": {
+    "category": "misc",
+    "label": "Premium Upgrades Package"
+  },
+  "PK00": {
+    "category": "misc",
+    "label": "Parking Sensors"
+  },
+  "PL30": {
+    "category": "misc",
+    "label": "No Aluminum Pedal"
+  },
+  "PL31": {
+    "category": "misc",
+    "label": "Performance Aluminum Pedals"
+  },
+  "PMAB": {
+    "category": "paints",
+    "label": "Anza Brown Metallic"
+  },
+  "PMBL": {
+    "category": "paints",
+    "label": "Obsidian Black Multi-Coat"
+  },
+  "PMMB": {
+    "category": "paints",
+    "label": "Monterey Blue Metallic"
+  },
+  "PMNG": {
+    "category": "paints",
+    "label": "Midnight Silver Metallic"
+  },
+  "PMSG": {
+    "category": "paints",
+    "label": "Green Metallic"
+  },
+  "PMSS": {
+    "category": "paints",
+    "label": "San Simeon Silver Metallic"
+  },
+  "PMTG": {
+    "category": "paints",
+    "label": "Dolphin Grey Metallic"
+  },
+  "PN00": {
+    "category": "paints",
+    "label": "Quicksilver"
+  },
+  "PN01": {
+    "category": "paints",
+    "label": "Stealth Grey"
+  },
+  "PN02": {
+    "category": "paints",
+    "label": "Lunar Silver"
+  },
+  "PP01": {
+    "category": "misc",
+    "label": "Pedestrian Protection Ped Pro R127 Compliant"
+  },
+  "PP02": {
+    "category": "misc",
+    "label": "Pedestrian Protection Ped Pro R127 Compliant"
+  },
+  "PPMR": {
+    "category": "paints",
+    "label": "Red Multi-Coat"
+  },
+  "PPSB": {
+    "category": "paints",
+    "label": "Deep Blue Metallic"
+  },
+  "PPSR": {
+    "category": "paints",
+    "label": "Signature Red"
+  },
+  "PPSW": {
+    "category": "paints",
+    "label": "Pearl White Multi-Coat"
+  },
+  "PPTI": {
+    "category": "paints",
+    "label": "Titanium Metallic"
+  },
+  "PR00": {
+    "category": "paints",
+    "label": "Midnight Cherry Red"
+  },
+  "PR01": {
+    "category": "paints",
+    "label": "Ultra Red"
+  },
+  "PRM30": {
+    "category": "interiors",
+    "label": "Partial Premium"
+  },
+  "PRM31": {
+    "category": "interiors",
+    "label": "Premium"
+  },
+  "PRM3S": {
+    "category": "interiors",
+    "label": "Standard"
+  },
+  "PRMY1": {
+    "category": "interiors",
+    "label": "Premium"
+  },
+  "PS00": {
+    "category": "misc",
+    "label": "No Parcel Shelf"
+  },
+  "PS01": {
+    "category": "misc",
+    "label": "Parcel Shelf"
+  },
+  "PT00": {
+    "category": "misc",
+    "label": "Standard trunk"
+  },
+  "PT01": {
+    "category": "misc",
+    "label": "Trunk Power trunk"
+  },
+  "PW01": {
+    "category": "misc",
+    "label": "Pedestrian warning speaker"
+  },
+  "PWS0": {
+    "category": "misc",
+    "label": "Model S 10.2020"
+  },
+  "PX00": {
+    "category": "misc",
+    "label": "No Performance Plus Package"
+  },
+  "PX01": {
+    "category": "misc",
+    "label": "Performance Plus"
+  },
+  "PX02": {
+    "category": "paints",
+    "label": "Diamond Black"
+  },
+  "PX4D": {
+    "category": "battery",
+    "label": "90 kWh Performance"
+  },
+  "PX6D": {
+    "category": "misc",
+    "label": "Zero to 60 in 2.5 sec"
+  },
+  "QLBS": {
+    "category": "interiors",
+    "label": "Black Premium"
+  },
+  "QLFC": {
+    "category": "interiors",
+    "label": "Cream Premium"
+  },
+  "QLFP": {
+    "category": "interiors",
+    "label": "Black Premium"
+  },
+  "QLFW": {
+    "category": "interiors",
+    "label": "White Premium"
+  },
+  "QLPW": {
+    "category": "interiors",
+    "label": "White Premium"
+  },
+  "QLWS": {
+    "category": "interiors",
+    "label": "White Premium"
+  },
+  "QNET": {
+    "category": "misc",
+    "label": "Tan NextGen"
+  },
+  "QPBT": {
+    "category": "interiors",
+    "label": "Black Textile"
+  },
+  "QPMP": {
+    "category": "seating",
+    "label": "Black seats"
+  },
+  "QTBS": {
+    "category": "interiors",
+    "label": "Black Premium"
+  },
+  "QTBW": {
+    "category": "seating",
+    "label": "White Premium Seats"
+  },
+  "QTFC": {
+    "category": "interiors",
+    "label": "Cream Premium"
+  },
+  "QTFP": {
+    "category": "seating",
+    "label": "Black Premium Seats"
+  },
+  "QTFW": {
+    "category": "interiors",
+    "label": "White Premium"
+  },
+  "QTPB": {
+    "category": "seating",
+    "label": "Black Leather Tesla Premium Seats"
+  },
+  "QTPC": {
+    "category": "seating",
+    "label": "Cream Premium Seats"
+  },
+  "QTPP": {
+    "category": "seating",
+    "label": "Black Premium Seats"
+  },
+  "QTPT": {
+    "category": "seating",
+    "label": "Tan Premium Seats"
+  },
+  "QTTB": {
+    "category": "seating",
+    "label": "Multi-Pattern Black Seats"
+  },
+  "QTWS": {
+    "category": "interiors",
+    "label": "White Premium"
+  },
+  "QVBM": {
+    "category": "seating",
+    "label": "Multi-Pattern Black Seats"
+  },
+  "QVPC": {
+    "category": "seating",
+    "label": "Vegan Cream Seats"
+  },
+  "QVPP": {
+    "category": "seating",
+    "label": "Vegan Cream Seats"
+  },
+  "QVSW": {
+    "category": "seating",
+    "label": "White Tesla Seats"
+  },
+  "QXMB": {
+    "category": "seating",
+    "label": "Black Leather Seat"
+  },
+  "RA00": {
+    "category": "misc",
+    "label": "No Radar Module Sensor, 7 Pin Perpendicular"
+  },
+  "RA01": {
+    "category": "misc",
+    "label": "Radar Module Sensor, 7 Pin Perpendicular"
+  },
+  "RA02": {
+    "category": "misc",
+    "label": "HD Radar Module Sensor, Phoenix"
+  },
+  "RBMB": {
+    "category": "misc",
+    "label": "Rear Brake Mando Black"
+  },
+  "RBMR": {
+    "category": "misc",
+    "label": "Rear Brake Mando Red"
+  },
+  "RCX0": {
+    "category": "misc",
+    "label": "No Rear Console"
+  },
+  "RCX1": {
+    "category": "misc",
+    "label": "Rear Console"
+  },
+  "RD01": {
+    "category": "misc",
+    "label": "Low Current MOSFET PM216 Rear Drive Unit (600A)"
+  },
+  "RD02": {
+    "category": "misc",
+    "label": "High Current MOSFET PM216 Rear Drive Unit (800A)"
+  },
+  "RD03": {
+    "category": "misc",
+    "label": "Rear Drive Unit LR"
+  },
+  "RD04": {
+    "category": "misc",
+    "label": "Rear Drive Unit Plaid"
+  },
+  "RD05": {
+    "category": "misc",
+    "label": "Low Current MOSFET PM228 Rear Drive Unit"
+  },
+  "RD06": {
+    "category": "misc",
+    "label": "High Current MOSFET PM228 Rear Drive Unit"
+  },
+  "RD07": {
+    "category": "misc",
+    "label": "4DU Rear Drive Unit"
+  },
+  "RD10": {
+    "category": "misc",
+    "label": "4DU Rear Drive Unit uncorked, 950A, CN"
+  },
+  "RD11": {
+    "category": "misc",
+    "label": "4DU Rear Drive Unit uncorked, 950A, US/DE"
+  },
+  "RDU2": {
+    "category": "misc",
+    "label": "Rear large drive unit with elec. oil pump(stator <5kg)"
+  },
+  "RDU3": {
+    "category": "misc",
+    "label": "Rear small drive unit"
+  },
+  "RDU4": {
+    "category": "misc",
+    "label": "Rear small drive unit with elec. oil pump(stator <5kg)"
+  },
+  "REAP": {
+    "category": "misc",
+    "label": "Region: Asia Pacific"
+  },
+  "REEU": {
+    "category": "misc",
+    "label": "Region: Europe"
+  },
+  "RENA": {
+    "category": "misc",
+    "label": "Region: North America"
+  },
+  "RENC": {
+    "category": "misc",
+    "label": "Region: Canada"
+  },
+  "RF3G": {
+    "category": "misc",
+    "label": "Glass Roof"
+  },
+  "RFBC": {
+    "category": "misc",
+    "label": "Body Color Roof"
+  },
+  "RFBK": {
+    "category": "misc",
+    "label": "Black Roof"
+  },
+  "RFFG": {
+    "category": "misc",
+    "label": "Glass Roof"
+  },
+  "RFFR": {
+    "category": "misc",
+    "label": "Fixed Glass Roof (roof rack compatible)"
+  },
+  "RFP2": {
+    "category": "misc",
+    "label": "Sunroof"
+  },
+  "RFPO": {
+    "category": "misc",
+    "label": "All Glass Panoramic Roof"
+  },
+  "RFPX": {
+    "category": "misc",
+    "label": "Glass Roof"
+  },
+  "RL00": {
+    "category": "misc",
+    "label": "Rear tail lights"
+  },
+  "RL01": {
+    "category": "misc",
+    "label": "Rear tail lights (Larger for CCS)"
+  },
+  "RL31": {
+    "category": "misc",
+    "label": "Rear lights (EU)"
+  },
+  "RL32": {
+    "category": "misc",
+    "label": "Rear lights (Global)"
+  },
+  "RL33": {
+    "category": "misc",
+    "label": "Rear lights Lamp 2"
+  },
+  "RNG0": {
+    "category": "battery",
+    "label": "Standard Battery Range"
+  },
+  "RS3H": {
+    "category": "seating",
+    "label": "Second Row Seat Rear Seats (Heated)"
+  },
+  "RSF0": {
+    "category": "seating",
+    "label": "Rear Heated Seats Disabled"
+  },
+  "RSF1": {
+    "category": "seating",
+    "label": "Rear Heated Seats"
+  },
+  "RU00": {
+    "category": "misc",
+    "label": "No Range Upgrade"
+  },
+  "S01B": {
+    "category": "seating",
+    "label": "Black Textile Seats"
+  },
+  "S02B": {
+    "category": "seating",
+    "label": "Seat"
+  },
+  "S02P": {
+    "category": "misc",
+    "label": "S02P"
+  },
+  "S02T": {
+    "category": "seating",
+    "label": "Seat"
+  },
+  "S02W": {
+    "category": "seating",
+    "label": "White Seats"
+  },
+  "S07W": {
+    "category": "seating",
+    "label": "White Seats"
+  },
+  "S25B": {
+    "category": "misc",
+    "label": "Model S 2015"
+  },
+  "S31B": {
+    "category": "misc",
+    "label": "S31B"
+  },
+  "S32C": {
+    "category": "misc",
+    "label": "S32C"
+  },
+  "S32P": {
+    "category": "seating",
+    "label": "Black PUR Seats"
+  },
+  "S32W": {
+    "category": "misc",
+    "label": "S32W"
+  },
+  "S3PB": {
+    "category": "seating",
+    "label": "Seat Black PUR Premium Seats"
+  },
+  "S3PW": {
+    "category": "seating",
+    "label": "Seat White PUR Premium Seats"
+  },
+  "S42C": {
+    "category": "seating",
+    "label": "Seat Cream Plenum Seats"
+  },
+  "S42P": {
+    "category": "seating",
+    "label": "Seat Black Plenum Seats"
+  },
+  "S42W": {
+    "category": "seating",
+    "label": "Seat White Plenum Seats"
+  },
+  "SA3P": {
+    "category": "seating",
+    "label": "Seat Adjustment - Power"
+  },
+  "SC00": {
+    "category": "supercharging",
+    "label": "No access to Supercharger Network"
+  },
+  "SC01": {
+    "category": "supercharging",
+    "label": "Unlimited Free Supercharging Enabled"
+  },
+  "SC04": {
+    "category": "supercharging",
+    "label": "Pay Per Use Supercharging"
+  },
+  "SC05": {
+    "category": "supercharging",
+    "label": "Unlimited Free Supercharging Currently Enabled"
+  },
+  "SC06": {
+    "category": "supercharging",
+    "label": "Time Bound Unlimited Free Supercharging"
+  },
+  "SG01": {
+    "category": "misc",
+    "label": "Steering Gear Single Chip"
+  },
+  "SG02": {
+    "category": "misc",
+    "label": "Steering Gear Dual Chip"
+  },
+  "SLR0": {
+    "category": "misc",
+    "label": "No Rear Spoiler"
+  },
+  "SLR1": {
+    "category": "misc",
+    "label": "Carbon Fibre Spoiler"
+  },
+  "SP00": {
+    "category": "misc",
+    "label": "No Security Package"
+  },
+  "SP01": {
+    "category": "misc",
+    "label": "Security Package"
+  },
+  "SPT31": {
+    "category": "misc",
+    "label": "Performance Upgrade"
+  },
+  "SPTY1": {
+    "category": "misc",
+    "label": "Performance Upgrade"
+  },
+  "SR01": {
+    "category": "misc",
+    "label": "Standard 2nd row"
+  },
+  "SR04": {
+    "category": "seating",
+    "label": "Second Row Seat"
+  },
+  "SR05": {
+    "category": "seating",
+    "label": "60/40 Bench Second Row Seat"
+  },
+  "SR06": {
+    "category": "seating",
+    "label": "Seven Seat Interior"
+  },
+  "SR07": {
+    "category": "seating",
+    "label": "Second Row Seats with Comfort Improvements"
+  },
+  "ST00": {
+    "category": "interiors",
+    "label": "Non-leather Steering Wheel"
+  },
+  "ST01": {
+    "category": "interiors",
+    "label": "Non-heated Leather Steering Wheel"
+  },
+  "ST02": {
+    "category": "interiors",
+    "label": "Heated Leather Steering Wheel"
+  },
+  "ST03": {
+    "category": "interiors",
+    "label": "Regular Steering Wheel"
+  },
+  "ST06": {
+    "category": "interiors",
+    "label": "Steering wheel"
+  },
+  "ST0Y": {
+    "category": "interiors",
+    "label": "Yoke Steering Wheel"
+  },
+  "ST1Y": {
+    "category": "interiors",
+    "label": "Yoke Steering Wheel"
+  },
+  "ST30": {
+    "category": "interiors",
+    "label": "Base Steering Wheel"
+  },
+  "ST31": {
+    "category": "interiors",
+    "label": "Steering Wheel"
+  },
+  "ST33": {
+    "category": "interiors",
+    "label": "Steering Wheel - Round, PUR Heated"
+  },
+  "STCP": {
+    "category": "interiors",
+    "label": "Steering Wheel"
+  },
+  "STY5B": {
+    "category": "seating",
+    "label": "Five Seat Interior"
+  },
+  "STY5S": {
+    "category": "seating",
+    "label": "Five Seat Interior"
+  },
+  "STY7S": {
+    "category": "seating",
+    "label": "Seven Seat Interior"
+  },
+  "SU00": {
+    "category": "misc",
+    "label": "Standard Suspension"
+  },
+  "SU01": {
+    "category": "misc",
+    "label": "Smart Air Suspension"
+  },
+  "SU03": {
+    "category": "misc",
+    "label": "Suspension Update"
+  },
+  "SU04": {
+    "category": "misc",
+    "label": "Active Suspension"
+  },
+  "SU3C": {
+    "category": "misc",
+    "label": "Coil Spring Suspension"
+  },
+  "SWF0": {
+    "category": "misc",
+    "label": "Model 3/Y"
+  },
+  "SWF1": {
+    "category": "wheels",
+    "label": "Steering Wheel FW Enabled"
+  },
+  "T30A": {
+    "category": "tires",
+    "label": "Tires Model 3 Perf 2024"
+  },
+  "T30S": {
+    "category": "tires",
+    "label": "Tires Model 3 Perf 2024"
+  },
+  "T38Q": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "T3CA": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "T3HS": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "T3MA": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "T3MC": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "T3P3": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "T3PS": {
+    "category": "tires",
+    "label": "Tires M3"
+  },
+  "TD00": {
+    "category": "misc",
+    "label": "Tear Down NON-GLIDER"
+  },
+  "TIC3": {
+    "category": "tires",
+    "label": "Tires MS"
+  },
+  "TIC4": {
+    "category": "tires",
+    "label": "Tires MX"
+  },
+  "TIC6": {
+    "category": "tires",
+    "label": "Tires MS"
+  },
+  "TIG2": {
+    "category": "tires",
+    "label": "Summer Tires"
+  },
+  "TIG5": {
+    "category": "misc",
+    "label": "Goodyear Eagle Touring"
+  },
+  "TIM7": {
+    "category": "tires",
+    "label": "Summer Tires"
+  },
+  "TIM8": {
+    "category": "misc",
+    "label": "Michelin PS4S"
+  },
+  "TIM9": {
+    "category": "misc",
+    "label": "Michelin Pilot Sport 4"
+  },
+  "TIMP": {
+    "category": "tires",
+    "label": "Tires"
+  },
+  "TIP0": {
+    "category": "tires",
+    "label": "All-season Tires"
+  },
+  "TM00": {
+    "category": "misc",
+    "label": "Model Trim"
+  },
+  "TM02": {
+    "category": "misc",
+    "label": "General Production Signature Trim"
+  },
+  "TM0A": {
+    "category": "misc",
+    "label": "ALPHA PRE-PRODUCTION NON-SALEABLE"
+  },
+  "TM0B": {
+    "category": "misc",
+    "label": "BETA PRE-PRODUCTION NON-SALEABLE"
+  },
+  "TM0C": {
+    "category": "misc",
+    "label": "PRE-PRODUCTION SALEABLE"
+  },
+  "TP00": {
+    "category": "misc",
+    "label": "No AP?"
+  },
+  "TP01": {
+    "category": "misc",
+    "label": "No Technology Package"
+  },
+  "TP02": {
+    "category": "autopilot",
+    "label": "Tech Package with Autopilot"
+  },
+  "TP03": {
+    "category": "autopilot",
+    "label": "Tech Package with Enhanced Autopilot"
+  },
+  "TR00": {
+    "category": "seating",
+    "label": "No Rear Facing Seats"
+  },
+  "TR01": {
+    "category": "seating",
+    "label": "Third Row Seating"
+  },
+  "TRA1": {
+    "category": "misc",
+    "label": "Third Row HVAC"
+  },
+  "TS10": {
+    "category": "misc",
+    "label": "21\" Michelin PS4S"
+  },
+  "TS90": {
+    "category": "misc",
+    "label": "19\" Continental ProContact RX"
+  },
+  "TS91": {
+    "category": "misc",
+    "label": "Model S/X 2021"
+  },
+  "TSHP": {
+    "category": "misc",
+    "label": "Heat Pump Thermal Assembly"
+  },
+  "TW00": {
+    "category": "misc",
+    "label": "No Tow Package"
+  },
+  "TW01": {
+    "category": "misc",
+    "label": "Tow Package"
+  },
+  "TX02": {
+    "category": "misc",
+    "label": "20\" Michelin Pilot Sport EV"
+  },
+  "TX20": {
+    "category": "misc",
+    "label": "Model X 2021"
+  },
+  "TY0A": {
+    "category": "misc",
+    "label": "20\" All Season Square"
+  },
+  "TY0C": {
+    "category": "misc",
+    "label": "20\" Michelin, Pilot Sport EV"
+  },
+  "TY1A": {
+    "category": "misc",
+    "label": "21\""
+  },
+  "TY1D": {
+    "category": "misc",
+    "label": "21\" P Zero"
+  },
+  "TY9A": {
+    "category": "tires",
+    "label": "Tires MY"
+  },
+  "TY9B": {
+    "category": "misc",
+    "label": "19\" Summer Square - Dual Sourcing Hankook"
+  },
+  "TY9K": {
+    "category": "misc",
+    "label": "19\" Kumho Majesty 9 Solus TA91"
+  },
+  "TY9P": {
+    "category": "misc",
+    "label": "19\" Pirelli Scorpion M+S"
+  },
+  "UM01": {
+    "category": "misc",
+    "label": "Universal Mobile Charger - US Port (Single)"
+  },
+  "US00": {
+    "category": "misc",
+    "label": "No Ultrasonic Sensor"
+  },
+  "US02": {
+    "category": "misc",
+    "label": "Ultrasonic Sensor"
+  },
+  "USSB": {
+    "category": "misc",
+    "label": "Safety"
+  },
+  "USSW": {
+    "category": "misc",
+    "label": "US Safety Kit White"
+  },
+  "UT3P": {
+    "category": "misc",
+    "label": "Suede Grey Premium Headliner"
+  },
+  "UTAB": {
+    "category": "misc",
+    "label": "Black Alcantara Headliner"
+  },
+  "UTAW": {
+    "category": "misc",
+    "label": "Light Headliner"
+  },
+  "UTMF": {
+    "category": "misc",
+    "label": "Headliner"
+  },
+  "UTPB": {
+    "category": "misc",
+    "label": "Dark Headliner"
+  },
+  "UTSB": {
+    "category": "misc",
+    "label": "Black Ultra-Suede Upper Trim Headliner"
+  },
+  "UTZW": {
+    "category": "misc",
+    "label": "Light Headliner"
+  },
+  "VC00": {
+    "category": "misc",
+    "label": "MCU Intel Atom"
+  },
+  "VC01": {
+    "category": "misc",
+    "label": "MCU AMD Ryzen"
+  },
+  "VS01": {
+    "category": "misc",
+    "label": "Vent Enabled"
+  },
+  "W30P": {
+    "category": "wheels",
+    "label": "20\" Performance Wheels"
+  },
+  "W32D": {
+    "category": "wheels",
+    "label": "20\" Gray Performance Wheels"
+  },
+  "W32P": {
+    "category": "wheels",
+    "label": "20\" Performance Wheels"
+  },
+  "W33D": {
+    "category": "wheels",
+    "label": "20\" Black Performance Wheels 2021"
+  },
+  "W38A": {
+    "category": "wheels",
+    "label": "18\" Photon Wheels"
+  },
+  "W38B": {
+    "category": "wheels",
+    "label": "18\" Aero Wheels"
+  },
+  "W38C": {
+    "category": "wheels",
+    "label": "18\" Prismata Wheels"
+  },
+  "W39B": {
+    "category": "wheels",
+    "label": "19\" Sport Wheels"
+  },
+  "W39S": {
+    "category": "wheels",
+    "label": "19\" Nova Wheels"
+  },
+  "W40B": {
+    "category": "wheels",
+    "label": "18\" Wheels"
+  },
+  "W41B": {
+    "category": "wheels",
+    "label": "19\" Wheels"
+  },
+  "WR00": {
+    "category": "misc",
+    "label": "No Wrap"
+  },
+  "WR01": {
+    "category": "misc",
+    "label": "Wrap"
+  },
+  "WR02": {
+    "category": "misc",
+    "label": "Wrap 2 (Tilburg bound)"
+  },
+  "WS10": {
+    "category": "wheels",
+    "label": "21\" Arachnid Wheels"
+  },
+  "WS14": {
+    "category": "wheels",
+    "label": "21\" Velarium Wheels"
+  },
+  "WS90": {
+    "category": "wheels",
+    "label": "19\" Tempest Wheels"
+  },
+  "WT19": {
+    "category": "wheels",
+    "label": "19\" Wheels"
+  },
+  "WT20": {
+    "category": "wheels",
+    "label": "20\" Silver Slipstream Wheels"
+  },
+  "WT22": {
+    "category": "wheels",
+    "label": "22\" Silver Turbine Wheels"
+  },
+  "WTAB": {
+    "category": "wheels",
+    "label": "21\" Black Arachnid Wheels"
+  },
+  "WTAS": {
+    "category": "wheels",
+    "label": "19\" Silver Slipstream Wheels"
+  },
+  "WTD2": {
+    "category": "wheels",
+    "label": "19\" Sonic Carbon Slipstream Wheels (8.5 in)"
+  },
+  "WTDS": {
+    "category": "wheels",
+    "label": "19\" Grey Slipstream Wheels"
+  },
+  "WTHX": {
+    "category": "wheels",
+    "label": "20\" Turbine Wheels"
+  },
+  "WTNN": {
+    "category": "tires",
+    "label": "20\" Nokian Winter Tires (non-studded)"
+  },
+  "WTNS": {
+    "category": "tires",
+    "label": "20\" Nokian Winter Tires (studded)"
+  },
+  "WTP2": {
+    "category": "tires",
+    "label": "20\" Pirelli Winter Tires"
+  },
+  "WTSC": {
+    "category": "wheels",
+    "label": "20\" Sonic Carbon Wheels"
+  },
+  "WTSD": {
+    "category": "wheels",
+    "label": "20\" Two-Tone Slipstream Wheels"
+  },
+  "WTSG": {
+    "category": "wheels",
+    "label": "21\" Turbine Wheels"
+  },
+  "WTSP": {
+    "category": "wheels",
+    "label": "21\" Turbine Wheels"
+  },
+  "WTSS": {
+    "category": "wheels",
+    "label": "21\" Turbine Wheels"
+  },
+  "WTTB": {
+    "category": "wheels",
+    "label": "19\" Cyclone Wheels"
+  },
+  "WTTC": {
+    "category": "wheels",
+    "label": "21\" Sonic Carbon Twin Turbine Wheels"
+  },
+  "WTTG": {
+    "category": "wheels",
+    "label": "19\" Cyclone Wheels"
+  },
+  "WTUT": {
+    "category": "wheels",
+    "label": "22\" Onyx Black Wheels"
+  },
+  "WTW2": {
+    "category": "tires",
+    "label": "19\" Nokian Winter Wheel Set"
+  },
+  "WTW3": {
+    "category": "tires",
+    "label": "19\" Pirelli Winter Wheel Set"
+  },
+  "WTW4": {
+    "category": "tires",
+    "label": "19\" Winter Tire Set"
+  },
+  "WTW5": {
+    "category": "tires",
+    "label": "21\" Winter Tire Set"
+  },
+  "WTW6": {
+    "category": "tires",
+    "label": "19\" Nokian Winter Tires (studded)"
+  },
+  "WTW7": {
+    "category": "tires",
+    "label": "19\" Nokian Winter Tires (non-studded)"
+  },
+  "WTW8": {
+    "category": "tires",
+    "label": "19\" Pirelli Winter Tires"
+  },
+  "WTX1": {
+    "category": "tires",
+    "label": "19\" Michelin Primacy Tire Upgrade"
+  },
+  "WW29": {
+    "category": "tires",
+    "label": "18\" Pirelli Sottozero 3 Winter Tires"
+  },
+  "WW35": {
+    "category": "tires",
+    "label": "19\" Pirelli P Zero Winter Tires"
+  },
+  "WWY06": {
+    "category": "tires",
+    "label": "19\" Pirelli Sottozero 3 Winter Tires"
+  },
+  "WWY07": {
+    "category": "tires",
+    "label": "19\" Nokian Hakkapeliitta R5 dubbfria vinterdäck (SE)"
+  },
+  "WWY08": {
+    "category": "tires",
+    "label": "19\" Nokian Hakkapeliitta 10 dubbdäck (SE)"
+  },
+  "WWY09": {
+    "category": "tires",
+    "label": "21\" Pirelli Sottozero 3 Winter Tires"
+  },
+  "WX00": {
+    "category": "wheels",
+    "label": "20\" Cyberstream Wheels"
+  },
+  "WX03": {
+    "category": "wheels",
+    "label": "20\" Perihelix Wheels"
+  },
+  "WX20": {
+    "category": "wheels",
+    "label": "22\" Turbine Wheels"
+  },
+  "WXNN": {
+    "category": "tires",
+    "label": "No 20\" Nokian Winter Tires (non-studded)"
+  },
+  "WXNS": {
+    "category": "tires",
+    "label": "No 20\" Nokian Winter Tires (studded)"
+  },
+  "WXP2": {
+    "category": "tires",
+    "label": "No 20\" Pirelli Winter Tires"
+  },
+  "WXW2": {
+    "category": "tires",
+    "label": "No 19\" Wheels with Nokian Winter Tyres"
+  },
+  "WXW3": {
+    "category": "tires",
+    "label": "No 19\" Wheels with Pirelli Winter Tyres"
+  },
+  "WXW4": {
+    "category": "tires",
+    "label": "No 19\" Winter Tire Set"
+  },
+  "WXW5": {
+    "category": "tires",
+    "label": "No 21\" Winter Tire Set"
+  },
+  "WXW6": {
+    "category": "tires",
+    "label": "No 19\" Nokian Winter Tires (studded)"
+  },
+  "WXW7": {
+    "category": "tires",
+    "label": "No 19\" Nokian Winter Tires (non-studded)"
+  },
+  "WXW8": {
+    "category": "tires",
+    "label": "No 19\" Pirelli Winter Tires"
+  },
+  "WY0S": {
+    "category": "misc",
+    "label": "20\" Induction"
+  },
+  "WY18B": {
+    "category": "wheels",
+    "label": "18\" Aero Wheels"
+  },
+  "WY18P": {
+    "category": "wheels",
+    "label": "18\" Aperture Wheels"
+  },
+  "WY19B": {
+    "category": "wheels",
+    "label": "19\" Sport Wheels"
+  },
+  "WY19P": {
+    "category": "wheels",
+    "label": "19\" Crossflow wheels (Model Y Juniper)"
+  },
+  "WY1S": {
+    "category": "misc",
+    "label": "21\" Uberturbine"
+  },
+  "WY20A": {
+    "category": "wheels",
+    "label": "20\" Helix wheels"
+  },
+  "WY20B": {
+    "category": "wheels",
+    "label": "20\" Helix wheels (dark)"
+  },
+  "WY20P": {
+    "category": "wheels",
+    "label": "20\" Performance Wheels"
+  },
+  "WY21A": {
+    "category": "wheels",
+    "label": "21\" Arachnid 2.0 Wheels"
+  },
+  "WY9S": {
+    "category": "misc",
+    "label": "19\" Apollo"
+  },
+  "X001": {
+    "category": "misc",
+    "label": "Override: Power Liftgate"
+  },
+  "X002": {
+    "category": "misc",
+    "label": "Override: Manual Liftgate"
+  },
+  "X003": {
+    "category": "misc",
+    "label": "Maps & Navigation"
+  },
+  "X004": {
+    "category": "misc",
+    "label": "Override: No Navigation"
+  },
+  "X007": {
+    "category": "misc",
+    "label": "Exterior Lights Override: Premium exterior lighting YES"
+  },
+  "X010": {
+    "category": "misc",
+    "label": "Base Mirrors"
+  },
+  "X011": {
+    "category": "misc",
+    "label": "Override: Homelink"
+  },
+  "X012": {
+    "category": "misc",
+    "label": "Override: No Homelink"
+  },
+  "X013": {
+    "category": "misc",
+    "label": "Override: Satellite Radio"
+  },
+  "X014": {
+    "category": "misc",
+    "label": "Override: No Satellite Radio"
+  },
+  "X019": {
+    "category": "misc",
+    "label": "Carbon Fiber Spoiler"
+  },
+  "X020": {
+    "category": "misc",
+    "label": "No Performance Exterior"
+  },
+  "X021": {
+    "category": "misc",
+    "label": "No Rear Carbon Fiber Spoiler"
+  },
+  "X024": {
+    "category": "misc",
+    "label": "Performance Package"
+  },
+  "X025": {
+    "category": "misc",
+    "label": "No Performance Powertrain"
+  },
+  "X026": {
+    "category": "misc",
+    "label": "Door handle"
+  },
+  "X027": {
+    "category": "misc",
+    "label": "Lighted Door Handles"
+  },
+  "X028": {
+    "category": "battery",
+    "label": "Battery Badge"
+  },
+  "X029": {
+    "category": "battery",
+    "label": "Remove Battery Badge"
+  },
+  "X030": {
+    "category": "misc",
+    "label": "Override: No Passive Entry Pkg"
+  },
+  "X031": {
+    "category": "misc",
+    "label": "Keyless Entry"
+  },
+  "X037": {
+    "category": "misc",
+    "label": "Powerfolding Mirrors"
+  },
+  "X039": {
+    "category": "misc",
+    "label": "DAB Radio"
+  },
+  "X040": {
+    "category": "misc",
+    "label": "No DAB Radio"
+  },
+  "X041": {
+    "category": "misc",
+    "label": "No Auto Presenting Door"
+  },
+  "X042": {
+    "category": "misc",
+    "label": "Auto Presenting Door"
+  },
+  "X043": {
+    "category": "misc",
+    "label": "No Phone Dock Kit"
+  },
+  "X044": {
+    "category": "misc",
+    "label": "Phone Dock Kit"
+  },
+  "YF00": {
+    "category": "misc",
+    "label": "No Yacht Floor"
+  },
+  "YF01": {
+    "category": "misc",
+    "label": "Matching Yacht Floor"
+  },
+  "YFCC": {
+    "category": "misc",
+    "label": "Yatcht Floor Front Console, Décor Matched"
+  },
+  "YFFC": {
+    "category": "misc",
+    "label": "Integrated Center Console"
+  },
+  "ZCST": {
+    "category": "misc",
+    "label": "Customer Car"
+  },
+  "ZENG": {
+    "category": "misc",
+    "label": "Engineering Car"
+  },
+  "ZINV": {
+    "category": "misc",
+    "label": "Inventory vehicle"
+  }
+}

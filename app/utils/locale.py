@@ -162,7 +162,7 @@ def _try_windows_mapping(tag: str) -> Optional[str]:
     # Also be forgiving with spaces/dashes/parentheses
     s = tag.strip()
     # Replace dash with underscore to unify splitting
-    s = s.replace('-', '_')
+    s = s.replace("-", "_")
 
     # Try patterns like 'Language (Region)'
     m = re.match(r"^([A-Za-z ]+)\s*\(([^)]*)\)$", s)
@@ -178,7 +178,7 @@ def _try_windows_mapping(tag: str) -> Optional[str]:
         return None
 
     # Split on underscore first (Windows classic), else last run of spaces
-    parts = s.split('_') if '_' in s else re.split(r"\s+", s, maxsplit=1)
+    parts = s.split("_") if "_" in s else re.split(r"\s+", s, maxsplit=1)
 
     if len(parts) == 1:
         lang_name = parts[0].strip().lower()
@@ -272,6 +272,7 @@ def get_os_locale() -> Optional[str]:
 
     return None
 
+
 def init_locale() -> None:
     """Resolve and store locale/language/country globals."""
     global LOCALE, LANGUAGE, COUNTRY
@@ -300,15 +301,19 @@ def init_locale() -> None:
                     f'instead of "{previous_language}"'
                 )
                 print(f"\n{color_text(message, '93')}")
-                print(f"{color_text(f'You can change it in your {SETTINGS_FILE}', '93')}")
+                print(
+                    f"{color_text(f'You can change it in your {SETTINGS_FILE}', '93')}"
+                )
                 print()
             if _can_override_language("system"):
                 Config.set("language", normalized)
                 Config.set("language_source", "system")
         return
 
+
 init_locale()
 TRANSLATIONS = _load_translations(LANGUAGE)
+
 
 def store_tesla_locale(locale_value: Optional[str]) -> None:
     """Persist a Tesla-provided locale as the primary language setting."""

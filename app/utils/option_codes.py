@@ -9,7 +9,6 @@ from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
 
 from app.config import PRIVATE_DIR, PUBLIC_DIR
-from app.utils.connection import request_with_retry
 
 FETCH_URL = "https://www.tesla-order-status-tracker.de/get/option_codes.php"
 CACHE_FILE = PRIVATE_DIR / "option_codes_cache.json"
@@ -34,8 +33,10 @@ def _normalize_entry(value: Any) -> Optional[Dict[str, Any]]:
         if raw_payload is None:
             # Preserve original payload for future use if we have access to it
             raw_payload = {
-                k: v for k, v in value.items()
-                if k not in {
+                k: v
+                for k, v in value.items()
+                if k
+                not in {
                     "label",
                     "label_en",
                     "label_en_us",
@@ -49,7 +50,9 @@ def _normalize_entry(value: Any) -> Optional[Dict[str, Any]]:
             return None
         entry = {
             "label": str(label),
-            "category": str(category).strip().lower() if isinstance(category, str) else None,
+            "category": (
+                str(category).strip().lower() if isinstance(category, str) else None
+            ),
         }
         if isinstance(label_short, str) and label_short.strip():
             entry["label_short"] = label_short.strip()
@@ -130,52 +133,22 @@ def _load_cache(allow_expired: bool = False) -> Optional[Dict[str, Dict[str, Any
     return normalized
 
 
-def _write_cache(option_codes: Dict[str, Dict[str, Any]], fetched_at: Optional[str]) -> None:
+def _write_cache(
+    option_codes: Dict[str, Dict[str, Any]], fetched_at: Optional[str]
+) -> None:
     CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "fetched_at": fetched_at or datetime.now(timezone.utc).isoformat(),
         "option_codes": option_codes,
         "schema_version": SCHEMA_VERSION,
     }
-    CACHE_FILE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    CACHE_FILE.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
 
 
 def _fetch_remote() -> Tuple[Optional[Dict[str, Dict[str, Any]]], Optional[str]]:
-    try:
-        response = request_with_retry(FETCH_URL, exit_on_error=False)
-    except RuntimeError:
-        return None, None
-    if response is None:
-        return None, None
-    try:
-        payload = response.json()
-    except ValueError:
-        return None, None
-
-    if not isinstance(payload, dict) or not payload.get("ok"):
-        return None, None
-
-    option_codes: Dict[str, Dict[str, Any]] = {}
-    for entry in payload.get("option_codes", []):
-        if not isinstance(entry, dict):
-            continue
-        code = entry.get("code")
-        label = entry.get("label_en")
-        label_short = entry.get("label_en_short")
-        if not code or label is None:
-            continue
-        category = entry.get("category")
-        normalized_entry = {
-            "label": str(label),
-            "category": str(category).strip().lower() if isinstance(category, str) else None,
-            "raw": entry,
-        }
-        if isinstance(label_short, str) and label_short.strip():
-            normalized_entry["label_short"] = label_short.strip()
-        option_codes[str(code).strip().upper()] = normalized_entry
-
-    fetched_at = payload.get("fetched_at")
-    return option_codes, fetched_at
+    return None, None
 
 
 def _load_local_overrides() -> Dict[str, Dict[str, Any]]:
@@ -199,7 +172,9 @@ def _load_local_overrides() -> Dict[str, Dict[str, Any]]:
     return option_codes
 
 
-def _apply_local_overrides(option_codes: Dict[str, Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+def _apply_local_overrides(
+    option_codes: Dict[str, Dict[str, Any]],
+) -> Dict[str, Dict[str, Any]]:
     overrides = _load_local_overrides()
     if not overrides:
         return option_codes

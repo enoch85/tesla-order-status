@@ -1,38 +1,32 @@
 #!/usr/bin/env python3
 # coding: utf-8
-"""
-check_files_fixed_list.py
-
-The files to check are stored in FILES_TO_CHECK (array).
-Compares the newest mtime from this list with the last commit
-of the fixed Atom feed:
-  https://github.com/chrisi51/tesla-order-status/commits/main.atom
+"""Check for trusted release updates without sending user data to third parties.
 
 Exit codes:
   0 -> everything up to date
-  1 -> Repo has newer commit (Update available)
-  2 -> Error (Feed loading or no valid files)
+  1 -> newer release available
+  2 -> local files missing or update action pending
 """
 from __future__ import annotations
-from pathlib import Path
-from datetime import datetime, timezone
-import xml.etree.ElementTree as ET
-from typing import List, Optional, Dict
-import requests
-import os
-import sys
-import shutil
-import tempfile
 
-from app.config import APP_DIR, BASE_DIR, PUBLIC_DIR, TESLA_STORES_FILE, cfg as Config
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Tuple
+import sys
+import webbrowser
+
+from app.config import (
+    APP_DIR,
+    BASE_DIR,
+    PUBLIC_DIR,
+    TESLA_STORES_FILE,
+    VERSION,
+    cfg as Config,
+)
 from app.utils.colors import color_text
-from app.utils.helpers import exit_with_status
+from app.utils.connection import request_with_retry
 from app.utils.locale import t
 from app.utils.params import STATUS_MODE
 
-# ---------------------------
-# files to check
-# ---------------------------
 FILES_TO_CHECK: List[Path] = [
     BASE_DIR / "tesla_order_status.py",
     BASE_DIR / "hotfix.py",
@@ -58,204 +52,190 @@ FILES_TO_CHECK: List[Path] = [
     APP_DIR / "migrations" / "2025-08-30-datafolders.py",
 ]
 
-BRANCH = "main"
-FEED_URL = "https://github.com/chrisi51/tesla-order-status"
-ZIP_URL = f"{FEED_URL}/archive/refs/heads/{BRANCH}.zip"
-REQUEST_TIMEOUT = 10  # Sekunden
+RELEASE_API_URL = (
+    "https://api.github.com/repos/chrisi51/tesla-order-status/releases/latest"
+)
+RELEASE_PAGE_URL = "https://github.com/chrisi51/tesla-order-status/releases/latest"
 
-# ---------------------------
-# Helfer
-# ---------------------------
-def get_latest_updated_from_atom(url: str, timeout: int = REQUEST_TIMEOUT) -> datetime:
-    resp = requests.get(url, timeout=timeout)
-    resp.raise_for_status()
-    root = ET.fromstring(resp.content)
-    ns = {'atom': 'http://www.w3.org/2005/Atom'}
-    entry = root.find('atom:entry', ns)
-    if entry is None:
-        raise ValueError("No <entry> in Atom-Feed found")
-    updated = entry.find('atom:updated', ns)
-    if updated is None or not updated.text:
-        raise ValueError("No <updated> tag found in first <entry>")
-    updated_text = updated.text.strip()
-    # "2024-07-01T12:34:56Z" -> make ISO compatible with fromisoformat
-    if updated_text.endswith('Z'):
-        updated_text = updated_text[:-1] + "+00:00"
-    dt = datetime.fromisoformat(updated_text)
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    else:
-        dt = dt.astimezone(timezone.utc)
-    return dt
 
-def mtime_of_file(path: Path) -> Optional[datetime]:
-    """Returns mtime as timezone-aware UTC datetime or None if non-existent / not a file."""
-    try:
-        if not path.exists():
-            return None
-        if not path.is_file():
-            return None
-        ts = path.stat().st_mtime
-        return datetime.fromtimestamp(ts, tz=timezone.utc)
-    except Exception:
+def _parse_version(tag: str) -> Optional[Tuple[int, ...]]:
+    if not isinstance(tag, str):
         return None
+    text = tag.strip()
+    if not text:
+        return None
+    if text[0] in {"v", "V", "p", "P"}:
+        text = text[1:]
+    parts = text.split(".")
+    parsed: List[int] = []
+    for part in parts:
+        if not part.isdigit():
+            return None
+        parsed.append(int(part))
+    return tuple(parsed)
 
-def human_delta(a: datetime, b: datetime) -> str:
-    delta = a - b
-    days = delta.days
-    secs = delta.seconds
-    hrs = secs // 3600
-    mins = (secs % 3600) // 60
-    return f"{days}d {hrs}h {mins}m"
+
+def _is_newer_version(candidate: str, current: str) -> bool:
+    candidate_version = _parse_version(candidate)
+    current_version = _parse_version(current)
+    if candidate_version is None or current_version is None:
+        return candidate.strip() != current.strip()
+    return candidate_version > current_version
 
 
-def _copytree_compat(src: Path, dst: Path) -> None:
-    """Recursively copy files supporting Python versions without dirs_exist_ok."""
-    if sys.version_info >= (3, 8):
-        shutil.copytree(src, dst, dirs_exist_ok=True)
-        return
+def _get_latest_release() -> Dict[str, Any]:
+    response = request_with_retry(
+        RELEASE_API_URL,
+        headers={
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+        exit_on_error=False,
+        network_scope="update",
+    )
+    if response is None:
+        raise RuntimeError("Could not load latest release metadata")
+    payload = response.json()
+    if not isinstance(payload, dict):
+        raise RuntimeError("Invalid latest release metadata")
+    return payload
 
-    if dst.exists() and not dst.is_dir():
-        raise ValueError(f"Target path {dst} exists and is not a directory")
-    dst.mkdir(parents=True, exist_ok=True)
-    for child in src.iterdir():
-        target = dst / child.name
-        if child.is_dir():
-            _copytree_compat(child, target)
-        else:
-            shutil.copy2(child, target)
 
-def perform_update(url: str = ZIP_URL, timeout: int = REQUEST_TIMEOUT) -> bool:
-    """
-    Download and extract a zip archive to the current directory.
-    Existing files will be overwritten.
-    """
+def _open_release_page() -> None:
     try:
-        resp = requests.get(url, timeout=timeout)
-        resp.raise_for_status()
-        with tempfile.TemporaryDirectory() as tmpdir:
-            zip_path = Path(tmpdir) / "repo.zip"
-            with open(zip_path, "wb") as f:
-                f.write(resp.content)
-            shutil.unpack_archive(str(zip_path), tmpdir)
-            extracted_dir = next(p for p in Path(tmpdir).iterdir() if p.is_dir())
-            for item in extracted_dir.iterdir():
-                target = Path(".") / item.name
-                if item.is_dir():
-                    _copytree_compat(item, target)
-                else:
-                    shutil.copy2(item, target)
-    except Exception as e:
-        exit_with_status(t("[ERROR] Update failed: {error}").format(error=e))
-        return False
+        opened = webbrowser.open(RELEASE_PAGE_URL)
+        if not opened:
+            print(t("Could not open browser. Please visit the following URL manually:"))
+            print(RELEASE_PAGE_URL)
+    except Exception:
+        print(t("Could not open browser. Please visit the following URL manually:"))
+        print(RELEASE_PAGE_URL)
 
-    if not STATUS_MODE:
-        print(t("[UPDATED] Files successfully downloaded and extracted."))
-        os.execv(sys.executable, [sys.executable] + sys.argv)
-    else:
-        print(0)
+
+def _missing_files() -> List[Path]:
+    return [path for path in FILES_TO_CHECK if not path.exists() or not path.is_file()]
+
+
+def ask_for_update() -> int:
+    if STATUS_MODE:
+        print(2)
         sys.exit()
 
-
-def ask_for_update():
     if Config.get("update_method") == "automatically":
-        return 0 if perform_update() else 2
-    else:
-        if not STATUS_MODE:
-            answer = input(t("Do you want to download and extract the update? (y/n): ")).strip().lower()
-            if answer == "y":
-                return 0 if perform_update() else 2
-            else:
-                return 1
-        else:
-            print(2)
-            sys.exit()
+        Config.set("update_method", "manual")
+        print(
+            color_text(
+                t(
+                    "Automatic in-place updates have been disabled for security reasons."
+                ),
+                "93",
+            )
+        )
+
+    print(color_text(t("[UPDATE AVAILABLE]"), "93"))
+    print(
+        t(
+            "Updates are applied only from a locally downloaded archive that you verify first."
+        )
+    )
+    answer = input(t("Open the GitHub releases page now? (y/n): ")).strip().lower()
+    if answer == "y":
+        _open_release_page()
+    return 1
 
 
-def ask_for_update_consent():
-    print(color_text(t('New Feature: Update Settings'), '93'))
-    print(color_text(t('Please select how you want to handle updates:'), '93'))
-    print(color_text(t('- [m]anual updates: You will be asked to confirm each update, as it was before.'), '93'))
-    print(color_text(t('- [a]utomatic updates: Updates will be installed automatically'), '93'))
-    print(color_text(t('- [b]lock updates: Updates will be disabled completely'), '93'))
-    print(color_text(t('You can change your mind everytime by removing "update_method" from your "data/private/settings.json":'), '93'))
-    consent = input(t("Please choose an option (m/a/b): ")).strip().lower()
+def ask_for_update_consent() -> None:
+    print(color_text(t("New Feature: Update Settings"), "93"))
+    print(color_text(t("Please select how you want to handle updates:"), "93"))
+    print(
+        color_text(
+            t(
+                "- [m]anual update notifications: You will be told when a new verified release is available."
+            ),
+            "93",
+        )
+    )
+    print(
+        color_text(
+            t("- [b]lock updates: Update checks will be disabled completely"), "93"
+        )
+    )
+    print(
+        color_text(
+            t(
+                'You can change your mind everytime by removing "update_method" from your "data/private/settings.json":'
+            ),
+            "93",
+        )
+    )
+    consent = input(t("Please choose an option (m/b): ")).strip().lower()
 
     if consent == "b":
         Config.set("update_method", "block")
-    elif consent == "a":
-        Config.set("update_method", "automatically")
     else:
         Config.set("update_method", "manual")
 
-# ---------------------------
-# Main-Logic
-# ---------------------------
+
 def main() -> int:
+    missing = _missing_files()
+    if missing:
+        if STATUS_MODE:
+            print(2)
+            sys.exit()
+        print(t("[PACKAGE CORRUPT]"))
+        print(
+            t(
+                "Your Project is missing some files. Please restore the complete local project or apply a verified update archive."
+            )
+        )
+        for path in missing:
+            print(t("[WARN] File missing: {path}").format(path=path))
+        return ask_for_update()
 
     if not Config.has("update_method") or Config.get("update_method") == "":
         if STATUS_MODE:
-            # Signal that manual intervention is required without prompting.
             print(2)
             sys.exit()
-
         ask_for_update_consent()
+
+    if Config.get("update_method") == "automatically":
+        Config.set("update_method", "manual")
+        if not STATUS_MODE:
+            print(
+                color_text(
+                    t(
+                        "Automatic in-place updates have been disabled for security reasons."
+                    ),
+                    "93",
+                )
+            )
 
     if Config.get("update_method") == "block":
         return 0
-    # Lade Feed
+
     try:
-        last_commit_dt = get_latest_updated_from_atom(f"{FEED_URL}/commits/{BRANCH}.atom")
+        latest_release = _get_latest_release()
     except Exception as e:
-        if not STATUS_MODE:
-            print(t("[ERROR] Could not load Atom feed for update check: {error}").format(error=e), file=sys.stderr)
-        else:
+        if STATUS_MODE:
             print(-1)
             sys.exit()
+        print(
+            t("[ERROR] Could not load latest release information: {error}").format(
+                error=e
+            ),
+            file=sys.stderr,
+        )
         return 2
 
-    errors = 0
-    # Check the files
-    mtimes: Dict[str, datetime] = {}
-    for p in FILES_TO_CHECK:
-        path = Path(p)
-        m = mtime_of_file(path)
-        if m is None:
-            if not path.exists():
-                errors += 1
-                if not STATUS_MODE:
-                    print(t("[WARN] File missing: {path}").format(path=p))
-            else:
-                errors += 1
-                if not STATUS_MODE:
-                    print(t("[WARN] Path is not a file and could not get read: {path}").format(path=p))
-            continue
-        mtimes[p] = m
-
-    if not mtimes:
-        errors += 1
+    latest_tag = str(latest_release.get("tag_name") or "").strip()
+    if latest_tag and _is_newer_version(latest_tag, VERSION):
         if not STATUS_MODE:
-            print(t("[ERROR] No valid files found in FILES_TO_CHECK."), file=sys.stderr)
-    if errors > 0:
-        if not STATUS_MODE:
-            print(t("[PACKAGE CORRUPT]"))
-            print(t("Your Project is missing some files. Please download the complete project."))
-            return ask_for_update()
-        else:
-            print(-1)
-            sys.exit()
-
-    # Neuestes (jüngstes) mtime unter den angegebenen Dateien
-    newest_path, newest_dt = max(mtimes.items(), key=lambda kv: kv[1])
-
-    if last_commit_dt > newest_dt:
-        if not STATUS_MODE:
-            print(t("[UPDATE AVAILABLE]"))
-            print(t("Last Update: {delta} younger than your version =)").format(delta=human_delta(last_commit_dt, newest_dt)))
-
+            release_name = latest_release.get("name") or latest_tag
+            print(t("Latest Release: {release}").format(release=release_name))
         return ask_for_update()
 
     return 0
+
 
 if __name__ == "__main__":
     code = main()

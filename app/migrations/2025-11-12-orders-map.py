@@ -4,6 +4,7 @@ Migration: 2025-11-12-orders-map
   `referenceNumber` (oder Legacy-Fallback) indiziert ist.
 - Bewahrt die Reihenfolge der ursprünglichen Einträge und ist idempotent.
 """
+
 from __future__ import annotations
 
 import json

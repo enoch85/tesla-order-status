@@ -26,7 +26,7 @@ Stay in control of your Tesla order from the moment you place it until delivery.
 - 🔍 **Direct Tesla API connection**: Get the latest order information without any detours.
 - 🧾 **Display of important details**: Vehicle options, production and delivery progress.
 - 🕒 **History at a glance**: Every change (e.g. VIN allocation) is documented locally.
-- 📋 **One‑click share mode**: Anonymized clipboard for forums and social media
+- 📋 **Share mode output**: Anonymized output for forums and social media, with optional clipboard copy in `--share` mode.
 - 🔁 **Multi-order ready**: Handles multiple Tesla orders at once, with `--order <reference>` to focus on a single one.
 - 🧩 **Modular & expandable**: Option codes, languages and features can be flexibly expanded.
 - 🔐 **Privacy-focused**: Tokens and settings remain on your device – telemetry is completely optional.
@@ -45,7 +45,6 @@ Download the complete project to your machine. If you are unsure how, you can gr
 > ⚠️ Do not run single scripts without the rest of the repository. Everything is meant to work together.
 
 ## Installation
-
 1. Install [Python 3](https://www.python.org/downloads/) for your operating system.
 2. Install the required dependencies:
 ```sh
@@ -86,7 +85,7 @@ Only one of the options can be used at a time.
   - 2 => pending updates
   - -1 => error ... you better run the script once without any params to make sure, it is working. Possibly the api token is invalid or there is no tesla_orders.json already
     
-> 💡 Whenever `pyperclip` is installed, a share-friendly summary is copied to your clipboard. `--share` is not needed anymore for that.
+> 💡 When `pyperclip` is installed, a share-friendly summary is copied to your clipboard only in `--share` mode.
 
 #### Work Modes
 Work modes can be combined with any output mode:
@@ -101,6 +100,9 @@ Work modes can be combined with any output mode:
 The script stores the configuration in `data/private/settings.json`. Feel free to tweak it—if something breaks, the script falls back to default values.
 
 On the first run the script detects your system language and stores it as `language` in the settings file. Edit this entry to override the language manually. If no translation is available yet, the setting is simply ignored until one becomes available.
+
+### Updates
+The built-in updater only checks whether a newer version exists. Installing updates is now a manual step: download a verified release from GitHub and replace your local copy. The `hotfix.py` helper only applies a locally downloaded ZIP archive and no longer fetches code from the network.
 
 ### Option Codes
 Known Tesla option codes are now downloaded on demand from
@@ -189,24 +191,25 @@ Order Timeline:
 
 ## Telemetry
 To better understand how the tool is used and to improve future development, the script can optionally send **anonymous usage statistics**.
-On the very first launch you will be asked for consent. If you decline, nothing is sent. Declining has no negative impact other than not contributing to usage statistics.
+On the very first launch you will be asked for consent. If you decline, nothing is sent and the choice is respected unless you change it in the configuration file.
 
 ### What information is sent?
 
-- A randomly generated fingerprint that identifies your installation (not tied to your identity)
+- A randomly generated fingerprint that identifies your installation for a limited time and rotates automatically every 30 days
 - For each tracked order: a pseudonymized order reference number and the associated Tesla model
 - Which command line flags were used (e.g. `--details`, `--share`, `--status`, `--cached`)
 - The operating system language (e.g. `en_US`)
+- Option codes only if you opt in separately
 
 ### How is your data protected?
 - **No personal data** such as VINs, names, email addresses, tokens, credentials or raw order IDs ever leave your machine.
 - Order IDs are **irreversibly pseudonymized** locally using a secret-based HMAC before transmission. Even if someone had access to the data, it cannot be reversed into the original ID.
-- The installation fingerprint is just a random string generated once on your system. It contains no information about your device or account.
+- The installation fingerprint is a random string that rotates automatically and contains no information about your device or account.
 - All traffic is sent over encrypted HTTPS.
 - Data is used exclusively in aggregate to understand general usage patterns, not to track individual users.
 
 ### Controlling telemetry
-You are always in control: telemetry is opt-in. Consent is requested on first run, and you can disable or revoke it at any time by editing the configuration file (`data/private/settings.json`) and setting `"telemetry-consent": false`.
+You are always in control: telemetry is opt-in. Consent is requested on first run, and you can disable or revoke it at any time by editing the configuration file (`data/private/settings.json`) and setting `"telemetry-consent": false`. Option-code sharing uses its own separate setting: `"telemetry-option-codes-consent"`.
 
 ## Issues
 If you have any issues, running the script or getting error messages, pleas feel free to ask for help in the [issues](https://github.com/chrisi51/tesla-order-status/issues) section or pm me at the [tff-forum](https://tff-forum.de/u/chrisi51/summary)
