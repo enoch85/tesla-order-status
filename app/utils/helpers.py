@@ -5,12 +5,17 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Iterable, Optional
 from app.utils.colors import color_text
 from app.utils.locale import t, LANGUAGE
-from app.utils.params import STATUS_MODE
+
+
+def _status_mode_enabled() -> bool:
+    from app.utils.params import STATUS_MODE
+
+    return STATUS_MODE
 
 
 def exit_with_status(msg: str) -> None:
     """In STATUS_MODE print '-1', otherwise print message and exit."""
-    if STATUS_MODE:
+    if _status_mode_enabled():
         print("-1")
     else:
         print(f"\n{color_text(msg, '91')}")

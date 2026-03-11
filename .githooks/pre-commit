@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+if ! command -v python3 >/dev/null 2>&1; then
+    exit 0
+fi
+
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.py$' || true)
+
+if [ -z "$STAGED_FILES" ]; then
+    exit 0
+fi
+
+python3 -m black $STAGED_FILES
+printf '%s\n' "$STAGED_FILES" | xargs git add --

@@ -1,4 +1,4 @@
-[![Security](https://img.shields.io/badge/security-hardened-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
+[![Security](https://img.shields.io/badge/security-hardened-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-local--first-darkgreen)](#)
 
 [![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
 
@@ -16,9 +16,7 @@ Stay in control of your Tesla order from the moment you place it until delivery.
 5. [Usage](#usage)
 6. [Configuration](#configuration)
 7. [History & Preview](#history--preview)
-8. [Telemetry](#telemetry)
-9. [Disclaimer](#disclaimer)
-10. [Support & Contact](#support--contact)
+8. [Privacy & Support](#privacy--support)
 
 ## Why You'll Love It
 - 🔍 **Direct Tesla API connection**: Get the latest order information without any detours.
@@ -27,23 +25,23 @@ Stay in control of your Tesla order from the moment you place it until delivery.
 - 📋 **Share mode output**: Anonymized output for forums and social media, with optional clipboard copy in `--share` mode.
 - 🔁 **Multi-order ready**: Handles multiple Tesla orders at once, with `--order <reference>` to focus on a single one.
 - 🧩 **Modular & expandable**: Option codes, languages and features can be flexibly expanded.
-- 🔐 **Security-hardened by default**: Tokens and settings remain local, telemetry is disabled, and third-party traffic is blocked.
-- 🛡️ **Strict outbound allowlist**: Only Tesla API endpoints and GitHub release metadata checks are permitted.
+- 🔐 **Security-hardened by default**: Tokens and settings remain local, telemetry is disabled, and non-essential third-party traffic is blocked.
+- 🛡️ **Strict outbound allowlist**: Only Tesla API endpoints and GitHub release traffic required for update checks or explicit update downloads are permitted.
 - 📦 **Offline option catalog**: Option-code decoding is bundled locally instead of fetched from external services.
-- 🔒 **Safer updates and migrations**: Updates are manual, local hotfix archives are checksum-verified, and migrations are pinned to a trusted allowlist.
+- 🔒 **Safer updates**: Startup checks are notification-only, and release archives are checksum-verified before extraction whether supplied locally or downloaded explicitly from GitHub.
 
-The goal is to give users more transparency and control over the ordering process – without depending on external services.
+The goal is to give users more transparency and control over the ordering process without adding extra third-party services beyond Tesla itself and optional GitHub release checks.
 
 ## Security Hardening
-- Outbound network access is restricted to Tesla API traffic and optional GitHub release metadata checks.
+- Outbound network access is restricted to Tesla API traffic and optional GitHub release checks or explicit release downloads.
 - TLS certificate verification is enabled on all HTTP requests, and requests use bounded retry/backoff logic instead of uncontrolled retries.
 - Tesla login uses OAuth PKCE with `S256`, and the returned OAuth `state` is validated before exchanging the code.
 - No third-party telemetry, remote banners, or remote option-code lookups exist in the runtime anymore.
-- Updates are notification-only; applying a hotfix requires a locally supplied ZIP archive that is SHA-256 verified and extracted with zip-slip and symlink checks.
-- Migration execution is limited to trusted files with pinned SHA-256 hashes.
+- Startup update checks are notification-only. Explicit updates remain manual and require a SHA-256-verified ZIP archive with zip-slip and symlink checks during extraction.
 - Tesla OAuth tokens are stored locally in `data/private/tesla_tokens.json` with restrictive file permissions.
 - Tokens are not hashed at rest, because they must be presented back to Tesla for authenticated API calls. This repository does not use separate API keys.
 - A complete offline option-code catalog ships in the repository so decoding does not depend on external servers.
+- Common legacy local layouts are migrated locally on startup when they can be upgraded safely without external data.
 
 ## 🚀 Quick Links
 - 📦 Direct download as ZIP: https://github.com/enoch85/tesla-order-status/archive/refs/heads/main.zip
@@ -55,8 +53,10 @@ Download the complete project to your machine. If you are unsure how, you can gr
 ## Installation
 1. Install [Python 3](https://www.python.org/downloads/) for your operating system.
 2. Tested environment: Ubuntu 24.04 with `python3`.
-3. In the tested Ubuntu 24.04 environment, no additional Python packages were required.
+3. In the tested Ubuntu 24.04 environment, no additional install step was required. Other environments may need `requests`; clipboard support via `pyperclip` is optional.
 4. Extract the repository and run the script directly with `python3`.
+
+If you are coming from an older fork layout, the tool performs a limited local compatibility migration on startup for common legacy file locations and history formats.
 
 ### Runtime Notes
 - This project is distributed as a Python script, not as a packaged Windows or Linux binary.
@@ -75,14 +75,14 @@ python3 tesla_order_status.py --help
 ```
 #### Output Modes
 Only one of the options can be used at a time.
-- `--all` display every available key in your history (verbose output)
+- `--all` displays every available key in your history (verbose output)
 - `--details` show additional information such as financing details.
-- `--share` hide personal data like order ID and VIN for sharing. limits output to dates and status changes.
-- `--status` only report whether the order information has changed since the last run. no login happens, so tesla_tokens.json have to be present already. token will get refreshed if necessary.
+- `--share` hides personal data like order ID and VIN for sharing and limits output to dates and status changes.
+- `--status` only reports whether the order information has changed since the last run. No interactive login happens, so `tesla_tokens.json` must already exist. The token is refreshed if necessary.
   - 0 => no changes
   - 1 => changes detected
   - 2 => pending updates
-  - -1 => error ... you better run the script once without any params to make sure, it is working. Possibly the api token is invalid or there is no tesla_orders.json already
+  - -1 => error. Run the script once without flags to verify the local setup. The token may be invalid or `tesla_orders.json` may not exist yet.
     
 > 💡 When `pyperclip` is installed, a share-friendly summary is copied to your clipboard only in `--share` mode.
 
@@ -90,6 +90,11 @@ Only one of the options can be used at a time.
 Work modes can be combined with any output mode:
 - `--cached` – reuse locally cached order data without calling the API (perfect with `--share`)
 - Automatic caching activates when you run the script again within one minute of a successful API request, keeping Tesla happy with fewer calls.
+
+#### Update Mode
+- `--update` opens the interactive update flow from the main CLI.
+- `--update path/to/release.zip --sha256 <expected-sha256>` applies a local verified archive directly.
+- The interactive update flow can check for releases and download the latest release archive from GitHub before optional local application.
 
 #### Order Filters
 - `--order <referenceNumber>` – refresh every order in the background but only print the selected one (e.g. `--order RN123456`).
@@ -101,7 +106,12 @@ The script stores the configuration in `data/private/settings.json`. Feel free t
 On the first run the script detects your system language and stores it as `language` in the settings file. Edit this entry to override the language manually. If no translation is available yet, the setting is simply ignored until one becomes available.
 
 ### Updates
-The built-in updater only checks whether a newer version exists. Installing updates is now a manual step: download a verified release from GitHub and replace your local copy. The `hotfix.py` helper only applies a locally downloaded ZIP archive and no longer fetches code from the network.
+The main entry point now owns updates as well. Use `python3 tesla_order_status.py --update` to enter the update flow from the primary CLI instead of switching to a separate tool.
+
+`python3 tesla_order_status.py --update` starts the interactive check/download/apply flow. You can also pass a local ZIP directly with `python3 tesla_order_status.py --update path/to/release.zip --sha256 <expected-sha256>`. Applying an archive still requires SHA-256 verification before extraction.
+
+### Local Data Compatibility
+This fork now performs a limited local compatibility migration on startup for common older fork layouts. Legacy root-level files such as `tesla_tokens.json`, `tesla_orders.json`, `tesla_order_history.json`, and `settings.json` are moved into `data/private`, older conflicts are backed up under `data/private/backup`, and list-based history data is upgraded to the current reference-based format when it can be resolved locally.
 
 ### Option Codes
 Known Tesla option codes are bundled locally in `data/public/option-codes/`,
@@ -111,7 +121,7 @@ no longer depends on third-party lookups. You can still drop custom JSON files i
 if multiple files define the same option code.
 
 ## History & Preview
-The script stores the latest order information in `tesla_orders.json` and keeps a change log in `tesla_order_history.json`. Every detected difference—like a VIN assignment—is appended to the history file and displayed after the current status. The "Order Information" section always shows live data first, followed by historical changes.
+The script stores the latest order information in `data/private/tesla_orders.json` and keeps a change log in `data/private/tesla_order_history.json`. Every detected difference—like a VIN assignment or delivery-window change—is appended to the history file and displayed after the current status. The "Order Information" section always shows live data first, followed by historical changes.
 
 ### Order Information
 ```
@@ -167,13 +177,11 @@ Order Timeline:
 ### Change History
 ```
 Change History:
-2025-08-19: ≠ 0.details.tasks.deliveryDetails.regData.regDetails.company.address.careOf: Maximilian Mustermann -> Max Mustermann
-2025-08-19: ≠ 0.details.tasks.deliveryDetails.regData.orderDetails.vin: None -> 131232
-2025-08-19: + 0.details.tasks.deliveryDetails.regData.orderDetails.userId: 10000000
-2025-08-19: - 0.details.tasks.deliveryDetails.regData.orderDetails.ritzbitz
+- 2025-08-19: ≠ Delivery Window: 6 September - 30 September -> 10 September - 30 September
+- 2025-08-19: + VIN: 131232
 ```
 
-#### SHARED MODE example:
+#### Share Mode Example
 ```
 ---
 Order Details:
@@ -187,31 +195,9 @@ Order Timeline:
 - 2025-08-23: new Delivery Window: 10 September - 30 September
 ```
 
-## Telemetry
-Telemetry has been removed from this repository configuration.
-
-No anonymous usage statistics, option codes, banners, or other third-party telemetry
-data are sent anywhere because those code paths no longer exist.
-
-### Network policy
-
-- Tesla API traffic is allowed because the tool needs it to authenticate and load order data.
-- GitHub release metadata checks are allowed for update notifications.
-- Third-party telemetry, remote banner fetches, and remote option-code lookups are disabled.
-- Installing updates is always a manual action using a locally downloaded archive.
-
-## Issues
-If you have any issues, running the script or getting error messages, please use the [issues](https://github.com/enoch85/tesla-order-status/issues) section.
-
-
-## Disclaimer
-- The script runs locally on your machine.
-- No third-party data sharing is performed. Outbound traffic is limited to Tesla API calls and optional GitHub release metadata checks.
-- You need to log in via browser and return the resulting URL to the script to extract the login token used for the API.
-- The script only uses the token to work with for the current session.
-- With your permission the script stores the token on your hard disk.
-
-## Support & Contact
-This repository is based on earlier upstream work from the original project lineage.
-
-Original upstream repository: https://github.com/chrisi51/tesla-order-status
+## Privacy & Support
+- The tool runs locally on your machine, but it still needs Tesla API access to authenticate and load order data.
+- Optional GitHub traffic is limited to release metadata checks and explicit release downloads triggered through the update flow.
+- No telemetry, remote banners, or third-party option-code lookups exist in the runtime path anymore.
+- Tesla tokens can be stored locally for future runs only if you choose to save them.
+- If you hit a problem, report it in [GitHub Issues](https://github.com/enoch85/tesla-order-status/issues).
