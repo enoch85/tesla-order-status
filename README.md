@@ -1,4 +1,4 @@
-[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-opt--in-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
+[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
 [![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
 
@@ -29,7 +29,7 @@ Stay in control of your Tesla order from the moment you place it until delivery.
 - 📋 **Share mode output**: Anonymized output for forums and social media, with optional clipboard copy in `--share` mode.
 - 🔁 **Multi-order ready**: Handles multiple Tesla orders at once, with `--order <reference>` to focus on a single one.
 - 🧩 **Modular & expandable**: Option codes, languages and features can be flexibly expanded.
-- 🔐 **Privacy-focused**: Tokens and settings remain on your device – telemetry is completely optional.
+- 🔐 **Privacy-focused**: Tokens and settings remain on your device and telemetry is disabled.
 
 The goal is to give users more transparency and control over the ordering process – without depending on external services.
 
@@ -105,12 +105,11 @@ On the first run the script detects your system language and stores it as `langu
 The built-in updater only checks whether a newer version exists. Installing updates is now a manual step: download a verified release from GitHub and replace your local copy. The `hotfix.py` helper only applies a locally downloaded ZIP archive and no longer fetches code from the network.
 
 ### Option Codes
-Known Tesla option codes are now downloaded on demand from
-`https://www.tesla-order-status-tracker.de/scripts/php/fetch/option_codes.php` and
-cached locally for 24 hours. The cache lives in `data/private/option_codes_cache.json`
-and is refreshed automatically whenever it expires. You can still drop custom JSON
-files into `data/public/option-codes` to override or extend the remote data; local
-entries win if both define the same option code.
+Known Tesla option codes are bundled locally in `data/public/option-codes/`,
+including the complete offline catalog shipped with this repository. Option decoding
+no longer depends on third-party lookups. You can still drop custom JSON files into
+`data/public/option-codes` to override or extend the bundled data; local entries win
+if multiple files define the same option code.
 
 ## History & Preview
 The script stores the latest order information in `tesla_orders.json` and keeps a change log in `tesla_order_history.json`. Every detected difference—like a VIN assignment—is appended to the history file and displayed after the current status. The "Order Information" section always shows live data first, followed by historical changes.
@@ -190,26 +189,17 @@ Order Timeline:
 ```
 
 ## Telemetry
-To better understand how the tool is used and to improve future development, the script can optionally send **anonymous usage statistics**.
-On the very first launch you will be asked for consent. If you decline, nothing is sent and the choice is respected unless you change it in the configuration file.
+Telemetry is disabled in this repository configuration.
 
-### What information is sent?
+No anonymous usage statistics, option codes, banners, or other third-party telemetry
+data are sent anywhere.
 
-- A randomly generated fingerprint that identifies your installation for a limited time and rotates automatically every 30 days
-- For each tracked order: a pseudonymized order reference number and the associated Tesla model
-- Which command line flags were used (e.g. `--details`, `--share`, `--status`, `--cached`)
-- The operating system language (e.g. `en_US`)
-- Option codes only if you opt in separately
+### Network policy
 
-### How is your data protected?
-- **No personal data** such as VINs, names, email addresses, tokens, credentials or raw order IDs ever leave your machine.
-- Order IDs are **irreversibly pseudonymized** locally using a secret-based HMAC before transmission. Even if someone had access to the data, it cannot be reversed into the original ID.
-- The installation fingerprint is a random string that rotates automatically and contains no information about your device or account.
-- All traffic is sent over encrypted HTTPS.
-- Data is used exclusively in aggregate to understand general usage patterns, not to track individual users.
-
-### Controlling telemetry
-You are always in control: telemetry is opt-in. Consent is requested on first run, and you can disable or revoke it at any time by editing the configuration file (`data/private/settings.json`) and setting `"telemetry-consent": false`. Option-code sharing uses its own separate setting: `"telemetry-option-codes-consent"`.
+- Tesla API traffic is allowed because the tool needs it to authenticate and load order data.
+- GitHub release metadata checks are allowed for update notifications.
+- Third-party telemetry, remote banner fetches, and remote option-code lookups are disabled.
+- Installing updates is always a manual action using a locally downloaded archive.
 
 ## Issues
 If you have any issues, running the script or getting error messages, pleas feel free to ask for help in the [issues](https://github.com/enoch85/tesla-order-status/issues) section or pm me at the [tff-forum](https://tff-forum.de/u/chrisi51/summary)
@@ -217,7 +207,7 @@ If you have any issues, running the script or getting error messages, pleas feel
 
 ## Disclaimer
 - The script runs locally on your machine.
-- No connection to me is made at any time unless you explicitly allow telemetry as described above.
+- No third-party data sharing is performed. Outbound traffic is limited to Tesla API calls and optional GitHub release metadata checks.
 - You need to log in via browser and return the resulting URL to the script to extract the login token used for the API.
 - The script only uses the token to work with for the current session.
 - With your permission the script stores the token on your hard disk.

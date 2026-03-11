@@ -1,4 +1,4 @@
-[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-opt--in-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
+[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
 [![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
 
@@ -33,7 +33,7 @@ Behalte deine Tesla-Bestellung von der Auftragsbestätigung bis zur Auslieferung
 * 📋 **One‑Click‑Share‑Modus**: Anonymisierte Zwischenablage für Foren & Social Media.
 * 🔁 **Mehrfach-Bestellungen**: Unterstützt mehrere Tesla-Aufträge parallel, `--order <Referenz>` filtert eine einzelne Bestellung.
 * 🧩 **Modular & erweiterbar**: Option‑Codes, Sprachen und Features flexibel ausbaubar.
-* 🔐 **Privacy‑First**: Tokens und Einstellungen bleiben lokal – Telemetry ist komplett optional.
+* 🔐 **Privacy‑First**: Tokens und Einstellungen bleiben lokal und Telemetry ist deaktiviert.
 
 Ziel ist, dir mehr Transparenz und Kontrolle über den Bestellprozess zu geben – **ohne** externe Dienste.
 
@@ -106,7 +106,7 @@ python3 tesla_order_status.py --help
   * **2** → Updates ausstehend
   * **-1** → Fehler (führe das Skript einmal ohne Parameter aus, um die Basis einzurichten; ggf. ist das API‑Token ungültig oder `tesla_orders.json` fehlt)
 
-> 💡 Wenn `pyperclip` installiert ist, wird eine share‑freundliche Zusammenfassung **immer** in die Zwischenablage kopiert. `--share` ist dafür nicht mehr nötig.
+> 💡 Wenn `pyperclip` installiert ist, wird eine share‑freundliche Zusammenfassung nur im `--share`-Modus in die Zwischenablage kopiert.
 
 #### Arbeits‑Modi
 
@@ -129,8 +129,11 @@ Beim ersten Start wird die Systemsprache erkannt und als `language` gespeichert.
 
 ### Option Codes
 
-Bekannte Tesla‑Option‑Codes werden bei Bedarf von
-`https://www.tesla-order-status-tracker.de/scripts/php/fetch/option_codes.php` geladen und **24 h lokal gecacht** (`data/private/option_codes_cache.json`). Der Cache wird automatisch erneuert. Eigene JSON‑Dateien kannst du zusätzlich in `data/public/option-codes` ablegen; **lokale Einträge gewinnen** bei Kollisionen.
+Bekannte Tesla‑Option‑Codes werden lokal in `data/public/option-codes/` mitgeliefert,
+einschließlich des vollständigen Offline-Katalogs in diesem Repository. Die Auflösung
+der Codes hängt damit nicht mehr von Drittservern ab. Eigene JSON‑Dateien kannst du
+zusätzlich in `data/public/option-codes` ablegen; **lokale Einträge gewinnen** bei
+Kollisionen.
 
 ## Historie & Vorschau
 
@@ -216,31 +219,22 @@ Order Timeline:
 
 ## Telemetry
 
-Um das Tool besser zu verstehen und weiterzuentwickeln, kann es **anonyme Nutzungsstatistiken** senden – **ausschließlich nach deiner Zustimmung (Opt‑in)**. Beim ersten Start wirst du gefragt. Eine Ablehnung hat keinerlei Nachteile.
+Telemetry ist in dieser Repository-Konfiguration deaktiviert.
 
-### Welche Informationen werden gesendet?
+Es werden keine anonymen Nutzungsstatistiken, Option‑Codes, Banner oder andere
+Telemetry-Daten an Drittserver gesendet.
 
-* Eine zufällig erzeugte Kennung deiner Installation (ohne Bezug zu deiner Identität)
-* Für jede verfolgte Bestellung: eine pseudonymisierte Bestell‑Referenznummer und das zugehörige Tesla‑Modell
-* Welche Kommando‑Flags genutzt wurden (z. B. `--details`, `--share`, `--status`, `--cached`)
-* Die Sprache deines Betriebssystems (z. B. `de_DE`)
+### Netzwerkrichtlinie
 
-### Wie werden deine Daten geschützt?
-
-* **Keine personenbezogenen Daten** wie VINs, Namen, E‑Mails, Tokens, Zugangsdaten oder rohe Order‑IDs verlassen jemals deinen Rechner.
-* Order‑IDs werden lokal per secret‑basiertem **HMAC irreversibel pseudonymisiert**. Selbst mit Zugriff auf die Daten kann niemand die Original‑ID rekonstruieren.
-* Die Installationskennung ist nur eine Zufallszeichenfolge. Sie enthält **keine** Geräte‑ oder Account‑Informationen.
-* Sämtlicher Traffic erfolgt über **verschlüsseltes HTTPS**.
-* Die Daten werden **ausschließlich aggregiert** ausgewertet, nicht zur Nachverfolgung einzelner Nutzer.
-
-### Telemetry steuern
-
-Du hast jederzeit die Kontrolle: Telemetry ist **Opt‑in**. Du kannst die Zustimmung jederzeit in `data/private/settings.json` ändern, indem du `"telemetry-consent": false` setzt.
+* Tesla‑API‑Traffic ist erlaubt, weil das Tool ihn für Authentifizierung und Bestelldaten benötigt.
+* GitHub‑Release-Metadaten dürfen für Update-Hinweise abgefragt werden.
+* Drittanbieter-Telemetry, Remote-Banner und externe Option‑Code-Lookups sind deaktiviert.
+* Updates werden immer manuell über ein lokal heruntergeladenes Archiv installiert.
 
 ## Hinweise
 
 * Das Skript läuft lokal auf deinem Rechner.
-* Es wird **keine Verbindung** zu mir hergestellt, außer du erlaubst Telemetry wie oben beschrieben.
+* Es findet **keine Weitergabe an Dritte** statt. Ausgehender Traffic ist auf Tesla‑API-Aufrufe und optionale GitHub-Release-Metadaten beschränkt.
 * Du meldest dich im Browser an und gibst dem Skript anschließend die resultierende URL, um das Login‑Token für die API zu extrahieren.
 * Das Skript nutzt das Token nur für die laufende Session.
 * Mit deiner Zustimmung speichert das Skript das Token auf deiner Festplatte.
