@@ -7,6 +7,7 @@ from unittest import mock
 
 from app.legacy_compat import migrate_legacy_history, migrate_legacy_layout
 from app.config import _strip_trailing_commas
+from app import update as update_module
 from app.update import _select_release_archive, _select_release_checksum_asset
 from app.utils.connection import _is_allowed_remote, _is_local_url
 from app.utils import orders as orders_module
@@ -115,6 +116,36 @@ class UpdateReleaseHelperTests(unittest.TestCase):
 
         self.assertEqual(archive["name"], "tesla-order-status-2.0.0.zip")
         self.assertEqual(archive["url"], release["zipball_url"])
+
+    def test_check_for_updates_reports_latest_version(self):
+        output = StringIO()
+
+        def config_get(key, default=None):
+            if key == "update_method":
+                return "manual"
+            return default
+
+        with mock.patch.object(
+            update_module, "_missing_files", return_value=[]
+        ), mock.patch.object(
+            update_module, "_status_mode_enabled", return_value=False
+        ), mock.patch.object(
+            update_module.Config, "has", return_value=True
+        ), mock.patch.object(
+            update_module.Config, "get", side_effect=config_get
+        ), mock.patch.object(
+            update_module,
+            "_get_latest_release",
+            return_value={"tag_name": update_module.VERSION},
+        ), mock.patch.object(
+            update_module, "t", side_effect=lambda message: message
+        ), mock.patch(
+            "sys.stdout", output
+        ):
+            result = update_module.check_for_updates()
+
+        self.assertEqual(result, 0)
+        self.assertIn("latest version", output.getvalue().lower())
 
 
 class OfflineCatalogTests(unittest.TestCase):

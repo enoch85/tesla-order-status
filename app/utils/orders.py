@@ -696,7 +696,7 @@ def main(access_token) -> None:
                 print(
                     color_text(
                         t(
-                            "Tesla returned no active orders. Keeping previously cached data."
+                            "Tesla returned no active orders. Keeping cached local data."
                         ),
                         "93",
                     )

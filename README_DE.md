@@ -40,7 +40,7 @@ Ziel ist, dir mehr Transparenz und Kontrolle über den Bestellprozess zu geben, 
 * Ausgehender Netzwerkverkehr ist auf Tesla-API-Traffic und optionale GitHub-Release-Prüfungen oder explizite Release-Downloads beschränkt.
 * Für alle HTTP-Anfragen ist TLS-Zertifikatsprüfung aktiviert, und Requests nutzen begrenzte Retry-/Backoff-Logik statt unkontrollierter Wiederholungen.
 * Der Tesla-Login nutzt OAuth PKCE mit `S256`, und der zurückkommende OAuth-`state` wird vor dem Token-Tausch geprüft.
-* Drittanbieter-Telemetry, Remote-Banner und externe Option‑Code-Lookups existieren im Laufzeitpfad nicht mehr.
+* Drittanbieter-Telemetry, Remote-Banner und externe Option‑Code-Lookups sind nicht Teil des Laufzeitpfads.
 * Startseitige Update-Prüfungen sind nur Hinweis-basiert. Explizite Updates bleiben manuell und verlangen immer ein per SHA-256 geprüftes ZIP-Archiv mit Zip-Slip-/Symlink-Schutz beim Entpacken.
 * Tesla-OAuth-Tokens werden lokal in `data/private/tesla_tokens.json` mit restriktiven Dateirechten gespeichert.
 * Tokens werden nicht gehasht gespeichert, weil sie für authentifizierte Tesla-API-Aufrufe im Original benötigt werden. Separate API-Keys verwendet dieses Repository nicht.
@@ -133,7 +133,7 @@ Beim ersten Start wird die Systemsprache erkannt und als `language` gespeichert.
 
 Bekannte Tesla‑Option‑Codes werden lokal in `data/public/option-codes/` mitgeliefert,
 einschließlich des vollständigen Offline-Katalogs in diesem Repository. Die Auflösung
-der Codes hängt damit nicht mehr von Drittservern ab. Eigene JSON‑Dateien kannst du
+der Codes basiert damit ausschließlich auf lokalen Daten. Eigene JSON‑Dateien kannst du
 zusätzlich in `data/public/option-codes` ablegen; **lokale Einträge gewinnen** bei
 Kollisionen.
 
@@ -227,8 +227,8 @@ Order Timeline:
 
 ## Datenschutz & Support
 
-* Das Tool läuft lokal auf deinem Rechner, benötigt aber weiterhin Tesla-API-Zugriff für Anmeldung und Bestelldaten.
+* Das Tool läuft lokal auf deinem Rechner und benötigt Tesla-API-Zugriff für Anmeldung und Bestelldaten.
 * Optionaler GitHub-Traffic ist auf Release-Metadaten und explizite Release-Downloads im Update-Ablauf begrenzt.
-* Telemetry, Remote-Banner und externe Option‑Code-Lookups existieren im Laufzeitpfad nicht mehr.
+* Telemetry, Remote-Banner und externe Option‑Code-Lookups sind nicht Teil des Laufzeitpfads.
 * Tesla-Tokens werden nur dann lokal für spätere Läufe gespeichert, wenn du dem Speichern zustimmst.
 * Wenn etwas schiefläuft, melde es über [GitHub Issues](https://github.com/enoch85/tesla-order-status/issues).

@@ -277,6 +277,9 @@ def check_for_updates() -> int:
             print(t("Latest Release: {release}").format(release=release_name))
         return ask_for_update()
 
+    if not status_mode:
+        print(color_text(t("You are already on the latest version."), "92"))
+
     return 0
 
 

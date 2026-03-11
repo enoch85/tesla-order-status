@@ -36,7 +36,7 @@ The goal is to give users more transparency and control over the ordering proces
 - Outbound network access is restricted to Tesla API traffic and optional GitHub release checks or explicit release downloads.
 - TLS certificate verification is enabled on all HTTP requests, and requests use bounded retry/backoff logic instead of uncontrolled retries.
 - Tesla login uses OAuth PKCE with `S256`, and the returned OAuth `state` is validated before exchanging the code.
-- No third-party telemetry, remote banners, or remote option-code lookups exist in the runtime anymore.
+- No third-party telemetry, remote banners, or remote option-code lookups exist in the runtime.
 - Startup update checks are notification-only. Explicit updates remain manual and require a SHA-256-verified ZIP archive with zip-slip and symlink checks during extraction.
 - Tesla OAuth tokens are stored locally in `data/private/tesla_tokens.json` with restrictive file permissions.
 - Tokens are not hashed at rest, because they must be presented back to Tesla for authenticated API calls. This repository does not use separate API keys.
@@ -116,7 +116,7 @@ This fork now performs a limited local compatibility migration on startup for co
 ### Option Codes
 Known Tesla option codes are bundled locally in `data/public/option-codes/`,
 including the complete offline catalog shipped with this repository. Option decoding
-no longer depends on third-party lookups. You can still drop custom JSON files into
+uses local data only. You can also drop custom JSON files into
 `data/public/option-codes` to override or extend the bundled data; local entries win
 if multiple files define the same option code.
 
@@ -196,8 +196,8 @@ Order Timeline:
 ```
 
 ## Privacy & Support
-- The tool runs locally on your machine, but it still needs Tesla API access to authenticate and load order data.
+- The tool runs locally on your machine and needs Tesla API access to authenticate and load order data.
 - Optional GitHub traffic is limited to release metadata checks and explicit release downloads triggered through the update flow.
-- No telemetry, remote banners, or third-party option-code lookups exist in the runtime path anymore.
+- No telemetry, remote banners, or third-party option-code lookups exist in the runtime path.
 - Tesla tokens can be stored locally for future runs only if you choose to save them.
 - If you hit a problem, report it in [GitHub Issues](https://github.com/enoch85/tesla-order-status/issues).
