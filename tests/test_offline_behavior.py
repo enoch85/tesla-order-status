@@ -2,11 +2,14 @@ import json
 import os
 import tempfile
 import unittest
+from io import StringIO
+from unittest import mock
 
 from app.legacy_compat import migrate_legacy_history, migrate_legacy_layout
 from app.config import _strip_trailing_commas
 from app.update import _select_release_archive, _select_release_checksum_asset
 from app.utils.connection import _is_allowed_remote, _is_local_url
+from app.utils import orders as orders_module
 from app.utils.option_codes import _normalize_entry, get_option_codes
 
 
@@ -132,6 +135,20 @@ class OfflineCatalogTests(unittest.TestCase):
         second_load = get_option_codes(force_refresh=True)
 
         self.assertIsNot(first_load, second_load)
+
+
+class ShareModeTests(unittest.TestCase):
+    def test_bottom_line_recommends_pyperclip_install_when_missing(self):
+        output = StringIO()
+
+        with mock.patch.object(orders_module, "SHARE_MODE", True), mock.patch.object(
+            orders_module, "HAS_PYPERCLIP", False
+        ), mock.patch("sys.stdout", output):
+            orders_module.print_bottom_line()
+
+        rendered = output.getvalue()
+        self.assertIn("pyperclip", rendered)
+        self.assertIn("python3 -m pip install pyperclip", rendered)
 
 
 class LegacyCompatibilityTests(unittest.TestCase):

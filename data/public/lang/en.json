@@ -84,6 +84,7 @@
   "BOTTOM LINE HELP": "try --help for showing the new features, that may be interesting for you =)",
   "BOTTOM LINE TEXT IN CLIPBOARD": "A share-friendly version of the output has been copied to clipboard!",
   "BOTTOM LINE CLIPBOARD NOT WORKING": "To automatically copy a share-friendly version of the output to your clipboard, see the installation guide for details:",
+  "Install optional clipboard support with: {command}": "Install optional clipboard support with: {command}",
 
   "Running in CACHED MODE... no API calls are made": "Running in CACHED MODE... no API calls are made",
   "No cached orders found in '{file}'": "No cached orders found in '{file}'",

@@ -82,6 +82,7 @@
   "BOTTOM LINE HELP": "Probiere --help aus, um die neuen Funktionen anzuzeigen, die für dich interessant sein könnten =)",
   "BOTTOM LINE TEXT IN CLIPBOARD": "Eine Version der Ausgabe zum Teilen wurde in die Zwischenablage kopiert!",
   "BOTTOM LINE CLIPBOARD NOT WORKING": "Um automatisch eine geeignete Version der Ausgabe zum Teilen in Ihre Zwischenablage zu kopieren, lesen Sie bitte die Installationsanleitung für weitere Details",
+  "Install optional clipboard support with: {command}": "Installiere die optionale Zwischenablage-Unterstützung mit: {command}",
 
   "Running in CACHED MODE... no API calls are made": "CACHED MODE aktiv... es werden keine API-Aufrufe durchgeführt.",
   "No cached orders found in '{file}'": "Keine zwischengespeicherten Bestellungen gefunden in '{file}'",

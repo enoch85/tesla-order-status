@@ -1,8 +1,14 @@
 __pycache__/
-.idea
-.venv
+*.py[cod]
+
+.coverage
+.mypy_cache/
+.pytest_cache/
+
+.idea/
+.venv/
+
 *.bak
-data/private
-php/
-Chrome Extensions/
-/docs/archive/
+
+data/private/
+app/migrations/

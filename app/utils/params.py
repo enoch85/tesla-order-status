@@ -47,7 +47,8 @@ def _normalize_args(args: argparse.Namespace) -> argparse.Namespace:
 def get_args() -> argparse.Namespace:
     global _ARGS
     if _ARGS is None:
-        _ARGS = _normalize_args(build_parser().parse_args())
+        parsed_args, _ = build_parser().parse_known_args()
+        _ARGS = _normalize_args(parsed_args)
     return _ARGS
 
 

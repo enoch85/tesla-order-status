@@ -637,7 +637,12 @@ def print_bottom_line() -> None:
         else:
             print(f"\n{color_text(t('BOTTOM LINE CLIPBOARD NOT WORKING'), '91')}")
             print(
-                f"{color_text('https://github.com/enoch85/tesla-order-status?tab=readme-ov-file#general', '91')}"
+                color_text(
+                    t("Install optional clipboard support with: {command}").format(
+                        command="python3 -m pip install pyperclip"
+                    ),
+                    "91",
+                )
             )
 
 

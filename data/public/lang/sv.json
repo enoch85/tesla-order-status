@@ -84,6 +84,7 @@
   "BOTTOM LINE HELP": "prova --help för att se nya funktioner som kan vara intressanta för dig =)",
   "BOTTOM LINE TEXT IN CLIPBOARD": "En delningsvänlig version av resultatet har kopierats till urklippet!",
   "BOTTOM LINE CLIPBOARD NOT WORKING": "För att automatiskt kopiera en delningsvänlig version till urklippet, se installationsguiden:",
+  "Install optional clipboard support with: {command}": "Installera valfritt urklippsstöd med: {command}",
 
   "Running in CACHED MODE... no API calls are made": "Kör i CACHE-LÄGE... inga API-anrop görs",
   "No cached orders found in '{file}'": "Inga cachade beställningar hittades i '{file}'",

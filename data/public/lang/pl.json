@@ -84,6 +84,7 @@
   "BOTTOM LINE HELP": "przetestuj --help, aby zobaczyć nowe funkcje, które mogą Cię zainteresować =)",
   "BOTTOM LINE TEXT IN CLIPBOARD": "Przyjazna wersja wyjścia została skopiowana do schowka!",
   "BOTTOM LINE CLIPBOARD NOT WORKING": "Aby automatycznie skopiować przyjazną wersję wyjścia do schowka, zobacz przewodnik instalacji:",
+  "Install optional clipboard support with: {command}": "Zainstaluj opcjonalną obsługę schowka poleceniem: {command}",
 
   "Running in CACHED MODE... no API calls are made": "Uruchomiono w TRYBIE CACHE... nie wykonywano wywołań API",
   "No cached orders found in '{file}'": "Nie znaleziono zapisanych zamówień w '{file}'",
