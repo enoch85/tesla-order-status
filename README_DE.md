@@ -1,4 +1,4 @@
-[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-cross--platform-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
+[![Active](https://img.shields.io/badge/status-actively_maintained-darkgreen)](#)  [![Python](https://img.shields.io/badge/python-3.x-blue?logo=python)](#)  [![Platform](https://img.shields.io/badge/platform-python--cli-lightgrey)](#) [![Telemetry](https://img.shields.io/badge/telemetry-disabled-darkgreen)](#) [![Privacy](https://img.shields.io/badge/privacy-100%25_local-darkgreen)](#)
 
 [![Stars](https://img.shields.io/github/stars/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/stargazers) [![Forks](https://img.shields.io/github/forks/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/network/members) [![Issues](https://img.shields.io/github/issues/enoch85/tesla-order-status?style=social)](https://github.com/enoch85/tesla-order-status/issues)
 
@@ -9,9 +9,11 @@
 > 
 # Tesla Order Status Tracker (TOST) 🚗📦
 
-Behalte deine Tesla-Bestellung von der Auftragsbestätigung bis zur Auslieferung im Blick. Dieses Open‑Source‑Python‑Tool gibt dir direkten Zugriff auf die Tesla‑API, damit du jederzeit weißt, was mit deinem Fahrzeug passiert.
+Behalte deine Tesla-Bestellung von der Auftragsbestätigung bis zur Auslieferung im Blick. Dieses Open‑Source‑Python‑CLI‑Tool gibt dir direkten Zugriff auf die Tesla‑API, damit du jederzeit weißt, was mit deinem Fahrzeug passiert.
 
 > 🖥️ Lieber eine GUI? Schau dir meine TOST‑App an: [https://www.tesla-order-status-tracker.de](https://www.tesla-order-status-tracker.de)
+
+# Dieses Repository enthält nur das CLI-Skript. Die oben verlinkte GUI ist ein separates Projekt.
 
 ## Inhaltsverzeichnis
 
@@ -54,16 +56,25 @@ Lade das komplette Projekt auf deinen Rechner. Wenn du unsicher bist, nutze einf
 ## Installation
 
 1. Installiere [Python 3](https://www.python.org/downloads/) für dein Betriebssystem.
-2. Installiere die benötigten Abhängigkeiten:
+2. Getestete Umgebung: Ubuntu 24.04 mit `python3`.
+3. In der getesteten Ubuntu-24.04-Umgebung waren keine zusätzlichen Python-Pakete nötig.
+4. Falls deine lokale Python-Umgebung die optional genutzten Module nicht bereits bereitstellt, kannst du sie manuell installieren:
 
 ```sh
-pip install requests pyperclip
+python3 -m pip install requests pyperclip colorama
 ```
 
-* `requests`: für die API‑Aufrufe (erforderlich)
-* `pyperclip`: kopiert Share‑Ausgaben automatisch in die Zwischenablage (optional)
+* `requests`: Fallback-Installation, falls es in deiner Python-Umgebung nicht bereits vorhanden ist
+* `pyperclip`: optionale Zwischenablage-Unterstützung im `--share`-Modus
+* `colorama`: optionale ANSI-Farbunterstützung unter Windows
 
-### macOS‑Tipp
+### Laufzeit-Hinweise
+
+* Dieses Projekt wird als Python-Skript ausgeliefert, nicht als gepackte Windows- oder Linux-Binärdatei.
+* Ubuntu 24.04 ist die primär getestete Umgebung.
+* Der Code enthält Windows-spezifische Behandlung für Locale und Terminalfarben. Windows kann also ebenfalls funktionieren, sollte aber als Best-Effort gelten, solange du es nicht selbst verifiziert hast.
+
+### Optionales Virtual Environment
 
 Für eine saubere Umgebung empfiehlt sich ein virtuelles Environment:
 
@@ -72,8 +83,8 @@ Für eine saubere Umgebung empfiehlt sich ein virtuelles Environment:
 python3 -m venv .venv
 # aktivieren
 source .venv/bin/activate
-# Abhängigkeiten nur für dieses Projekt installieren
-python3 -m pip install requests pyperclip
+# optionale Pakete nur für dieses Projekt installieren
+python3 -m pip install requests pyperclip colorama
 ```
 
 ## Benutzung
