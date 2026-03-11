@@ -159,6 +159,36 @@ class UpdateReleaseHelperTests(unittest.TestCase):
         self.assertEqual(result, 0)
         self.assertIn("latest version", output.getvalue().lower())
 
+    def test_manual_update_check_ignores_block_setting(self):
+        output = StringIO()
+
+        def config_get(key, default=None):
+            if key == "update_method":
+                return "block"
+            return default
+
+        with mock.patch.object(
+            update_module, "_missing_files", return_value=[]
+        ), mock.patch.object(
+            update_module, "_status_mode_enabled", return_value=False
+        ), mock.patch.object(
+            update_module.Config, "has", return_value=True
+        ), mock.patch.object(
+            update_module.Config, "get", side_effect=config_get
+        ), mock.patch.object(
+            update_module,
+            "_get_latest_release",
+            return_value={"tag_name": update_module.VERSION},
+        ), mock.patch.object(
+            update_module, "t", side_effect=lambda message: message
+        ), mock.patch(
+            "sys.stdout", output
+        ):
+            result = update_module.cli_main(["--check"])
+
+        self.assertEqual(result, 0)
+        self.assertIn("latest version", output.getvalue().lower())
+
 
 class TokenStorageTests(unittest.TestCase):
     def tearDown(self):

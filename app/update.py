@@ -218,7 +218,7 @@ def ask_for_update_consent() -> None:
         Config.set("update_method", "manual")
 
 
-def check_for_updates() -> int:
+def check_for_updates(respect_preferences: bool = True) -> int:
     status_mode = _status_mode_enabled()
     missing = _missing_files()
     if missing:
@@ -235,26 +235,27 @@ def check_for_updates() -> int:
             print(t("[WARN] File missing: {path}").format(path=path))
         return ask_for_update()
 
-    if not Config.has("update_method") or Config.get("update_method") == "":
-        if status_mode:
-            print(2)
-            sys.exit()
-        ask_for_update_consent()
+    if respect_preferences:
+        if not Config.has("update_method") or Config.get("update_method") == "":
+            if status_mode:
+                print(2)
+                sys.exit()
+            ask_for_update_consent()
 
-    if Config.get("update_method") == "automatically":
-        Config.set("update_method", "manual")
-        if not status_mode:
-            print(
-                color_text(
-                    t(
-                        "Automatic in-place updates have been disabled for security reasons."
-                    ),
-                    "93",
+        if Config.get("update_method") == "automatically":
+            Config.set("update_method", "manual")
+            if not status_mode:
+                print(
+                    color_text(
+                        t(
+                            "Automatic in-place updates have been disabled for security reasons."
+                        ),
+                        "93",
+                    )
                 )
-            )
 
-    if Config.get("update_method") == "block":
-        return 0
+        if Config.get("update_method") == "block":
+            return 0
 
     try:
         latest_release = _get_latest_release()
@@ -616,7 +617,7 @@ def _interactive_update_flow() -> int:
         print("\nRelease update canceled...")
         return 1
     if choice == "c":
-        return check_for_updates()
+        return check_for_updates(respect_preferences=False)
     if choice == "g":
         archive_path, checksum_path = download_latest_release(BASE_DIR)
         _print_download_result(archive_path, checksum_path)
@@ -642,7 +643,7 @@ def cli_main(argv: Optional[Sequence[str]] = None) -> int:
 
     try:
         if args.check:
-            return check_for_updates()
+            return check_for_updates(respect_preferences=False)
 
         if args.download_latest:
             archive_path, checksum_path = download_latest_release(BASE_DIR)
