@@ -1,8 +1,10 @@
+import importlib.util
 import json
 import os
 import tempfile
 import unittest
 from io import StringIO
+from pathlib import Path
 from unittest import mock
 
 from app.legacy_compat import migrate_legacy_history, migrate_legacy_layout
@@ -12,6 +14,16 @@ from app.update import _select_release_archive, _select_release_checksum_asset
 from app.utils.connection import _is_allowed_remote, _is_local_url
 from app.utils import orders as orders_module
 from app.utils.option_codes import _normalize_entry, get_option_codes
+from app.utils.token_storage import (
+    TOKEN_PASSPHRASE_ENV,
+    TokenStorageError,
+    clear_runtime_token_passphrase,
+    load_token_data,
+    save_token_data,
+    set_runtime_token_passphrase,
+)
+
+CRYPTOGRAPHY_AVAILABLE = importlib.util.find_spec("cryptography") is not None
 
 
 class ConfigHelperTests(unittest.TestCase):
@@ -146,6 +158,142 @@ class UpdateReleaseHelperTests(unittest.TestCase):
 
         self.assertEqual(result, 0)
         self.assertIn("latest version", output.getvalue().lower())
+
+
+class TokenStorageTests(unittest.TestCase):
+    def tearDown(self):
+        clear_runtime_token_passphrase()
+
+    def test_plaintext_token_storage_roundtrip_without_passphrase(self):
+        tokens = {"refresh_token": "refresh", "access_token": "access"}
+
+        with tempfile.TemporaryDirectory() as tmpdir, mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: ""}, clear=False
+        ):
+            path = Path(tmpdir) / "tesla_tokens.json"
+
+            save_token_data(path, tokens)
+
+            stored_payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(stored_payload, tokens)
+            self.assertEqual(load_token_data(path), tokens)
+
+    def test_encrypted_token_file_requires_passphrase(self):
+        payload = {
+            "__tesla_order_status_encrypted__": True,
+            "version": 1,
+            "cipher": "AES-256-GCM",
+            "kdf": "scrypt",
+            "salt": "AA==",
+            "nonce": "AA==",
+            "ciphertext": "AA==",
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir, mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: ""}, clear=False
+        ), mock.patch("sys.stdin.isatty", return_value=False):
+            path = Path(tmpdir) / "tesla_tokens.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+
+            with self.assertRaises(TokenStorageError) as context:
+                load_token_data(path)
+
+        self.assertIn(TOKEN_PASSPHRASE_ENV, str(context.exception))
+
+    def test_encrypted_token_file_prompts_for_passphrase_interactively(self):
+        payload = {
+            "__tesla_order_status_encrypted__": True,
+            "version": 1,
+            "cipher": "AES-256-GCM",
+            "kdf": "scrypt",
+            "salt": "AA==",
+            "nonce": "AA==",
+            "ciphertext": "AA==",
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir, mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: ""}, clear=False
+        ), mock.patch("sys.stdin.isatty", return_value=True), mock.patch(
+            "app.utils.token_storage.getpass.getpass", return_value="prompt-secret"
+        ), mock.patch(
+            "app.utils.token_storage._decrypt_tokens",
+            return_value={"refresh_token": "refresh"},
+        ) as decrypt_mock:
+            path = Path(tmpdir) / "tesla_tokens.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+
+            loaded = load_token_data(path)
+
+        self.assertEqual(loaded, {"refresh_token": "refresh"})
+        decrypt_mock.assert_called_once_with(payload, "prompt-secret", path)
+
+    def test_encrypted_token_file_rejects_empty_prompt(self):
+        payload = {
+            "__tesla_order_status_encrypted__": True,
+            "version": 1,
+            "cipher": "AES-256-GCM",
+            "kdf": "scrypt",
+            "salt": "AA==",
+            "nonce": "AA==",
+            "ciphertext": "AA==",
+        }
+
+        with tempfile.TemporaryDirectory() as tmpdir, mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: ""}, clear=False
+        ), mock.patch("sys.stdin.isatty", return_value=True), mock.patch(
+            "app.utils.token_storage.getpass.getpass", return_value="   "
+        ):
+            path = Path(tmpdir) / "tesla_tokens.json"
+            path.write_text(json.dumps(payload), encoding="utf-8")
+
+            with self.assertRaises(TokenStorageError) as context:
+                load_token_data(path)
+
+        self.assertIn("empty", str(context.exception).lower())
+
+    @unittest.skipUnless(CRYPTOGRAPHY_AVAILABLE, "cryptography not installed")
+    def test_encrypted_token_storage_roundtrip_with_passphrase(self):
+        tokens = {"refresh_token": "refresh", "access_token": "access"}
+
+        with tempfile.TemporaryDirectory() as tmpdir, mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: "local-secret"}, clear=False
+        ):
+            path = Path(tmpdir) / "tesla_tokens.json"
+
+            save_token_data(path, tokens)
+
+            stored_payload = json.loads(path.read_text(encoding="utf-8"))
+            self.assertTrue(stored_payload["__tesla_order_status_encrypted__"])
+            self.assertNotIn("refresh_token", stored_payload)
+            self.assertEqual(load_token_data(path), tokens)
+
+    @unittest.skipIf(CRYPTOGRAPHY_AVAILABLE, "cryptography is installed")
+    def test_encryption_request_requires_cryptography_dependency(self):
+        tokens = {"refresh_token": "refresh"}
+
+        with tempfile.TemporaryDirectory() as tmpdir, mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: "local-secret"}, clear=False
+        ):
+            path = Path(tmpdir) / "tesla_tokens.json"
+
+            with self.assertRaises(TokenStorageError) as context:
+                save_token_data(path, tokens)
+
+        self.assertIn("cryptography", str(context.exception))
+
+    def test_runtime_passphrase_overrides_environment(self):
+        with mock.patch.dict(
+            os.environ, {TOKEN_PASSPHRASE_ENV: "env-secret"}, clear=False
+        ):
+            set_runtime_token_passphrase("prompt-secret")
+
+            with mock.patch(
+                "app.utils.token_storage._encrypt_tokens",
+                return_value={"wrapped": True},
+            ) as encrypt_mock:
+                save_token_data(Path(tempfile.gettempdir()) / "token-test.json", {})
+
+        encrypt_mock.assert_called_once_with({}, "prompt-secret")
 
 
 class OfflineCatalogTests(unittest.TestCase):

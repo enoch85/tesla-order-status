@@ -1,18 +1,24 @@
-import os
 import base64
 import hashlib
 import json
+import os
 import urllib.parse
-import webbrowser
 import sys
-from pathlib import Path
+import webbrowser
 from typing import Any, Dict, Optional
+
 from app.config import TOKEN_FILE
 from app.utils.colors import color_text
 from app.utils.connection import request_with_retry
 from app.utils.helpers import exit_with_status
 from app.utils.locale import t
 from app.utils.params import STATUS_MODE
+from app.utils.token_storage import (
+    TokenStorageError,
+    load_token_data,
+    save_token_data,
+    token_encryption_enabled,
+)
 
 CLIENT_ID = "ownerapi"
 REDIRECT_URI = "https://auth.tesla.com/void/callback"
@@ -121,26 +127,17 @@ def _exchange_code_for_tokens(auth_code, code_verifier):
     return response.json()
 
 
-def _set_private_permissions(path: Path) -> None:
-    try:
-        os.chmod(path, 0o600)
-    except OSError:
-        pass
-
-
 def _save_tokens_to_file(tokens: Dict[str, Any]):
-    TOKEN_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(TOKEN_FILE, "w", encoding="utf-8") as f:
-        json.dump(tokens, f)
-    _set_private_permissions(TOKEN_FILE)
+    save_token_data(TOKEN_FILE, tokens)
     if not STATUS_MODE:
-        print(color_text(t("> Tokens saved to '{file}'").format(file=TOKEN_FILE), "94"))
+        message = "> Tokens saved to '{file}'"
+        if token_encryption_enabled():
+            message = "> Tokens encrypted and saved to '{file}'"
+        print(color_text(t(message).format(file=TOKEN_FILE), "94"))
 
 
 def _load_tokens_from_file():
-    _set_private_permissions(TOKEN_FILE)
-    with open(TOKEN_FILE, "r", encoding="utf-8") as f:
-        return json.load(f)
+    return load_token_data(TOKEN_FILE)
 
 
 def _merge_token_response(
@@ -221,6 +218,11 @@ def main() -> str:
                 _save_tokens_to_file(refreshed_tokens)
             else:
                 exit_with_status(str(e))
+        except TokenStorageError as e:
+            if STATUS_MODE:
+                print(-1)
+                sys.exit(0)
+            exit_with_status(str(e))
         except (json.JSONDecodeError, KeyError, ValueError):
             if not STATUS_MODE:
                 print(

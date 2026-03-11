@@ -43,7 +43,8 @@ Ziel ist, dir mehr Transparenz und Kontrolle über den Bestellprozess zu geben, 
 * Drittanbieter-Telemetry, Remote-Banner und externe Option‑Code-Lookups sind nicht Teil des Laufzeitpfads.
 * Startseitige Update-Prüfungen sind nur Hinweis-basiert. Explizite Updates bleiben manuell und verlangen immer ein per SHA-256 geprüftes ZIP-Archiv mit Zip-Slip-/Symlink-Schutz beim Entpacken.
 * Tesla-OAuth-Tokens werden lokal in `data/private/tesla_tokens.json` mit restriktiven Dateirechten gespeichert.
-* Tokens werden nicht gehasht gespeichert, weil sie für authentifizierte Tesla-API-Aufrufe im Original benötigt werden. Separate API-Keys verwendet dieses Repository nicht.
+* Wenn `TESLA_ORDER_STATUS_TOKEN_PASSPHRASE` gesetzt ist und `cryptography` installiert wurde, wird die Token-Datei lokal verschlüsselt auf die Platte geschrieben.
+* Tesla-Tokens lassen sich für den Laufzeitgebrauch nicht sinnvoll hashen, weil sie für authentifizierte Tesla-API-Aufrufe wieder im Klartext an Tesla gesendet werden müssen. Separate API-Keys verwendet dieses Repository nicht.
 * Ein vollständiger Offline-Option-Katalog liegt im Repository, damit die Dekodierung nicht von externen Servern abhängt.
 * Gängige ältere lokale Layouts werden beim Start lokal migriert, wenn sie sich sicher ohne externe Daten aktualisieren lassen.
 
@@ -110,6 +111,13 @@ python3 tesla_order_status.py --help
 
 * `--cached` – nutzt lokal gecachte Bestelldaten ohne neue API‑Anfragen (ideal zusammen mit `--share`)
 * Automatisches Caching: Startest du das Skript innerhalb einer Minute nach einem erfolgreichen API‑Request erneut, wird automatisch der Cache genutzt (schont die Tesla‑API).
+
+#### Optionale Token-Verschlüsselung
+
+* Installiere `cryptography` mit `python3 -m pip install cryptography`.
+* Setze vor dem Start lokal eine Passphrase, zum Beispiel `export TESLA_ORDER_STATUS_TOKEN_PASSPHRASE='waehle-eine-lange-passphrase'`, wenn nicht-interaktive Läufe wie Cronjobs oder `--status` weiter funktionieren sollen.
+* Wenn bereits eine verschlüsselte Token-Datei existiert und keine Passphrase in der Umgebung konfiguriert ist, fragt die CLI sie bei interaktiven Läufen sicher ab.
+* Bereits vorhandene Klartext-Token-Dateien werden beim nächsten Schreibvorgang automatisch verschlüsselt neu gespeichert, solange eine Passphrase konfiguriert ist.
 
 #### Update-Modus
 

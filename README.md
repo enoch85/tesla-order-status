@@ -39,7 +39,8 @@ The goal is to give users more transparency and control over the ordering proces
 - No third-party telemetry, remote banners, or remote option-code lookups exist in the runtime.
 - Startup update checks are notification-only. Explicit updates remain manual and require a SHA-256-verified ZIP archive with zip-slip and symlink checks during extraction.
 - Tesla OAuth tokens are stored locally in `data/private/tesla_tokens.json` with restrictive file permissions.
-- Tokens are not hashed at rest, because they must be presented back to Tesla for authenticated API calls. This repository does not use separate API keys.
+- If `TESLA_ORDER_STATUS_TOKEN_PASSPHRASE` is set and `cryptography` is installed, the token file is encrypted locally at rest before it is written to disk.
+- Tesla tokens cannot be hashed for runtime use because they must be presented back to Tesla for authenticated API calls. This repository does not use separate API keys.
 - A complete offline option-code catalog ships in the repository so decoding does not depend on external servers.
 - Common legacy local layouts are migrated locally on startup when they can be upgraded safely without external data.
 
@@ -90,6 +91,12 @@ Only one of the options can be used at a time.
 Work modes can be combined with any output mode:
 - `--cached` – reuse locally cached order data without calling the API (perfect with `--share`)
 - Automatic caching activates when you run the script again within one minute of a successful API request, keeping Tesla happy with fewer calls.
+
+#### Optional Token Encryption
+- Install `cryptography` with `python3 -m pip install cryptography`.
+- Set a local passphrase before running the tool, for example `export TESLA_ORDER_STATUS_TOKEN_PASSPHRASE='choose-a-long-passphrase'`, if you want non-interactive runs such as cron jobs or `--status` checks to keep working.
+- If an encrypted token file exists and no passphrase is configured in the environment, the CLI prompts for it securely when running interactively.
+- Existing plaintext token files are re-saved in encrypted form the next time the token refresh path writes them while a passphrase is configured.
 
 #### Update Mode
 - `--update` opens the interactive update flow from the main CLI.
