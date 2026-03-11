@@ -8,7 +8,6 @@ from app.utils.helpers import get_date_from_timestamp, pretty_print
 from app.utils.locale import t
 from app.utils.params import DETAILS_MODE, SHARE_MODE, ALL_KEYS_MODE
 
-
 # uninteresting history entries
 HISTORY_TRANSLATIONS_IGNORED = {
     "order.vin",  # we use details.tasks.deliveryDetails.regData.orderDetails.vin

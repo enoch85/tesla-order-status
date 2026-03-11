@@ -6,19 +6,20 @@ on:
       - "**/*.py"
       - "pyproject.toml"
       - ".github/workflows/black.yml"
-  pull_request:
-    paths:
-      - "**/*.py"
-      - "pyproject.toml"
-      - ".github/workflows/black.yml"
+
+permissions:
+  contents: write
 
 jobs:
-  format-check:
+  format:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,5 +29,11 @@ jobs:
       - name: Install Black
         run: python -m pip install --upgrade black
 
-      - name: Check formatting
-        run: python -m black --check .
+      - name: Run Black
+        run: python -m black .
+
+      - name: Commit formatting changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "style: run black"
+          branch: ${{ github.ref_name }}
